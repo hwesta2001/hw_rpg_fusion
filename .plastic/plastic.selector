@@ -1,0 +1,4 @@
+repository "HwRpg@hwesta@cloud"
+  path "/"
+    br "/main"
+    co "/main"
