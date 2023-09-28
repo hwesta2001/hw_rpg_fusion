@@ -96,6 +96,8 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
     [Space]
     [SerializeField] GameObject buttonCanvas;
     [SerializeField] TMP_InputField ifield;
+    [Space]
+    [SerializeField] GameObject deletedObject;
 
     private void Awake()
     {
@@ -115,6 +117,7 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
         ifield.pointSize = 9.5f;
         ifield.image.color = new Color(0, 0, 0, 0);
         buttonCanvas.SetActive(false);
+        Destroy(deletedObject);
     }
 
     async void StartGame(GameMode mode, string gameID)
@@ -145,8 +148,9 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
             // Keep track of the player avatars so we can remove it when they disconnect
             _spawnedCharacters.Add(player, networkPlayerObject);
 
-            Debug.Log("Player connected: " + player.PlayerId);
-            Debug.Log("season id: " + runner.SessionInfo.Name);
+            //Debug.Log("Player connected: " + player.PlayerId);
+            //Debug.Log("season id: " + runner.SessionInfo.Name);
+            DebugText.ins.AddText("Player connected: " + player.PlayerId);
             spanwPointIndex++;
         }
     }

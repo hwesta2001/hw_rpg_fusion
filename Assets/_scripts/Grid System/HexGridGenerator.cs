@@ -14,18 +14,22 @@ public class HexGridGenerator : MonoBehaviour
 
     public List<GameObject> hexes = new();
     public static HexGridGenerator Instance;
+    Vector3 initScale;
     void Awake()
     {
         Instance = this;
-
+        initScale = transform.localScale;
     }
 
 
     [ContextMenu("ClearAndCreate")]
     void ClearAndCreate()
     {
+        initScale = transform.localScale;
+        transform.localScale = Vector3.one;
         ClearHexes();
         CreateHexGrid();
+        transform.localScale = initScale;
     }
 
 
