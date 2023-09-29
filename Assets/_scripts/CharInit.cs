@@ -5,7 +5,7 @@ using Fusion;
 
 public class CharInit : NetworkBehaviour
 {
-    private Renderer _rend;
+    Renderer _rend;
     Renderer Rend
     {
         get
@@ -16,16 +16,38 @@ public class CharInit : NetworkBehaviour
         }
     }
 
-    [Networked(OnChanged = nameof(RendChanged))] public NetworkBool On_Spawned { get; set; }
+    //[Networked(OnChanged = nameof(SpawnInit))] public NetworkBool On_Spawned { get; set; }
 
-    public static void RendChanged(Changed<CharInit> changed)
-    {
+    //public static void SpawnInit(Changed<CharInit> changed)
+    //{
+    //    // spawn olduktan sonraki metotlarý buraya yaz.
 
-        changed.Behaviour.Rend.material.mainTexture = CharGenerator.ins.GetMaterial();
-    }
+
+
+    //    changed.Behaviour.Rend.material.mainTexture = CharGenerator.ins.GetMaterial();
+
+    //}
 
     public override void Spawned()
     {
-        On_Spawned = !On_Spawned;
+        if (HasStateAuthority == false) return;
+        Rend.material.mainTexture = CharGenerator.ins.GetMaterial();
     }
 }
+
+
+//using Fusion;
+//using UnityEngine;
+
+//public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
+//{
+//    public GameObject PlayerPrefab;
+
+//    public void PlayerJoined(PlayerRef player)
+//    {
+//        if (player == Runner.LocalPlayer)
+//        {
+//            Runner.Spawn(PlayerPrefab, new Vector3(0, 1, 0), Quaternion.identity, player);
+//        }
+//    }
+//}

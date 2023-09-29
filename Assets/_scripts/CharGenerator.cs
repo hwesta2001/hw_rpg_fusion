@@ -10,16 +10,16 @@ public class CharGen
     public Texture2D portrait;
 }
 
-public class CharGenerator : NetworkBehaviour
+public class CharGenerator : MonoBehaviour
 {
     public List<CharGen> charList = new();
     public List<Texture2D> portList = new();
-    public int portIndex = 0;
+    //public int portIndex = 0;
 
-    [Networked] public int SelectedTextureIndex { get; set; }
+    public int SelectedTextureIndex { get; set; }
 
     public static CharGenerator ins;
-
+    public int localPlayerId;
 
     private void Awake()
     {
@@ -30,11 +30,4 @@ public class CharGenerator : NetworkBehaviour
     {
         return portList[SelectedTextureIndex];
     }
-
-    public override void Spawned()
-    {
-        SelectedTextureIndex = portIndex;
-        DebugText.ins.AddText("selected texture index: " + SelectedTextureIndex);
-    }
-
 }

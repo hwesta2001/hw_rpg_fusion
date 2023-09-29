@@ -112,7 +112,7 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
 
     public void StartClient()
     {
-        StartGame(GameMode.AutoHostOrClient, ifield.text);
+        StartGame(GameMode.Shared, ifield.text);
         ifield.interactable = false;
         ifield.pointSize = 9.5f;
         ifield.image.color = new Color(0, 0, 0, 0);
@@ -122,8 +122,7 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
 
     async void StartGame(GameMode mode, string gameID)
     {
-        // Create the Fusion runner and let it know that we will be providing user input
-        //_runner = gameObject.GetComponent<NetworkRunner>();
+   
 
         _runner.ProvideInput = true;
         // Start or join (depends on gamemode) a session with a specific name
@@ -139,7 +138,7 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
+        if (player == runner.LocalPlayer)
         {
 
             // Create a unique position for the player
@@ -151,6 +150,7 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
             //Debug.Log("Player connected: " + player.PlayerId);
             //Debug.Log("season id: " + runner.SessionInfo.Name);
             DebugText.ins.AddText("Player connected: " + player.PlayerId);
+            CharGenerator.ins.localPlayerId = player.PlayerId;
             spanwPointIndex++;
         }
     }

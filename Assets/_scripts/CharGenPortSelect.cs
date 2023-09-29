@@ -52,7 +52,7 @@ public class CharGenPortSelect : MonoBehaviour
     void ChangeMat(Texture2D texture2D)
     {
         rend.material.mainTexture = texture2D;
-        CharGenerator.ins.portIndex = _portIndex;
+        CharGenerator.ins.SelectedTextureIndex = _portIndex;
     }
 
 

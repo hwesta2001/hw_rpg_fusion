@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _spawned:
+  _On_Spawned:
     _value: 0
 --- !u!1 &7687613593235498340
 GameObject:
