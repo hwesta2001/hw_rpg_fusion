@@ -14,6 +14,7 @@ public class CharGenPortSelect : MonoBehaviour
     int _portIndex = 0;
     Camera _camera;
     CharGenerator charGenerator;
+
     private void Awake()
     {
         if (rend == null)

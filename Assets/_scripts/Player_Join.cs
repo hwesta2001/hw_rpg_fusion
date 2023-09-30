@@ -89,10 +89,11 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField] NetworkRunner _runner;
     Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
+    NetworkObject _playerObj;
     [Space]
     [SerializeField] NetworkPrefabRef _playerPrefab;
     [SerializeField] List<Transform> spawnPoint = new();
-    [SerializeField] int spanwPointIndex;
+    //[SerializeField] int spanwPointIndex;
     [Space]
     [SerializeField] GameObject buttonCanvas;
     [SerializeField] TMP_InputField ifield;
@@ -106,13 +107,15 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
     }
     IEnumerator Start()
     {
-        yield return new WaitUntil(() => _runner.IsCloudReady);
+        yield return new WaitUntil(() => _playerObj != null);
         Debug.LogWarning(_runner.SessionInfo.Name);
+
+
     }
 
     public void StartClient()
     {
-        StartGame(GameMode.AutoHostOrClient, ifield.text);
+        StartGame(GameMode.Shared, ifield.text);
         ifield.interactable = false;
         ifield.pointSize = 9.5f;
         ifield.image.color = new Color(0, 0, 0, 0);
@@ -138,24 +141,28 @@ public class Player_Join : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
+        if (runner.IsClient)
         {
+            //Create a unique position for the player
+            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.up * 10000, Quaternion.identity, player);
+            _playerObj = networkPlayerObject;
+            networkPlayerObject.transform.position = spawnPoint[player.PlayerId % spawnPoint.Count].position; ;
 
-            // Create a unique position for the player
-            Vector3 spawnPosition = spawnPoint[spanwPointIndex % spawnPoint.Count].position;
-            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-            // Keep track of the player avatars so we can remove it when they disconnect
+
             _spawnedCharacters.Add(player, networkPlayerObject);
 
-            //Debug.Log("Player connected: " + player.PlayerId);
-            //Debug.Log("season id: " + runner.SessionInfo.Name);
-            DebugText.ins.AddText("Player connected: " + player.PlayerId);
+            Debug.Log("PlayerID:: " + player.PlayerId);
+            Debug.Log("Player string: " + player.ToString());
+            Debug.Log("networkPlayerObject: " + networkPlayerObject.name);
             CharGenerator.ins.localPlayerId = player.PlayerId;
-            spanwPointIndex++;
-            foreach (var item in _spawnedCharacters)
+            //spanwPointIndex++;
+            if (networkPlayerObject.HasStateAuthority)
             {
-                Debug.Log(" char_key: " + item.Key + " -char_value: " + item.Value);
+                Debug.LogWarning(_playerObj.Name);
+                _playerObj.GetBehaviour<CharInit>().MatIndex = CharGenerator.ins.portIndex;
+                Debug.LogWarning("char ýnit??? " + _playerObj.GetBehaviour<CharInit>().MatIndex);
             }
+
         }
     }
 

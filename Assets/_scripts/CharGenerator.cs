@@ -10,7 +10,7 @@ public class CharGen
     public Texture2D portrait;
 }
 
-public class CharGenerator : NetworkBehaviour
+public class CharGenerator : MonoBehaviour
 {
     public List<CharGen> charList = new();
     public List<Texture2D> portList = new();
@@ -30,7 +30,10 @@ public class CharGenerator : NetworkBehaviour
     {
         return portList[portIndex];
     }
-
+    public Texture2D GetTexture(int index)
+    {
+        return portList[index];
+    }
     //public override void Spawned()
     //{
     //    SelectedTextureIndex = portIndex;
