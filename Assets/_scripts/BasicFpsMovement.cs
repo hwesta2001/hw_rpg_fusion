@@ -1,24 +1,27 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class BasicFpsMovement : MonoBehaviour
 {
-    [SerializeField] private bool turnWithRightClick;
-    [SerializeField] private float moveSpeed = 12;
-    [SerializeField] private float camVerticalSpeed = 300;
-    [SerializeField] private float camHorizontalSpeed = 300;
-    [SerializeField] private float camHightSpeed = 30f;
-    [SerializeField] private int camHightClampMin = 1;
-    [SerializeField] private int camHightClapmMax = 20;
-    [SerializeField] private Transform cam;
+    [SerializeField] bool turnWithRightClick;
+    [SerializeField] float moveSpeed = 12;
+    [SerializeField] float camVerticalSpeed = 300;
+    [SerializeField] float camHorizontalSpeed = 300;
+    [SerializeField] float camHightSpeed = 300f;
+    [SerializeField] int camHightClampMin = 1;
+    [SerializeField] int camHightClapmMax = 20;
+    [SerializeField] Transform cam;
 
-    private Vector3 vert;
-    private bool canTurn = false;
-    private CharacterController controller;
-    private int cameraHcarpan = 1;
-    private bool up;
+    Vector3 vert;
+    bool canTurn = false;
+    CharacterController controller;
+    float cameraHcarpan = 1;
+    bool up;
 
-    private void Awake()
+    [SerializeField] InputActionReference _move, _mouse_scroll; // set in inspector
+
+    void Awake()
     {
         if (cam == null) cam = Camera.main.transform;
         controller = GetComponent<CharacterController>();
@@ -29,7 +32,8 @@ public class BasicFpsMovement : MonoBehaviour
         cam.localPosition = new(0, cam.localPosition.y, 0);
     }
 
-    private void Update()
+
+    void Update()
     {
         controller.Move(MoveThis());
         TurnControl();
@@ -37,7 +41,22 @@ public class BasicFpsMovement : MonoBehaviour
         CameraRotate();
     }
 
-    private void LateUpdate()
+    // playerInput messages
+
+
+    void OnMouse_Scroll()
+    {
+
+    }
+
+
+    void OnFire1()
+    {
+
+    }
+
+    // playerInput messages end
+    void LateUpdate()
     {
         if (up)
         {
@@ -47,32 +66,44 @@ public class BasicFpsMovement : MonoBehaviour
         }
     }
 
-    private void CamHight()
+    void CamHight()
     {
-        if (Input.GetKey(KeyCode.E))
+
+        if (_mouse_scroll.action.ReadValue<float>() != 0)
         {
-            cameraHcarpan = 1;
-            up = true;
-        }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            cameraHcarpan = -1;
+            cameraHcarpan = -_mouse_scroll.action.ReadValue<float>() * .001f;
+            DebugText.ins.AddText(cameraHcarpan.ToString());
             up = true;
         }
         else
         {
             up = false;
         }
+
+
+
+
+        //if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        //{
+        //    cameraHcarpan = -Input.GetAxis("Mouse ScrollWheel");
+        //    up = true;
+        //}
+        //else
+        //{
+        //    up = false;
+        //}
     }
 
-    private Vector3 MoveThis()
+    Vector3 MoveThis()
     {
-        float horizontal = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float vertical = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+
+        float horizontal = _move.action.ReadValue<Vector2>().normalized.x * moveSpeed * Time.deltaTime;
+        float vertical = -_move.action.ReadValue<Vector2>().normalized.y * moveSpeed * Time.deltaTime;
         return transform.forward * vertical + transform.right * horizontal;
+
     }
 
-    private void CameraRotate()
+    void CameraRotate()
     {
         if (!canTurn) return;
         transform.localEulerAngles += HorizontalTurn();
@@ -82,7 +113,7 @@ public class BasicFpsMovement : MonoBehaviour
         cam.localEulerAngles = vert;
     }
 
-    private Vector3 VerticalTurn()
+    Vector3 VerticalTurn()
     {
         float verDelta = Input.GetAxis("Mouse Y");
         verDelta *= (camVerticalSpeed * Time.deltaTime);
@@ -91,14 +122,14 @@ public class BasicFpsMovement : MonoBehaviour
         return new Vector3(verDelta, 0, 0);
     }
 
-    private Vector3 HorizontalTurn()
+    Vector3 HorizontalTurn()
     {
         float horDelta = Input.GetAxis("Mouse X");
         horDelta *= (camHorizontalSpeed * Time.deltaTime);
         return new Vector3(0, horDelta, 0);
     }
 
-    private void TurnControl()
+    void TurnControl()
     {
         if (turnWithRightClick)
         {

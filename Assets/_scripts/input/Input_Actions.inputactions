@@ -6,8 +6,8 @@
             "id": "06a64826-c566-4758-84a9-89f8ce2eb255",
             "actions": [
                 {
-                    "name": "move",
-                    "type": "Value",
+                    "name": "Move",
+                    "type": "PassThrough",
                     "id": "c2ebc3e0-cfc7-4d2b-a4f7-f3a7d4a2a9ff",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -15,79 +15,77 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "fire1",
+                    "name": "Fire1",
                     "type": "Button",
                     "id": "a6a45002-9363-4ba4-9d6b-f177fd15ae22",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse_Scroll",
+                    "type": "PassThrough",
+                    "id": "674ac0a4-37bd-4dea-b976-b226abb7f523",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "vertical",
+                    "name": "moveVector",
                     "id": "550d44a1-b90e-49d6-9796-f89dabbafb49",
-                    "path": "1DAxis",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Up",
                     "id": "3a906cc0-dfe2-49f1-891c-37c2008c81b4",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "Down",
                     "id": "2e7cea7e-8f5a-47c5-a987-ba91cda70c4a",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "horizontal",
-                    "id": "575d9fbb-c1a0-4a42-9615-64ee19fdb4da",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "6c2a9d55-d351-46c1-a03f-b94b8b5eca2b",
+                    "name": "Left",
+                    "id": "d55aaaf6-80a0-430e-9b6c-e68743e7bb3a",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "f63892e5-c03b-4785-ae03-4e4f378ca685",
+                    "name": "Right",
+                    "id": "210e022a-ba2a-4afd-8a6b-f4f609e74f7c",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -98,9 +96,42 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "fire1",
+                    "action": "Fire1",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "mouse_scroll_axis",
+                    "id": "2d8684a5-e3be-4776-b16d-d2566683c514",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse_Scroll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "b8294599-a8d6-4506-a84e-e4bdb57a2cfa",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse_Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "029e93d9-67c1-459c-a893-e58b77084fd2",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse_Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
