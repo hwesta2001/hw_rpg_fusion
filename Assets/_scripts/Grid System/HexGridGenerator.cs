@@ -63,6 +63,7 @@ public class HexGridGenerator : MonoBehaviour
             {
                 GameObject tempGo = Instantiate(hexPrefab);
                 tempGo.transform.parent = transform;
+                tempGo.name = "hex_" + x + "-" + z;
                 hexes.Add(tempGo);
                 if (z % 2 == 0)
                 {

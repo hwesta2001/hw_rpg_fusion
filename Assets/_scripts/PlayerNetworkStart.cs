@@ -94,6 +94,7 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
             DebugText.ins.AddText(networkPlayerObject.name + " HasStateAuthority: " + networkPlayerObject.HasStateAuthority);
             CharGenerator.ins.localPlayerId = player.PlayerId;
             nPortIndex = CharGenerator.ins.portIndex;
+            GameState.CurrentState = GameStates.Connected;
         }
     }
 
