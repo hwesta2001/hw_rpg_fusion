@@ -16,6 +16,16 @@ public class FaceCamera : MonoBehaviour
     }
 
 
+    [ContextMenu("FaceNow")]
+    void FaceNow()
+    {
+        tr = transform;
+        cameraTransform = Camera.main.transform;
+        tr.position = cameraTransform.position + cameraTransform.forward * dist;
+        tr.rotation = Quaternion.LookRotation(DirectionXZ());
+
+    }
+
 
     void LateUpdate()
     {
