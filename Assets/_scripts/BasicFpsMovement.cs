@@ -4,13 +4,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class BasicFpsMovement : MonoBehaviour
 {
-    [SerializeField] bool turnWithRightClick;
+    [SerializeField] bool turnWithRightClick = true;
     [SerializeField] float moveSpeed = 12;
     [SerializeField] float camVerticalSpeed = 300;
     [SerializeField] float camHorizontalSpeed = 300;
     [SerializeField] float camHightSpeed = 300f;
-    [SerializeField] int camHightClampMin = 1;
-    [SerializeField] int camHightClapmMax = 20;
+    [SerializeField] int camHightClampMin = -10;
+    [SerializeField] int camHightClapmMax = 30;
     [SerializeField] Transform cam;
 
     Vector3 vert;
@@ -72,7 +72,6 @@ public class BasicFpsMovement : MonoBehaviour
         if (_mouse_scroll.action.ReadValue<float>() != 0)
         {
             cameraHcarpan = -_mouse_scroll.action.ReadValue<float>() * .001f;
-            DebugText.ins.AddText(cameraHcarpan.ToString());
             up = true;
         }
         else

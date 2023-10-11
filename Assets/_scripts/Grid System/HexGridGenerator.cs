@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -6,8 +7,8 @@ using UnityEngine;
 public class HexGridGenerator : MonoBehaviour
 {
     [SerializeField] GameObject hexPrefab;
-    [SerializeField] int mapWidht = 25;
-    [SerializeField] int mapHeight = 25;
+    public int mapWidht = 25;
+    public int mapHeight = 25;
     [SerializeField] float tile_X_Offset = 1.75f;
     float tile_Z_Offset; // = Mathf.Sqrt(3) * tile_X_Offset * .5f;
     float xOffset; // = tile_X_Offset * .5f;
@@ -15,6 +16,11 @@ public class HexGridGenerator : MonoBehaviour
     public List<GameObject> hexes = new();
     public static HexGridGenerator Instance;
     Vector3 initScale;
+
+
+    public Action OnGridCreate;
+
+
     void Awake()
     {
         Instance = this;
@@ -75,5 +81,15 @@ public class HexGridGenerator : MonoBehaviour
                 }
             }
         }
+        OnGridCreate?.Invoke();
+    }
+
+
+    public Vector2 hexesSize()
+    {
+        return new(
+            (hexes[hexes.Count - 1].transform.position.x - hexes[0].transform.position.x),
+            (hexes[hexes.Count - 1].transform.position.z - hexes[0].transform.position.z));
+
     }
 }
