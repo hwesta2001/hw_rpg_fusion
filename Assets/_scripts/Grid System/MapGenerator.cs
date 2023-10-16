@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using static UnityEditor.PlayerSettings.SplashScreen;
-using UnityEditor.AssetImporters;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(MapDisplay))]
@@ -31,6 +28,7 @@ public class MapGenerator : MonoBehaviour
     {
         mapWidth = _mapWidth;
         mapHeight = _mapHeight;
+        //seed = UnityEngine.Random.Range(1, 1000); //debug için random seedler
         GenerateMap();
     }
 

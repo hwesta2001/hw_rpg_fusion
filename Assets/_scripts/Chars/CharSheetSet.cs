@@ -10,7 +10,7 @@ public class CharSheetSet : MonoBehaviour
     [SerializeField] TextMeshProUGUI raceClass_Text;
     [SerializeField] TextMeshProUGUI stats_Text;
     [SerializeField] TextMeshProUGUI desc_Text;
-    [SerializeField] Image portrait_Image;
+    [SerializeField] RawImage portrait_Image;
     public byte _playerId;
     public void SetSheet(CharNW charNW)
     {
@@ -23,7 +23,7 @@ public class CharSheetSet : MonoBehaviour
                           "Luck: " + charNW.luck.ToString() + "\n";
 
         desc_Text.text = charNW.desc.ToString();
-        portrait_Image.sprite = CharManager.ins.spriteList[charNW.portraitId];
+        portrait_Image.texture = CharManager.ins.portList[charNW.portraitId];
         _playerId = charNW.playerID;
     }
 }

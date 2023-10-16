@@ -1,6 +1,4 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections;
-using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class HexToMap : MonoBehaviour
@@ -35,6 +33,7 @@ public class HexToMap : MonoBehaviour
     {
         mapGenerator.GererateMapEmit(gridGenerator.mapWidht, gridGenerator.mapHeight);
         ScaleHexes();
+        ColorHexes();
     }
 
 
@@ -51,4 +50,28 @@ public class HexToMap : MonoBehaviour
         }
     }
 
+
+    void ColorHexes()
+    {
+
+
+
+        for (int i = 0; i < gridGenerator.hexes.Count; i++)
+        {
+            MeshRenderer mRend = gridGenerator.hexes[i].transform.GetComponentInChildren<MeshRenderer>();
+            Material mat = mRend.material;
+            mat.color = mapGenerator.allNoises[i].colour;
+            mRend.material = mat;
+
+        }
+        //    ClearLog();
+        //}
+
+        //void ClearLog()
+        //{
+        //    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+        //    var type = assembly.GetType("UnityEditor.LogEntries");
+        //    var method = type.GetMethod("Clear");
+        //    method.Invoke(new object(), null);
+    }
 }

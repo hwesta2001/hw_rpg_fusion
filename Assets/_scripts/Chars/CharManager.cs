@@ -20,7 +20,7 @@ public class CharManager : MonoBehaviour
             if (TryGetComponent<CharGetAndSet>(out var charGet))
             {
                 charGet.SetPortraitId(portIndex);
-                charGet.SetPortraitOnCharSheet(spriteList[portIndex]);
+                //charGet.SetPortraitOnCharSheet(spriteList[portIndex]);
             }
         }
     }
@@ -28,7 +28,7 @@ public class CharManager : MonoBehaviour
     [Tooltip("Bu liste charlarý save edince olusacak. charlarý kydet yükle yaplýlýnca burdan char selecti ile oyuna girilebilir.")]
     public List<Chars> SelecableCharList = new();
     public List<Texture2D> portList = new();
-    public List<Sprite> spriteList = new();
+    //public List<Sprite> spriteList = new();
     [SerializeField] int portIndex = 0;
     public int localPlayerId;
 
@@ -38,13 +38,13 @@ public class CharManager : MonoBehaviour
     {
         ins = this;
     }
-    private void Start()
-    {
-        foreach (var item in portList)
-        {
-            spriteList.Add(GetSprite(item));
-        }
-    }
+    //private void Start()
+    //{
+    //    foreach (var item in portList)
+    //    {
+    //        spriteList.Add(GetSprite(item));
+    //    }
+    //}
 
     public void GenerateChar()
     {
@@ -66,7 +66,7 @@ public class CharManager : MonoBehaviour
         return Sprite.Create(GetTexture(index), new Rect(0, 0, GetTexture(index).width, GetTexture(index).height), new Vector2(0.5f, 0.5f));
     }
 
-    Sprite GetSprite(Texture2D GetText)
+    Sprite GetSprite(Texture2D GetText) // kullanýlmýyor suan
     {
         return Sprite.Create(GetText, new Rect(0, 0, GetText.width, GetText.height), new Vector2(0.5f, 0.5f));
     }
