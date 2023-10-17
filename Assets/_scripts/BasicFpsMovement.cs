@@ -30,6 +30,9 @@ public class BasicFpsMovement : MonoBehaviour
         if (cam.parent != transform) cam.parent = transform;
         cam.localEulerAngles = new(cam.localEulerAngles.x, 0, 0); ;
         cam.localPosition = new(0, cam.localPosition.y, 0);
+#if UNITY_ANDROID
+        turnWithRightClick = false;
+#endif
     }
 
 
@@ -39,25 +42,9 @@ public class BasicFpsMovement : MonoBehaviour
         TurnControl();
         CamHight();
         CameraRotate();
-    }
-
-    // playerInput messages
-
-
-    void OnMouse_Scroll()
-    {
-
-    }
-
-
-    void OnFire1()
-    {
-
-    }
-
-    // playerInput messages end
-    void LateUpdate()
-    {
+        //}
+        //void LateUpdate()
+        //{
         if (up)
         {
             float camY = cam.localPosition.y + cameraHcarpan * camHightSpeed * Time.deltaTime;

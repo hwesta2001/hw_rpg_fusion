@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8553096895515565550}
   - component: {fileID: 7481331994257713816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dice4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: d4_gfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 373e54bbaddc4134b901c0051d5e3c0b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

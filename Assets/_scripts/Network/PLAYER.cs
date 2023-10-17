@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using System.Net;
 
-public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
+// playerLeft ile -save player, char, quest, position vb, yapabiliriz.
+public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
     PlayerNetworkStart pns;
     Renderer _rend;
@@ -35,7 +33,6 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft // playerLeft
         {
             pns = FindFirstObjectByType<PlayerNetworkStart>();
             MatIndex = pns.nPortIndex;
-            DebugText.ins.AddText("MatIndex:  " + MatIndex);
             CHAR_NW.playerID = (byte)player.PlayerId;
             CHAR_NW.name = CharManager.ins.PLAYER_CHAR.name;
             CHAR_NW.race = CharManager.ins.PLAYER_CHAR.race;
@@ -55,7 +52,7 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft // playerLeft
     {
         if (pns._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
-            Debug.Log(" Depawning " + networkObject.Name);
+            Debug.Log(" Despawning " + networkObject.Name);
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
             Runner.Despawn(networkObject);

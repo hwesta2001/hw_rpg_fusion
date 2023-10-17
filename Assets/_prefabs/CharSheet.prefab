@@ -124,6 +124,7 @@ MonoBehaviour:
   stats_Text: {fileID: 8249216703479554917}
   desc_Text: {fileID: 2139047669583345019}
   portrait_Image: {fileID: 3314531958345323500}
+  thisRectTransform: {fileID: 440477381696905323}
   _playerId: 0
 --- !u!1 &365626010006815203
 GameObject:

@@ -64,12 +64,12 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (!FindFirstObjectByType<Toggle>().isOn)
         {
-            Debug.Log(" Char is not ready pls set a char and click ready");
+            DebugText.ins.AddText(" Your are not ready, set a char and click ready");
             return;
         }
         StartGame(GameMode.Shared, ifield.text);
         ifield.interactable = false;
-        ifield.pointSize = 9.5f;
+        ifield.pointSize = 16f;
         ifield.image.color = new Color(0, 0, 0, 0);
         buttonCanvas.SetActive(false);
         foreach (var item in deletedObjects)
@@ -100,10 +100,10 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
             //Create a unique position for the player
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.up * 10000, Quaternion.identity, player);
             networkPlayerObject.transform.position = _spawnPoints[player.PlayerId % _spawnPoints.Count].position;
-            networkPlayerObject.transform.name = "PLAYER_" + player.PlayerId.ToString();
+            networkPlayerObject.transform.name = "PLAYER_" + player.PlayerId.ToString() + "_" + CharManager.ins.PLAYER_CHAR.name;
             _spawnedCharacters.Add(player, networkPlayerObject);
 
-            DebugText.ins.AddText(networkPlayerObject.name + " HasStateAuthority: " + networkPlayerObject.HasStateAuthority);
+            DebugText.ins.AddText(CharManager.ins.PLAYER_CHAR.name + " HasStateAuthority: " + networkPlayerObject.HasStateAuthority);
             CharManager.ins.localPlayerId = player.PlayerId;
             nPortIndex = CharManager.ins.PortIndex;
             GameState.CurrentState = GameStates.Connected;
