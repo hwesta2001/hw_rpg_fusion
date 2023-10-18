@@ -45,6 +45,8 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CHAR_NW.charisma = CharManager.ins.PLAYER_CHAR.charisma;
             CHAR_NW.luck = CharManager.ins.PLAYER_CHAR.luck;
 
+            gameObject.name = CHAR_NW.name.ToString();
+
         }
     }
 

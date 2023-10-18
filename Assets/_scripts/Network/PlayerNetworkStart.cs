@@ -100,10 +100,9 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
             //Create a unique position for the player
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.up * 10000, Quaternion.identity, player);
             networkPlayerObject.transform.position = _spawnPoints[player.PlayerId % _spawnPoints.Count].position;
-            networkPlayerObject.transform.name = "PLAYER_" + player.PlayerId.ToString() + "_" + CharManager.ins.PLAYER_CHAR.name;
             _spawnedCharacters.Add(player, networkPlayerObject);
 
-            DebugText.ins.AddText(CharManager.ins.PLAYER_CHAR.name + " HasStateAuthority: " + networkPlayerObject.HasStateAuthority);
+            DebugText.ins.AddText(CharManager.ins.PLAYER_CHAR.name + " Spawned " + networkPlayerObject.HasStateAuthority);
             CharManager.ins.localPlayerId = player.PlayerId;
             nPortIndex = CharManager.ins.PortIndex;
             GameState.CurrentState = GameStates.Connected;

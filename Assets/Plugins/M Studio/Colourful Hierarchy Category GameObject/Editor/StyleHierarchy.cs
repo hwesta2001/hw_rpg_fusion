@@ -58,7 +58,7 @@ namespace MStudio
 
                         //Draw a label to show the name in upper letters and newStyle.
                         //If you don't like all capital latter, you can remove ".ToUpper()".
-                        EditorGUI.LabelField(selectionRect, newName.ToUpper(), newStyle);
+                        EditorGUI.LabelField(selectionRect, newName, newStyle);
                     }
                 }
             }

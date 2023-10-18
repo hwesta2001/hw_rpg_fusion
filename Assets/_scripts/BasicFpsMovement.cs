@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -33,6 +34,9 @@ public class BasicFpsMovement : MonoBehaviour
 #if UNITY_ANDROID
         turnWithRightClick = false;
 #endif
+#if UNITY_EDITOR
+        turnWithRightClick = true;
+#endif
     }
 
 
@@ -40,6 +44,7 @@ public class BasicFpsMovement : MonoBehaviour
     {
         controller.Move(MoveThis());
         TurnControl();
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         CamHight();
         CameraRotate();
         //}
@@ -65,19 +70,6 @@ public class BasicFpsMovement : MonoBehaviour
         {
             up = false;
         }
-
-
-
-
-        //if (Input.GetAxis("Mouse ScrollWheel") != 0)
-        //{
-        //    cameraHcarpan = -Input.GetAxis("Mouse ScrollWheel");
-        //    up = true;
-        //}
-        //else
-        //{
-        //    up = false;
-        //}
     }
 
     Vector3 MoveThis()
@@ -94,7 +86,7 @@ public class BasicFpsMovement : MonoBehaviour
         if (!canTurn) return;
         transform.localEulerAngles += HorizontalTurn();
         vert += VerticalTurn();
-        float x = Mathf.Clamp(vert.x, -80, 80);
+        float x = Mathf.Clamp(vert.x, -60, 80);
         vert.x = x;
         cam.localEulerAngles = vert;
     }
@@ -102,9 +94,9 @@ public class BasicFpsMovement : MonoBehaviour
     Vector3 VerticalTurn()
     {
         float verDelta = Input.GetAxis("Mouse Y");
-        verDelta *= (camVerticalSpeed * Time.deltaTime);
-        float invertY = -1;
-        verDelta *= invertY;
+        verDelta *= (-camVerticalSpeed * Time.deltaTime);
+        //float invertY = -1;
+        //verDelta *= invertY;
         return new Vector3(verDelta, 0, 0);
     }
 

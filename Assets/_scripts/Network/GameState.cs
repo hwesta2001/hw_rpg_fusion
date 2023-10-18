@@ -1,20 +1,36 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public enum GameStates
-{
-    Init,
-    Connected,
-    InGameLoop,
-    Waiting,
-    Lost
-}
 
-public class GameState : MonoBehaviour
+public class GameState : NetworkBehaviour
 {
     public static GameStates CurrentState;
-    [SerializeField, Tooltip("Dont Change Inspector it is a static var")] GameStates cState;
-    [SerializeField] List<GameObject> EnableAfterConnected = new();
+
+    [SerializeField, Tooltip("Dont Change in Inspector it is a static var, DEBUG ONLY")]
+    GameStates cState;
+
+    public List<byte> TurnIDs = new();
+
+
+
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        TurnIDs.Clear();
+        var players = FindObjectsOfType<PLAYER>();
+
+        foreach (var player in players)
+        {
+            if (player != null)
+            {
+                TurnIDs.Add(player.CHAR_NW.playerID);
+            }
+        }
+
+    }
+
 
     void Awake()
     {
@@ -32,12 +48,25 @@ public class GameState : MonoBehaviour
 
     void StateChanged(GameStates c_State)
     {
-        if (c_State == GameStates.Connected)
+        switch (c_State)
         {
-            foreach (var item in EnableAfterConnected)
-            {
-                item.SetActive(true);
-            }
+            case GameStates.Init:
+                Debug.Log("Game State is " + c_State.ToString());
+                break;
+            case GameStates.Connected:
+                Debug.Log("Game State is " + c_State.ToString());
+                break;
+            case GameStates.InGameLoop:
+                Debug.Log("Game State is " + c_State.ToString());
+                break;
+            case GameStates.Waiting:
+                Debug.Log("Game State is " + c_State.ToString());
+                break;
+            case GameStates.Lost:
+                Debug.Log("Game State is " + c_State.ToString());
+                break;
+            default:
+                break;
         }
     }
 
