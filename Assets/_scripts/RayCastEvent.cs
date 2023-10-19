@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,13 @@ public class RayCastEvent : MonoBehaviour
     [SerializeField] LayerMask _layerMask;
 
     public GameObject HittedObject;
+    NetworkController rootNo;
 
     private void OnEnable()
     {
         ins = this;
         _camera = Camera.main;
+        rootNo = transform.root.GetComponent<NetworkController>();
     }
 
 
@@ -26,7 +29,8 @@ public class RayCastEvent : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 1000, _layerMask))
+            if (!rootNo._player.GetComponent<NetworkObject>().HasStateAuthority) return;
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, _layerMask))
             {
                 Debug.DrawLine(_camera.ScreenPointToRay(Input.mousePosition).origin, hit.point, Color.red, 2);
                 if (hit.collider != null)

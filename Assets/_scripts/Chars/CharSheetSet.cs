@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Fusion;
+using System;
 
 public class CharSheetSet : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class CharSheetSet : MonoBehaviour
     [SerializeField] TextMeshProUGUI desc_Text;
     [SerializeField] RawImage portrait_Image;
     [SerializeField] RectTransform thisRectTransform;
-    public byte _playerId;
+    public byte _playerId { get; set; }
 
 
     public void SetSheet(CharNW charNW)
@@ -29,5 +31,10 @@ public class CharSheetSet : MonoBehaviour
         desc_Text.text = charNW.desc.ToString();
         portrait_Image.texture = CharManager.ins.portList[charNW.portraitId];
         _playerId = charNW.playerID;
+    }
+
+    public void Relocate()
+    {
+        thisRectTransform.anchoredPosition = new(20f + 5 * _playerId, -65f);
     }
 }

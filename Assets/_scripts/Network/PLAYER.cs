@@ -4,7 +4,7 @@ using Fusion;
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
-    PlayerNetworkStart pns;
+    PlayerNetworkStart pNetworkStart;
     Renderer _rend;
     Renderer Rend
     {
@@ -31,8 +31,8 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         if (!HasStateAuthority) return;
         if (player == Runner.LocalPlayer)
         {
-            pns = FindFirstObjectByType<PlayerNetworkStart>();
-            MatIndex = pns.nPortIndex;
+            pNetworkStart = FindFirstObjectByType<PlayerNetworkStart>();
+            MatIndex = pNetworkStart.nPortIndex;
             CHAR_NW.playerID = (byte)player.PlayerId;
             CHAR_NW.name = CharManager.ins.PLAYER_CHAR.name;
             CHAR_NW.race = CharManager.ins.PLAYER_CHAR.race;
@@ -47,18 +47,20 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
             gameObject.name = CHAR_NW.name.ToString();
 
+            GameState.ins.TurnIDs.Add(CHAR_NW.playerID);
         }
     }
 
     public void PlayerLeft(PlayerRef player)
     {
-        if (pns._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
+        if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             Debug.Log(" Despawning " + networkObject.Name);
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
             Runner.Despawn(networkObject);
-            pns._spawnedCharacters.Remove(player);
+            GameState.ins.TurnIDs.Remove(CHAR_NW.playerID);
+            pNetworkStart._spawnedCharacters.Remove(player);
         }
     }
 }

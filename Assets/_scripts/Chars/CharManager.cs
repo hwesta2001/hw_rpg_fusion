@@ -7,30 +7,25 @@ using UnityEngine.UI;
 public class CharManager : MonoBehaviour
 {
     public Chars PLAYER_CHAR { get; private set; }
+
+    [SerializeField] int portIndex = 0;
     public int PortIndex
     {
         get
         {
             return portIndex;
         }
-
         set
         {
             portIndex = value;
             if (TryGetComponent<CharGetAndSet>(out var charGet))
             {
                 charGet.SetPortraitId(portIndex);
-                //charGet.SetPortraitOnCharSheet(spriteList[portIndex]);
             }
         }
     }
 
-    [Tooltip("Bu liste charlarý save edince olusacak. charlarý kydet yükle yaplýlýnca burdan char selecti ile oyuna girilebilir.")]
-    public List<Chars> SelecableCharList = new();
     public List<Texture2D> portList = new();
-    //public List<Sprite> spriteList = new();
-    [SerializeField] int portIndex = 0;
-    public int localPlayerId;
 
     public static CharManager ins;
 
@@ -38,21 +33,18 @@ public class CharManager : MonoBehaviour
     {
         ins = this;
     }
-    //private void Start()
-    //{
-    //    foreach (var item in portList)
-    //    {
-    //        spriteList.Add(GetSprite(item));
-    //    }
-    //}
 
     public void GenerateChar()
     {
-        if (TryGetComponent<CharGetAndSet>(out var charGet))
+        if (TryGetComponent<CharGetAndSet>(out var charGetandSet))
         {
-            charGet.SetChar();
-            PLAYER_CHAR = charGet.GetChar();
+            charGetandSet.SetChar();
+            PLAYER_CHAR = charGetandSet.GetChar();
             PLAYER_CHAR.portraitId = (byte)PortIndex;
+
+            //kullanýlmayan scriptleri kapatalým
+            GetComponent<CharGenPortSelect>().enabled = false;
+            charGetandSet.enabled = false;
         }
     }
 

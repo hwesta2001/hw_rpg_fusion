@@ -1,63 +1,58 @@
+using Fusion;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharSheetCreate : MonoBehaviour
 {
-    public GameObject go;
-    public CharNW charNW;
-    [SerializeField] GameObject charSheetPrefab;
+    public GameObject charSheetPrefab;
     [SerializeField] List<CharSheetSet> poolSheets = new();
+    Canvas thisCanvas;
+
+    private void Awake()
+    {
+        thisCanvas = GetComponent<Canvas>();
+    }
+
     public void SetGo()
     {
-
-        if (RayCastEvent.ins.HittedObject != null)
+        if (RayCastEvent.ins.HittedObject == null) return;
+        if (RayCastEvent.ins.HittedObject.transform.root.TryGetComponent(out PLAYER _player))
         {
-
-            go = RayCastEvent.ins.HittedObject;
-            charNW = go.GetComponentInParent<PLAYER>().CHAR_NW;
-            GetSheetsFromPool(charNW.playerID).SetSheet(charNW);
+            if (ControlCharSheet(_player.CHAR_NW.playerID)) return;
+            AddSheetsToList(_player.CHAR_NW);
         }
     }
 
-
-    void AddSheetsToList(GameObject _go, Transform _parent)
+    void AddSheetsToList(CharNW charNW)
     {
+        //if (!HasStateAuthority) return;
+        GameObject _go = Instantiate(charSheetPrefab, parent: thisCanvas.transform);
+        _go.SetActive(false);
+        CharSheetSet charSheet = _go.GetComponent<CharSheetSet>();
+        charSheet.SetSheet(charNW);
+        poolSheets.Add(charSheet);
+
+        RectTransform rectTransform = _go.GetComponent<RectTransform>();
+        //rectTransform.SetParent(thisCanvas.transform, false);
+        rectTransform.localScale = Vector3.one;
+        rectTransform.anchoredPosition = new(20f + charNW.playerID * 3f, -60f);
+        _go.GetComponentInChildren<Dragable>().canvas = thisCanvas;
         _go.SetActive(true);
-        _go.GetComponent<RectTransform>().SetParent(_parent, false);
-        _go.GetComponent<RectTransform>().localScale = Vector3.one;
-        _go.GetComponent<RectTransform>().anchoredPosition = new(20f, -65f);
-        _go.GetComponentInChildren<Dragable>().canvas = GetComponent<Canvas>();
-        poolSheets.Add(_go.GetComponent<CharSheetSet>());
     }
 
-    CharSheetSet GetSheetsFromPool(byte id)
+    bool ControlCharSheet(byte id)
     {
-        for (int i = 0; i < poolSheets.Count; i++)
+        foreach (CharSheetSet item in poolSheets)
         {
-
-            if (poolSheets[i]._playerId == id)
+            if (item._playerId == id)
             {
-                poolSheets[i].gameObject.SetActive(true);
-                return poolSheets[i];
-            }
-
-            if (!poolSheets[i].gameObject.activeInHierarchy)
-            {
-                return poolSheets[i];
+                item.Relocate();
+                item.gameObject.SetActive(true);
+                return true;
             }
         }
-
-        AddToSheeetPool(1);
-        return GetSheetsFromPool(id);
-    }
-
-    void AddToSheeetPool(int howMuch)
-    {
-
-        for (int i = 0; i < howMuch; i++)
-        {
-            AddSheetsToList(Instantiate(charSheetPrefab), transform);
-        }
+        return false;
     }
 }

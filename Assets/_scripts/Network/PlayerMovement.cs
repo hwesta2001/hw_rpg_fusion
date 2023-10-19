@@ -5,12 +5,14 @@ using Fusion;
 
 public class PlayerMovement : NetworkBehaviour/*, INetworkInput*/
 {
-    [SerializeField] byte turnId;
-
+    [Networked] public byte TurnId { get; private set; }
+    PLAYER _Player;
     public override void Spawned()
     {
+        if (!HasStateAuthority) return;
         base.Spawned();
-        turnId = GetComponent<PLAYER>().CHAR_NW.playerID;
+        _Player = GetComponent<PLAYER>();
+        TurnId = _Player.CHAR_NW.playerID;
     }
 
 }

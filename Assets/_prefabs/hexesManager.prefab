@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6295610214998442641}
   - component: {fileID: 7035173954854910333}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hexesManager
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}

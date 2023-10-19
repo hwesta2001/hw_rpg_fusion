@@ -53,16 +53,12 @@ public class HexToMap : MonoBehaviour
 
     void ColorHexes()
     {
-
-
-
         for (int i = 0; i < gridGenerator.hexes.Count; i++)
         {
             MeshRenderer mRend = gridGenerator.hexes[i].transform.GetComponentInChildren<MeshRenderer>();
             Material mat = mRend.material;
             mat.color = mapGenerator.allNoises[i].colour;
             mRend.material = mat;
-
         }
         //    ClearLog();
         //}

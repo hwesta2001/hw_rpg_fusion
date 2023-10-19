@@ -34,7 +34,7 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
     #endregion
 
-    [SerializeField] NetworkRunner _runner;
+    public NetworkRunner _runner;
     [SerializeField] NetworkPrefabRef _playerPrefab;
     public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
     [SerializeField] List<Transform> _spawnPoints = new();
@@ -45,7 +45,7 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] List<GameObject> deletedObjects = new();
 
     [Networked] public int nPortIndex { get; set; }
-
+    public PlayerRef thisPlayer;
     private void Awake()
     {
         _runner = gameObject.GetComponent<NetworkRunner>();
@@ -97,13 +97,13 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (player == runner.LocalPlayer)
         {
+            thisPlayer = player;
             //Create a unique position for the player
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.up * 10000, Quaternion.identity, player);
             networkPlayerObject.transform.position = _spawnPoints[player.PlayerId % _spawnPoints.Count].position;
             _spawnedCharacters.Add(player, networkPlayerObject);
 
             DebugText.ins.AddText(CharManager.ins.PLAYER_CHAR.name + " Spawned " + networkPlayerObject.HasStateAuthority);
-            CharManager.ins.localPlayerId = player.PlayerId;
             nPortIndex = CharManager.ins.PortIndex;
             GameState.CurrentState = GameStates.Connected;
         }

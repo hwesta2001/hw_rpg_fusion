@@ -12,29 +12,31 @@ public class GameState : NetworkBehaviour
 
     public List<byte> TurnIDs = new();
 
+    public static GameState ins;
 
 
 
-    public override void Spawned()
-    {
-        base.Spawned();
-        TurnIDs.Clear();
-        var players = FindObjectsOfType<PLAYER>();
+    //public override void Spawned()
+    //{
+    //    if (!HasStateAuthority) return;
+    //    base.Spawned();
+    //    TurnIDs.Clear();
+    //    var players = FindObjectsOfType<PLAYER>();
 
-        foreach (var player in players)
-        {
-            if (player != null)
-            {
-                TurnIDs.Add(player.CHAR_NW.playerID);
-            }
-        }
-
-    }
+    //    foreach (var player in players)
+    //    {
+    //        if (player != null)
+    //        {
+    //            TurnIDs.Add(player.CHAR_NW.playerID);
+    //        }
+    //    }
+    //}
 
 
     void Awake()
     {
         CurrentState = GameStates.Init;
+        ins = this;
     }
 
     void Update()

@@ -6,7 +6,7 @@ using Fusion;
 
 
 
-public class DiceControl : NetworkBehaviour
+public class DiceControl : MonoBehaviour
 {
     [field: SerializeField][Networked] public byte RolledDice { get; set; }
 

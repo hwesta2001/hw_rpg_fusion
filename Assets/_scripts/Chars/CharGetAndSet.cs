@@ -5,21 +5,6 @@ using UnityEngine.UI;
 public class CharGetAndSet : MonoBehaviour
 {
     [SerializeField] Chars gettedChar;
-
-    string _name;
-    Races _race;
-    Classes _classes;
-    string _desc;
-
-    //gererate and deside someway.
-    //byte strength = 8;
-    //byte agility = 8;
-    //byte intelligence = 8;
-    //byte charisma = 8;
-    //byte luck = 8;
-
-    int _portrait; //gererate and deside someway.
-
     [SerializeField] TMP_InputField name_inputField;
     [SerializeField] TMP_Dropdown raceDropdown;
     [SerializeField] TMP_Dropdown classDropdown;
@@ -81,6 +66,8 @@ public class CharGetAndSet : MonoBehaviour
         SetStats(savedStats[0], savedStats[1], savedStats[2], savedStats[3], savedStats[4]);
     }
     #endregion
+
+
     void SetStats(byte str, byte agi, byte intel, byte chrsm, byte luck)
     {
         gettedChar.strength = str;
