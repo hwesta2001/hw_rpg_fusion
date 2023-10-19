@@ -77,6 +77,7 @@ public class DebugText : MonoBehaviour
         canTick = true;
         textList.Insert(0, _text);
         WriteAll();
+        Debug.Log("<color=yellow>" + _text + "</color>");
     }
 
 

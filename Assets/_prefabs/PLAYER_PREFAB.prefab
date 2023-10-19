@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 16898419372304317}
   - component: {fileID: 7613157149046142118}
   - component: {fileID: 8948328839393591202}
+  - component: {fileID: 6161699745370397099}
   m_Layer: 3
   m_Name: PLAYER_PREFAB
   m_TagString: Untagged
@@ -144,6 +145,7 @@ MonoBehaviour:
   - {fileID: 6745884841146613282}
   - {fileID: 7613157149046142118}
   - {fileID: 8948328839393591202}
+  - {fileID: 6161699745370397099}
   SimulationBehaviours: []
 --- !u!114 &7613157149046142118
 MonoBehaviour:
@@ -191,6 +193,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _TurnId: 0
+--- !u!114 &6161699745370397099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343043956575391948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7394fdb373d2c4aa5e130f67c0a169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
 --- !u!1 &7687613593235498340
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Fusion;
+using System;
 
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
@@ -16,7 +17,14 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         }
     }
 
-    [Networked] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
+
+
+
+    [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
+    protected static void OnCharChanged(Changed<PLAYER> changed)
+    {
+        changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
+    }
 
     [Networked(OnChanged = nameof(OnMatIndexChanged))] public int MatIndex { get; set; }
     public static void OnMatIndexChanged(Changed<PLAYER> changed)
@@ -44,10 +52,6 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CHAR_NW.intelligence = CharManager.ins.PLAYER_CHAR.intelligence;
             CHAR_NW.charisma = CharManager.ins.PLAYER_CHAR.charisma;
             CHAR_NW.luck = CharManager.ins.PLAYER_CHAR.luck;
-
-            gameObject.name = CHAR_NW.name.ToString();
-
-            GameState.ins.TurnIDs.Add(CHAR_NW.playerID);
         }
     }
 
@@ -59,7 +63,6 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
             Runner.Despawn(networkObject);
-            GameState.ins.TurnIDs.Remove(CHAR_NW.playerID);
             pNetworkStart._spawnedCharacters.Remove(player);
         }
     }
