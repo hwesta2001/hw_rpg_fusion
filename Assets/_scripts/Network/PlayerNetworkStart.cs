@@ -40,8 +40,8 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] List<Transform> _spawnPoints = new();
 
     [Space, Tooltip("Canvas Controlers")]
-    [SerializeField] GameObject buttonCanvas;
-    [SerializeField] TMP_InputField ifield;
+    [SerializeField] GameObject joinButton;
+    [SerializeField] TMP_InputField joinInputField;
     [SerializeField] List<GameObject> deletedObjects = new();
 
     [Networked] public int nPortIndex { get; set; }
@@ -67,16 +67,24 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
             DebugText.ins.AddText(" Your are not ready, set a char and click ready");
             return;
         }
-        StartGame(GameMode.Shared, ifield.text);
-        ifield.interactable = false;
-        ifield.pointSize = 16f;
-        ifield.image.color = new Color(0, 0, 0, 0);
-        buttonCanvas.SetActive(false);
+        StartGame(GameMode.Shared, joinInputField.text);
+        SetChangedObjectsAfterJoin();
+        CharManager.ins.GenerateChar();
+    }
+
+    void SetChangedObjectsAfterJoin()
+    {
+        joinInputField.interactable = false;
+        joinInputField.pointSize = 16f;
+        //joinInputField.GetComponent<RectTransform>().localScale = new(.6f, .6f, 1);
+        joinInputField.textComponent.alignment = TextAlignmentOptions.TopLeft;
+        joinInputField.image.color = new Color(0, 0, 0, 0);
+
+        joinButton.SetActive(false);
         foreach (var item in deletedObjects)
         {
             Destroy(item);
         }
-        CharManager.ins.GenerateChar();
     }
 
     async void StartGame(GameMode mode, string gameID)

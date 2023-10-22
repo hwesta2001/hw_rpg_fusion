@@ -13,6 +13,6 @@ public class PlayerMovement : NetworkBehaviour/*, INetworkInput*/
         base.Spawned();
         _Player = GetComponent<PLAYER>();
         TurnId = _Player.CHAR_NW.playerID;
+        Debug.Log("runner has conneted: " + Runner.IsConnectedToServer);
     }
-
 }

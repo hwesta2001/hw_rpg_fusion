@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _DICE_ROLL: 0
 --- !u!1 &7687613593235498340
 GameObject:
   m_ObjectHideFlags: 0

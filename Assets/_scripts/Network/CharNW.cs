@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-//public class CharNWControler
-//{
 [System.Serializable]
 public struct CharNW : INetworkStruct
 {
@@ -22,4 +19,3 @@ public struct CharNW : INetworkStruct
     public byte charisma;
     public byte luck;
 }
-//}

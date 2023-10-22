@@ -2,19 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
-
 public class GameState : SimulationBehaviour
 {
     public static GameStates CurrentState;
 
     [SerializeField, Tooltip("Dont Change in Inspector it is a static var, DEBUG ONLY")]
     GameStates cState;
-    public static GameState ins;
+    public static GameState instance;
 
     void Awake()
     {
         CurrentState = GameStates.Init;
-        ins = this;
+        instance = this;
     }
 
     void Update()

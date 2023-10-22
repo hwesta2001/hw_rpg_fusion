@@ -17,9 +17,6 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         }
     }
 
-
-
-
     [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
     protected static void OnCharChanged(Changed<PLAYER> changed)
     {

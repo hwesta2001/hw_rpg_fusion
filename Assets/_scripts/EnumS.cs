@@ -36,9 +36,9 @@ public enum Classes
 
 public enum GameStates
 {
-    Init,
-    Connected,
-    InGameLoop,
-    Waiting,
-    Lost
+    Init = 0,
+    Connected = 1,
+    InGameLoop = 2,
+    Waiting = 3,
+    Lost = 4
 }
