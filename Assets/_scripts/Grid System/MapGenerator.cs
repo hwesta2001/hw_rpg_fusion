@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEditor.Progress;
 
 [RequireComponent(typeof(MapDisplay))]
 public class MapGenerator : MonoBehaviour
 {
+    //Debug icin
+    [Header("Component Chaches")]
+    [SerializeField] HexToMap hexToMap;
     [SerializeField] MapDisplay display;
+    [Header("Var")]
     [SerializeField] DrawMode drawMode;
     [SerializeField] int mapWidth;
     [SerializeField] int mapHeight;
@@ -13,28 +18,31 @@ public class MapGenerator : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] float persistance;
     [SerializeField] float lacunarity;
-    [SerializeField] int seed;
     [SerializeField] Vector2 offset;
+    [SerializeField] int seed;
+    [SerializeField] bool randomSeed;
     [SerializeField] bool autoUpdate;
-    [SerializeField] TerrainType[] regions;
-
-    public List<TerrainType> allNoises = new();
-
-    //Debug icin
-    HexToMap hexToMap;
+    [SerializeField] bool canHexMapChange;
+    //------------------------------------------
+    [Header("Regions")]
+    [SerializeField] Material region_mat_base;
+    [SerializeField] RegionType[] regions;
+    [Header("-------------------------")]
+    public List<RegionType> allMapRegions = new();
 
 
     public void GererateMapEmit(int _mapWidth, int _mapHeight)
     {
         mapWidth = _mapWidth;
         mapHeight = _mapHeight;
-        //seed = UnityEngine.Random.Range(1, 1000); //debug için random seedler
         GenerateMap();
     }
 
     void GenerateMap()
     {
-        allNoises.Clear();
+        if (randomSeed) seed = UnityEngine.Random.Range(1, 1000); //debug için random seedler
+        SetRegionMats();
+        allMapRegions.Clear();
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
         Color[] colourMap = new Color[mapWidth * mapHeight];
@@ -48,14 +56,14 @@ public class MapGenerator : MonoBehaviour
                     if (currentHeight <= regions[i].height)
                     {
                         colourMap[y * mapWidth + x] = regions[i].colour;
-                        allNoises.Add(regions[i]);
+                        allMapRegions.Add(regions[i]);
                         break;
                     }
                 }
-                //allNoises.Add(noiseMap[x, y]);
             }
         }
 
+        if (!display.gameObject.activeInHierarchy) return;
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
@@ -70,8 +78,8 @@ public class MapGenerator : MonoBehaviour
 
     void OnValidate()
     {
-        if (display == null) display = GetComponent<MapDisplay>();
-        if (hexToMap == null) hexToMap = GetComponent<HexToMap>();
+        //if (display == null) display = GetComponent<MapDisplay>();
+        //if (hexToMap == null) hexToMap = GetComponent<HexToMap>();
         if (mapWidth < 1)
         {
             mapWidth = 1;
@@ -88,21 +96,45 @@ public class MapGenerator : MonoBehaviour
         {
             octaves = 0;
         }
-        if (autoUpdate) GenerateMap();
-        hexToMap.ChangeSize();
-        hexToMap.GenerateMap();
 
+        if (autoUpdate)
+        {
+            if (canHexMapChange)
+            {
+                hexToMap.GenerateMap();
+            }
+            else
+            {
+                GenerateMap();
+            }
+        }
     }
 
+
+    [ContextMenu("Set Regions Materials")]
+    void SetRegionMats()
+    {
+        for (int i = 0; i < regions.Length; i++)
+        {
+            Material mat = new(region_mat_base)
+            {
+                name = regions[i].name + "_mat",
+                color = regions[i].colour
+
+            };
+            regions[i]._material = mat;
+        }
+    }
 }
 
 
 [System.Serializable]
-public struct TerrainType
+public struct RegionType
 {
     public string name;
     public float height;
     public Color colour;
+    public Material _material;
 }
 
 public enum DrawMode

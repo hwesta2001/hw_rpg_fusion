@@ -1,51 +1,57 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Reflection;
 using UnityEngine;
 
 public class HexToMap : MonoBehaviour
 
 {
-    [SerializeField] bool onValidate;
+    [SerializeField] bool canChangeHexMaterial;
     [SerializeField] HexGridGenerator gridGenerator;
     [SerializeField] MapGenerator mapGenerator;
     [SerializeField] Vector2 hexesSize;
+    [SerializeField] Transform mapPlane;
 
-    void OnValidate()
+    [ContextMenu("OnGridCreateReset")]
+    void OnGridCreateReset()
     {
-        if (gridGenerator == null) gridGenerator = FindAnyObjectByType<HexGridGenerator>();
-        if (mapGenerator == null) mapGenerator = FindAnyObjectByType<MapGenerator>();
-        gridGenerator.OnGridCreate += ChangeSize;
+        //gridGenerator.OnGridCreate = GenerateMap;
+        gridGenerator.OnGridCreate = null;
         gridGenerator.OnGridCreate += GenerateMap;
-        ChangeSize();
+    }
+    private void OnValidate()
+    {
+        gridGenerator.OnGridCreate = GenerateMap;
     }
     void OnDisable()
     {
         gridGenerator.OnGridCreate -= GenerateMap;
-        gridGenerator.OnGridCreate -= ChangeSize;
-    }
-
-    public void ChangeSize()
-    {
-        hexesSize = gridGenerator.hexesSize();
-        transform.localScale = new(hexesSize.x * .1f, 1, hexesSize.y * .1f);
     }
 
     public void GenerateMap()
     {
+        ChangeSize();
         mapGenerator.GererateMapEmit(gridGenerator.mapWidht, gridGenerator.mapHeight);
-        ScaleHexes();
+        if (!canChangeHexMaterial) return;
+        //ScaleHexes();
         ColorHexes();
+    }
+
+    public void ChangeSize()
+    {
+        hexesSize = gridGenerator.HexesSize();
+        mapPlane.localScale = new(hexesSize.x * .1f, 1, hexesSize.y * .1f);
     }
 
 
     void ScaleHexes()
     {
-        foreach (var item in gridGenerator.hexes)
+        foreach (var item in gridGenerator.hexes_Object)
         {
             item.transform.localScale = Vector3.one;
         }
-        for (int i = 0; i < gridGenerator.hexes.Count; i++)
+        for (int i = 0; i < gridGenerator.hexes_Object.Count; i++)
         {
-            gridGenerator.hexes[i].transform.localScale = new(1, 1 + 200 * mapGenerator.allNoises[i].height, 1);
+            gridGenerator.hexes_Object[i].transform.localScale = new(1, 1 + 200 * mapGenerator.allMapRegions[i].height, 1);
 
         }
     }
@@ -53,13 +59,11 @@ public class HexToMap : MonoBehaviour
 
     void ColorHexes()
     {
-        for (int i = 0; i < gridGenerator.hexes.Count; i++)
+        for (int i = 0; i < gridGenerator.hexes_Renderer.Count; i++)
         {
-            MeshRenderer mRend = gridGenerator.hexes[i].transform.GetComponentInChildren<MeshRenderer>();
-            Material mat = mRend.material;
-            mat.color = mapGenerator.allNoises[i].colour;
-            mRend.material = mat;
+            gridGenerator.hexes_Renderer[i].sharedMaterial = mapGenerator.allMapRegions[i]._material;
         }
+
         //    ClearLog();
         //}
 
@@ -71,3 +75,4 @@ public class HexToMap : MonoBehaviour
         //    method.Invoke(new object(), null);
     }
 }
+

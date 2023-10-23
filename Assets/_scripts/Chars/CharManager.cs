@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CharManager : MonoBehaviour
 {
-    public Chars PLAYER_CHAR { get; private set; }
+    public CharBeforeNetwork PLAYER_CHAR { get; private set; }
 
     [SerializeField] int portIndex = 0;
     public int PortIndex

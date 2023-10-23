@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CharGetAndSet : MonoBehaviour
 {
-    [SerializeField] Chars gettedChar;
+    [SerializeField] CharBeforeNetwork gettedChar;
     [SerializeField] TMP_InputField name_inputField;
     [SerializeField] TMP_Dropdown raceDropdown;
     [SerializeField] TMP_Dropdown classDropdown;
@@ -33,7 +33,7 @@ public class CharGetAndSet : MonoBehaviour
         gettedChar.portraitId = (byte)_id;
         portrait.texture = CharManager.ins.portList[_id];
     }
-    public Chars GetChar()
+    public CharBeforeNetwork GetChar()
     {
         return gettedChar;
     }

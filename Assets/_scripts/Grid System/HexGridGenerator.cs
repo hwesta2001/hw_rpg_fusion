@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HexGridGenerator : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class HexGridGenerator : MonoBehaviour
     float tile_Z_Offset; // = Mathf.Sqrt(3) * tile_X_Offset * .5f;
     float xOffset; // = tile_X_Offset * .5f;
 
-    public List<GameObject> hexes = new();
+    public List<GameObject> hexes_Object = new();
+    public List<MeshRenderer> hexes_Renderer = new();
     public static HexGridGenerator Instance;
     Vector3 initScale;
 
@@ -25,6 +27,13 @@ public class HexGridGenerator : MonoBehaviour
     {
         Instance = this;
         initScale = transform.localScale;
+    }
+
+    public void ClearAndCreateEmit(int _mapWidht, int _mapHeight)
+    {
+        mapWidht = _mapWidht;
+        mapHeight = _mapHeight;
+        ClearAndCreate();
     }
 
 
@@ -44,23 +53,25 @@ public class HexGridGenerator : MonoBehaviour
     {
         if (transform.childCount > 0)
         {
-            hexes.Clear();
+            hexes_Object.Clear();
             foreach (Transform hex in transform)
             {
-                hexes.Add(hex.gameObject);
+                hexes_Object.Add(hex.gameObject);
             }
         }
-        foreach (var item in hexes)
+        foreach (var item in hexes_Object)
         {
             DestroyImmediate(item);
         }
-        hexes.Clear();
+        hexes_Renderer.Clear();
+        hexes_Object.Clear();
     }
 
 
     void CreateHexGrid()
     {
-        hexes.Clear();
+        hexes_Renderer.Clear();
+        hexes_Object.Clear();
         xOffset = tile_X_Offset * .5f;
         tile_Z_Offset = Mathf.Sqrt(3) * tile_X_Offset * .5f;
         for (int x = 0; x < mapWidht; x++)
@@ -70,7 +81,8 @@ public class HexGridGenerator : MonoBehaviour
                 GameObject tempGo = Instantiate(hexPrefab);
                 tempGo.transform.parent = transform;
                 tempGo.name = "hex_" + x + "-" + z;
-                hexes.Add(tempGo);
+                hexes_Object.Add(tempGo);
+                hexes_Renderer.Add(tempGo.GetComponentInChildren<MeshRenderer>());
                 if (z % 2 == 0)
                 {
                     tempGo.transform.localPosition = new Vector3(x * tile_X_Offset, 0, z * tile_Z_Offset);
@@ -85,11 +97,10 @@ public class HexGridGenerator : MonoBehaviour
     }
 
 
-    public Vector2 hexesSize()
+    public Vector2 HexesSize()
     {
         return new(
-            (hexes[hexes.Count - 1].transform.position.x - hexes[0].transform.position.x),
-            (hexes[hexes.Count - 1].transform.position.z - hexes[0].transform.position.z));
-
+            (hexes_Object[hexes_Object.Count - 1].transform.position.x - hexes_Object[0].transform.position.x),
+            (hexes_Object[hexes_Object.Count - 1].transform.position.z - hexes_Object[0].transform.position.z));
     }
 }

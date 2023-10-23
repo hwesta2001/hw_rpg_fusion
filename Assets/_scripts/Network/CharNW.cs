@@ -13,9 +13,13 @@ public struct CharNW : INetworkStruct
     public Classes classes;
     public NetworkString<_512> desc;
     public byte portraitId;
+    public byte level;
     public byte strength;
     public byte agility;
     public byte intelligence;
     public byte charisma;
     public byte luck;
+    //Health Sistem ayarlanacak
+    public int MaxHealth;
+    public int CurrentHealth;
 }
