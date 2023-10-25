@@ -17,7 +17,10 @@ public class CharIconControl : MonoBehaviour
         char_icon_list[_charNW.playerID].gameObject.SetActive(true);
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
     }
-
+    public void CharIconRemove(CharNW _charNW)
+    {
+        char_icon_list[_charNW.playerID].gameObject.SetActive(false);
+    }
     public void CharHealthSet(CharNW _charNW)
     {
         char_icon_list[_charNW.playerID].Char_NW = _charNW;

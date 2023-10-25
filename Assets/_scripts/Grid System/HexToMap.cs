@@ -1,5 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using System.Reflection;
 using UnityEngine;
 
 public class HexToMap : MonoBehaviour
@@ -45,13 +43,13 @@ public class HexToMap : MonoBehaviour
 
     void ScaleHexes()
     {
-        foreach (var item in gridGenerator.hexes_Object)
+        foreach (var item in gridGenerator.hexes_Objects)
         {
             item.transform.localScale = Vector3.one;
         }
-        for (int i = 0; i < gridGenerator.hexes_Object.Count; i++)
+        for (int i = 0; i < gridGenerator.hexes_Objects.Count; i++)
         {
-            gridGenerator.hexes_Object[i].transform.localScale = new(1, 1 + 200 * mapGenerator.allMapRegions[i].height, 1);
+            gridGenerator.hexes_Objects[i].transform.localScale = new(1, 1 + 200 * mapGenerator.allMapRegions[i].height, 1);
 
         }
     }

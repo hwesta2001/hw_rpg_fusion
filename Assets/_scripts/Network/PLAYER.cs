@@ -1,11 +1,11 @@
 using UnityEngine;
 using Fusion;
 using System;
-
+using Cinemachine;
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
-    PlayerNetworkStart pNetworkStart;
+    RunnerStart pNetworkStart;
     Renderer _rend;
     Renderer Rend
     {
@@ -38,7 +38,7 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         if (!HasStateAuthority) return;
         if (player == Runner.LocalPlayer)
         {
-            pNetworkStart = FindFirstObjectByType<PlayerNetworkStart>();
+            pNetworkStart = FindFirstObjectByType<RunnerStart>();
             MatIndex = pNetworkStart.nPortIndex;
             CHAR_NW.playerID = (byte)player.PlayerId;
             CHAR_NW.name = CharManager.ins.PLAYER_CHAR.name;
@@ -55,6 +55,9 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             // health sistemi sonraso deðiþecek
             CHAR_NW.MaxHealth = 100;
             CHAR_NW.CurrentHealth = UnityEngine.Random.Range(80, 101);
+
+            VirtualCameraControl.ins.SetTarget(GetComponent<NetworkTransform>().InterpolationTarget);
+
         }
     }
 
@@ -65,8 +68,10 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             Debug.Log(" Despawning " + networkObject.Name);
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
+
             Runner.Despawn(networkObject);
             pNetworkStart._spawnedCharacters.Remove(player);
+            CharIconControl.ins.CharIconRemove(CHAR_NW);
         }
     }
 }

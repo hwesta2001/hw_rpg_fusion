@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using static UnityEditor.Progress;
 
 [RequireComponent(typeof(MapDisplay))]
 public class MapGenerator : MonoBehaviour
@@ -78,6 +77,7 @@ public class MapGenerator : MonoBehaviour
 
     void OnValidate()
     {
+        if (!autoUpdate) return;
         //if (display == null) display = GetComponent<MapDisplay>();
         //if (hexToMap == null) hexToMap = GetComponent<HexToMap>();
         if (mapWidth < 1)

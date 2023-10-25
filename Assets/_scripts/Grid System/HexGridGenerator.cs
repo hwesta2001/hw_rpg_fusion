@@ -10,14 +10,14 @@ public class HexGridGenerator : MonoBehaviour
     [SerializeField] GameObject hexPrefab;
     public int mapWidht = 25;
     public int mapHeight = 25;
-    [SerializeField] float tile_X_Offset = 1.75f;
+    [Tooltip("HexMesh radius*2 = 2r")] public float tile_X_Offset = 1.75f;
+    [Tooltip("HexMesh radius = r")] public float xOffset; // = tile_X_Offset * .5f; 
     float tile_Z_Offset; // = Mathf.Sqrt(3) * tile_X_Offset * .5f;
-    float xOffset; // = tile_X_Offset * .5f;
 
-    public List<GameObject> hexes_Object = new();
+    public List<GameObject> hexes_Objects = new();
     public List<MeshRenderer> hexes_Renderer = new();
     public static HexGridGenerator Instance;
-    Vector3 initScale;
+    public Vector3 initScale;
 
 
     public Action OnGridCreate;
@@ -40,6 +40,9 @@ public class HexGridGenerator : MonoBehaviour
     [ContextMenu("ClearAndCreate")]
     void ClearAndCreate()
     {
+
+
+
         initScale = transform.localScale;
         transform.localScale = Vector3.one;
         ClearHexes();
@@ -48,30 +51,31 @@ public class HexGridGenerator : MonoBehaviour
     }
 
 
+
     [ContextMenu("ClearHexes")]
     void ClearHexes()
     {
         if (transform.childCount > 0)
         {
-            hexes_Object.Clear();
+            hexes_Objects.Clear();
             foreach (Transform hex in transform)
             {
-                hexes_Object.Add(hex.gameObject);
+                hexes_Objects.Add(hex.gameObject);
             }
         }
-        foreach (var item in hexes_Object)
+        foreach (var item in hexes_Objects)
         {
             DestroyImmediate(item);
         }
         hexes_Renderer.Clear();
-        hexes_Object.Clear();
+        hexes_Objects.Clear();
     }
 
 
     void CreateHexGrid()
     {
         hexes_Renderer.Clear();
-        hexes_Object.Clear();
+        hexes_Objects.Clear();
         xOffset = tile_X_Offset * .5f;
         tile_Z_Offset = Mathf.Sqrt(3) * tile_X_Offset * .5f;
         for (int x = 0; x < mapWidht; x++)
@@ -81,7 +85,7 @@ public class HexGridGenerator : MonoBehaviour
                 GameObject tempGo = Instantiate(hexPrefab);
                 tempGo.transform.parent = transform;
                 tempGo.name = "hex_" + x + "-" + z;
-                hexes_Object.Add(tempGo);
+                hexes_Objects.Add(tempGo);
                 hexes_Renderer.Add(tempGo.GetComponentInChildren<MeshRenderer>());
                 if (z % 2 == 0)
                 {
@@ -100,7 +104,7 @@ public class HexGridGenerator : MonoBehaviour
     public Vector2 HexesSize()
     {
         return new(
-            (hexes_Object[hexes_Object.Count - 1].transform.position.x - hexes_Object[0].transform.position.x),
-            (hexes_Object[hexes_Object.Count - 1].transform.position.z - hexes_Object[0].transform.position.z));
+            (hexes_Objects[hexes_Objects.Count - 1].transform.position.x - hexes_Objects[0].transform.position.x),
+            (hexes_Objects[hexes_Objects.Count - 1].transform.position.z - hexes_Objects[0].transform.position.z));
     }
 }

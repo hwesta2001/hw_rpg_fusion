@@ -11,7 +11,7 @@ using UnityEngine.AI;
 using System.Linq;
 using UnityEngine.UI;
 
-public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
+public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
 {
     #region Implementations
 
@@ -75,9 +75,9 @@ public class PlayerNetworkStart : MonoBehaviour, INetworkRunnerCallbacks
     void SetChangedObjectsAfterJoin()
     {
         joinInputField.interactable = false;
-        joinInputField.pointSize = 16f;
+        joinInputField.pointSize = 15f;
         //joinInputField.GetComponent<RectTransform>().localScale = new(.6f, .6f, 1);
-        joinInputField.textComponent.alignment = TextAlignmentOptions.TopLeft;
+        joinInputField.textComponent.alignment = TextAlignmentOptions.BottomRight;
         joinInputField.image.color = new Color(0, 0, 0, 0);
 
         joinButton.SetActive(false);
