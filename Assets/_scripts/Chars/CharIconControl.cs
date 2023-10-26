@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharIconControl : MonoBehaviour
@@ -17,14 +15,18 @@ public class CharIconControl : MonoBehaviour
         char_icon_list[_charNW.playerID].gameObject.SetActive(true);
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
     }
+
     public void CharIconRemove(CharNW _charNW)
     {
         char_icon_list[_charNW.playerID].gameObject.SetActive(false);
     }
-    public void CharHealthSet(CharNW _charNW)
+
+    public void CharIconReload(CharNW _charNW)
     {
+        //CharNW ye göre icon yeniden ayarlanýr. Stats deðiþimde falan
+        //CharNW health ile char health iconu deðiþir.
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
-        char_icon_list[_charNW.playerID].SetHealthValue();
+
     }
 
 }

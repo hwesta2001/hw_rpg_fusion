@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Fusion;
-using System;
 
 public class CharSheetSet : MonoBehaviour
 {
@@ -19,7 +15,7 @@ public class CharSheetSet : MonoBehaviour
 
     public void SetSheet(CharNW charNW)
     {
-        thisRectTransform.anchoredPosition = new(20f + 5 * charNW.playerID, -65f);
+
         charName_Text.text = charNW.name.ToString();
         raceClass_Text.text = charNW.race.ToString() + "  " + charNW.classes.ToString();
         stats_Text.text = "Strenght: " + charNW.strength.ToString() + "\n" +
@@ -31,10 +27,11 @@ public class CharSheetSet : MonoBehaviour
         desc_Text.text = charNW.desc.ToString();
         portrait_Image.texture = CharManager.ins.portList[charNW.portraitId];
         _playerId = charNW.playerID;
+        Relocate(_playerId);
     }
 
-    public void Relocate()
+    public void Relocate(byte id)
     {
-        thisRectTransform.anchoredPosition = new(20f + 5 * _playerId, -65f);
+        thisRectTransform.anchoredPosition = new(180f, -70f + 10 * id);
     }
 }

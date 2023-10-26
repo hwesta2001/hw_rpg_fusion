@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using Fusion.Editor;
 using Fusion.Sockets;
 using System;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.AI;
-using System.Linq;
 using UnityEngine.UI;
 
 public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks

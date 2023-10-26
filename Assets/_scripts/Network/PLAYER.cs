@@ -1,7 +1,6 @@
 using UnityEngine;
 using Fusion;
-using System;
-using Cinemachine;
+
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
