@@ -17,7 +17,9 @@ public class JumpToLocation : MonoBehaviour
         this.speed = speed ?? .5f;
         this.tagertPosIsLocalSpace = tagertPosIsLocalSpace ?? true;
         this.jumpSpeed = jumpSpeed ?? 1;
+
         this.ease = Ease.InQuad;
+        this.loop = false;
         DoStartJump();
     }
 

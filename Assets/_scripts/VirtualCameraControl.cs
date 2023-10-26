@@ -1,55 +1,36 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class VirtualCameraControl : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera virtualCamera_1;
-    [SerializeField] CinemachineVirtualCamera virtualCamera_2;
+
+    [SerializeField] CinemachineFreeLook freeLookCam;
+    [SerializeField] float Xspeed = 3;
+    [SerializeField] float Yspeed = 3;
+
     public static VirtualCameraControl ins;
-    CinemachinePOV pov;
-
-    private void Awake()
+    void Awake()
     {
-        if (ins != null) Destroy(gameObject);
-        else ins = this;
-
-        if (virtualCamera_1 == null || virtualCamera_2 == null)
-        {
-            Debug.LogError("Put virtual cameras in sloats");
-        }
-
-        pov = virtualCamera_1.GetCinemachineComponent<CinemachinePOV>();
-        virtualCamera_1.gameObject.SetActive(false);
-        virtualCamera_2.gameObject.SetActive(true);
+        ins = this;
     }
 
-    public void SetTarget(Transform _target)
-    {
-        virtualCamera_1.Follow = _target;
-        virtualCamera_1.LookAt = _target;
-        virtualCamera_2.Follow = _target;
-        virtualCamera_2.LookAt = null;
-    }
-
-    private void Update()
+    void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            if (virtualCamera_1.gameObject.activeSelf == true) return;
-            virtualCamera_2.transform.localPosition = virtualCamera_1.transform.localPosition;
-            pov.m_VerticalAxis.Value = virtualCamera_2.transform.eulerAngles.x;
-            virtualCamera_2.gameObject.SetActive(false);
-            virtualCamera_1.gameObject.SetActive(true);
+            freeLookCam.m_XAxis.m_MaxSpeed = Xspeed;
+            freeLookCam.m_YAxis.m_MaxSpeed = Yspeed;
         }
         else
         {
-            if (virtualCamera_2.gameObject.activeSelf == true) return;
-            virtualCamera_1.transform.localPosition = virtualCamera_2.transform.localPosition;
-            virtualCamera_1.gameObject.SetActive(false);
-            virtualCamera_2.gameObject.SetActive(true);
+            freeLookCam.m_XAxis.m_MaxSpeed = 0;
+            freeLookCam.m_YAxis.m_MaxSpeed = 0;
         }
     }
-
+    public void SetTarget(Transform _target)
+    {
+        freeLookCam.Follow = _target;
+    }
 }
