@@ -32,5 +32,6 @@ public class VirtualCameraControl : MonoBehaviour
     public void SetTarget(Transform _target)
     {
         freeLookCam.Follow = _target;
+        freeLookCam.LookAt = _target;
     }
 }
