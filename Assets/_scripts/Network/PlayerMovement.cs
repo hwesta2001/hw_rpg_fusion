@@ -1,18 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Fusion;
 
-public class PlayerMovement : NetworkBehaviour/*, INetworkInput*/
-{
-    [Networked] public byte TurnId { get; private set; }
-    PLAYER _Player;
-    public override void Spawned()
-    {
-        if (!HasStateAuthority) return;
-        base.Spawned();
-        _Player = GetComponent<PLAYER>();
-        TurnId = _Player.CHAR_NW.playerID;
-        Debug.Log("runner has conneted: " + Runner.IsConnectedToServer);
+public class PlayerMovement : MonoBehaviour{
+  [Networked] byte GlobalTurnId {get;set;} // globalTurnId all same
+  byte playerId; // network playerId ya da charnw-id
+  List<Hex> avaliableHexes=new();
+  enum State {begin, waitForMovement, moving, final}
+  State state
+  byte moveCount;
+  public byte MoveCount{
+    get{
+      return moveCount;
     }
+    set{
+      moveCount=value;
+      if(moveCount>=0){
+        MovableHexes();
+      }
+      else{
+        MoveTurnEnd();
+      }
+    }
+  }
+  
+  void MovableHexes(){
+    state=State.begin;
+    avaliableHexes.Clear();
+    //sapherecast and get hexes
+    //remove onhex
+    //remove nonmoveable hexes
+    avaliableHexes.Add(Hex);
+    state=State.waitForMovement;
+  }
+  
+  void Update(){
+    if(Input.GetMouseDown(0)){
+      if(state!=State.waitForMovement) return;
+      //Raycast and get hittedhex
+      if (avaliableHexes.Contains(hittedhex)){
+        state=State.moving;
+        MoveBegin();
+      }
+    }
+  }
+
+  void MoveBegin(){
+    state=State.moving;
+    //tr.DOMove...
+    .OnComplete(()=> 
+      state=State.final;
+      MoveCount--;
+    );
+  }
+
+  void MoveTurnEnd(){
+    print("Player"+playerId+" move turn ending.");
+  }
 }
