@@ -4,6 +4,7 @@ using Fusion;
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
+    [SerializeField] Transform cameraFollow;
     RunnerStart pNetworkStart;
     Renderer _rend;
     Renderer Rend
@@ -55,7 +56,7 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CHAR_NW.MaxHealth = 100;
             CHAR_NW.CurrentHealth = UnityEngine.Random.Range(80, 101);
 
-            VirtualCameraControl.ins.SetTarget(GetComponent<NetworkTransform>().InterpolationTarget);
+            CameraControl.ins.SetTarget(cameraFollow);
 
         }
     }

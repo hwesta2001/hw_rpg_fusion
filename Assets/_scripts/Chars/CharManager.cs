@@ -31,6 +31,8 @@ public class CharManager : MonoBehaviour
 
     public static CharManager ins;
 
+
+
     private void Awake()
     {
         ins = this;

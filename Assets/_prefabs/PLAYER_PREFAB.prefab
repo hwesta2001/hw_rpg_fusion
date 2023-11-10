@@ -90,6 +90,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8022631992725272268}
+  - {fileID: 6885266966350830057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6745884841146613282
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  cameraFollow: {fileID: 6885266966350830057}
   _CHAR_NW:
     playerID: 0
     name:
@@ -193,6 +195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a523f307683005b4b82216ded2fca739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avaliableHexes: []
+  hexesLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &6161699745370397099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +245,37 @@ Transform:
   - {fileID: 1447000765578402024}
   - {fileID: 1673858029165493694}
   - {fileID: 7754465801648629506}
+  m_Father: {fileID: 5770739538028919521}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8434347437071117956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6885266966350830057}
+  m_Layer: 3
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6885266966350830057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434347437071117956}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.672, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 5770739538028919521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1202466044793674325
