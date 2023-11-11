@@ -1,11 +1,25 @@
 using Fusion;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CharManager : MonoBehaviour
 {
+    public List<CharNW> CharNWList = new();
+    public void AddList(CharNW charNW)
+    {
+        if (CharNWList.Contains(charNW)) return;
+        CharNWList.Add(charNW);
+    }
+
+    public void RemoveList(CharNW charNW)
+    {
+        if (CharNWList.Contains(charNW)) CharNWList.Remove(charNW);
+    }
+
+
     public CharBeforeNetwork PLAYER_CHAR { get; private set; }
 
     int _port;

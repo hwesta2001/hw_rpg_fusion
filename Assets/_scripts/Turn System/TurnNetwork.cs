@@ -1,29 +1,58 @@
 using Fusion;
-using Hw.Dice;
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TurnNetwork : NetworkBehaviour
+public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
-    
-    public int sharedInt;
 
-    // Her istemcinin kendi sahnesindeki nesneye eriþebilmesi için bir singleton örneði
-    public static TurnNetwork Instance { get; private set; }
-
-    // Nesne baþlatýldýðýnda, singleton örneðini ayarla ve sharedInt deðerini 0 olarak baþlat
-    private void Awake()
+    [SerializeField] Toggle readyToggle;
+    [SerializeField] GameObject turnCanvas;
+    [field: SerializeField][Networked(OnChanged = nameof(OnTurn_Count_Changed))] public int Turn_Count { get; set; }
+    protected static void OnTurn_Count_Changed(Changed<TurnNetwork> changed)
     {
-        Instance = this;
+        Turn.TURN_COUNT += changed.Behaviour.Turn_Count;
+        if (Turn.TURN_COUNT < 0) Turn.TURN_COUNT = 0;
+        DebugText.ins.AddText("ActivePlayers.Count.. " + changed.Behaviour.Runner.ActivePlayers.Count());
+        if (Turn.TURN_COUNT >= changed.Behaviour.Runner.ActivePlayers.Count())
+        {
+            DebugText.ins.AddText("All Ready To Turn End.............. ");
+        }
+        else
+        {
+            DebugText.ins.AddText("Not Ready To End............. ");
+        }
     }
 
+    public void PlayerJoined(PlayerRef player)
+    {
+        if (!HasStateAuthority) return;
+        turnCanvas.SetActive(true);
+        Turn.TURN_COUNT = 0;
+        readyToggle.isOn = false;
+        TurnEnd();
+    }
 
-
+    public void PlayerLeft(PlayerRef player)
+    {
+        if (!HasStateAuthority) return;
+        Turn.TURN_COUNT = 0;
+        readyToggle.isOn = false;
+        TurnEnd();
+    }
 
     //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    void TurnEnd()
+    public void TurnEnd()
     {
-        Turn.TURN_COUNT++;
+        if (!HasStateAuthority) return;
+        if (readyToggle.isOn)
+        {
+            Turn_Count = 1;
+        }
+        else
+        {
+            Turn_Count = -1;
+        }
     }
 }

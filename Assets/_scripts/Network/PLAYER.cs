@@ -16,13 +16,19 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             return _rend;
         }
     }
-
+    [Networked(OnChanged = nameof(OnCharNwCompleted))] NetworkBool CharNwCompleted { get; set; }
+    public static void OnCharNwCompleted(Changed<PLAYER> changed)
+    {
+        changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
+        CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
+        CharManager.ins.AddList(changed.Behaviour.CHAR_NW);
+    }
 
     [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
     protected static void OnCharChanged(Changed<PLAYER> changed)
     {
-        changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
-        CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
+        //changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
+        //CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
     }
 
     [Networked(OnChanged = nameof(OnMatIndexChanged))] public int MatIndex { get; set; }
@@ -57,21 +63,24 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CHAR_NW.CurrentHealth = UnityEngine.Random.Range(80, 101);
 
             CameraControl.ins.SetTarget(cameraFollow);
-
+            //CharIconControl.ins.CharIconSet(CHAR_NW);
+            CharNwCompleted = !CharNwCompleted;
         }
     }
 
     public void PlayerLeft(PlayerRef player)
     {
+        CharManager.ins.RemoveList(CHAR_NW);
         if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
-            Debug.Log(" Despawning " + networkObject.Name);
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
 
+
+            Debug.Log(" Despawning " + networkObject.Name);
             Runner.Despawn(networkObject);
             pNetworkStart._spawnedCharacters.Remove(player);
-            CharIconControl.ins.CharIconRemove(CHAR_NW);
+            //CharIconControl.ins.CharIconRemove(CHAR_NW);
         }
     }
 }

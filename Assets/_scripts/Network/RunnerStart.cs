@@ -33,6 +33,7 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
 
     public NetworkRunner _runner;
     [SerializeField] NetworkPrefabRef _playerPrefab;
+    [field: SerializeField]
     public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
     [SerializeField] List<Transform> _spawnPoints = new();
 
@@ -116,6 +117,7 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
 
     public void On_PlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        CharIconControl.ins.CharIconRemove(player.PlayerId);
         //// Find and remove the players avatar
 
         //if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
