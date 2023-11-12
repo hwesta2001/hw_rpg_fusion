@@ -16,9 +16,10 @@ public class CharIconControl : MonoBehaviour
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
     }
 
-    public void CharIconRemove(CharNW _charNW)
+    public void CharIconRemove(int _playerID)
     {
-        char_icon_list[_charNW.playerID].gameObject.SetActive(false);
+        char_icon_list[_playerID].gameObject.SetActive(false);
+        DebugText.ins.AddText("Char iconremove???   " + _playerID);
     }
 
     public void CharIconReload(CharNW _charNW)
@@ -29,4 +30,11 @@ public class CharIconControl : MonoBehaviour
 
     }
 
+    void DisableAll()
+    {
+        foreach (var item in char_icon_list)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 }

@@ -6,6 +6,7 @@ using Fusion;
 public class InitNetwork : SimulationBehaviour, IPlayerJoined
 {
     public List<GameObject> spawnedNetworkObjects = new();
+    public List<GameObject> AwakedObjects = new();
     public List<GameObject> activatedObjects = new();
     public List<GameObject> deactivatedObjects = new();
     public List<GameObject> deletedObjects = new();
@@ -15,6 +16,14 @@ public class InitNetwork : SimulationBehaviour, IPlayerJoined
     //    yield return new WaitUntil(() => GameState.CurrentState == GameStates.Connected);
 
     //}
+
+    private void Awake()
+    {
+        foreach (var obj in AwakedObjects)
+        {
+            obj.SetActive(true);
+        }
+    }
 
     public void PlayerJoined(PlayerRef player)
     {
