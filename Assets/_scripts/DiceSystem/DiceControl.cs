@@ -13,8 +13,9 @@ public class DiceControl : MonoBehaviour
     }
     #endregion
 
-    public byte RolledDice;
+    public byte RolledDice { get; set; }
     public byte DiceFaceCount;
+
     [SerializeField] GameObject[] allDices = new GameObject[6];
     DiceRoll diceRoll;
     [SerializeField] GameObject DiceCanvas;
@@ -33,8 +34,14 @@ public class DiceControl : MonoBehaviour
         }
     }
 
-    public static Action OnRollDice;
-    public void RollButton() { OnRollDice?.Invoke(); }
+    public static Action OnRollDice { get; set; }
+    public void RollButton()
+    {
+        if (Turn.ins.TURN_STATE == TurnState.moveStart)
+        {
+            OnRollDice?.Invoke();
+        }
+    }
     public void Roll_Dice(byte rolled)
     {
         if (diceRoll == null) SetDice();
@@ -63,7 +70,12 @@ public class DiceControl : MonoBehaviour
     {
         if (ts == TurnState.moveStart)
         {
+            SetDice();
             DiceCanvas.SetActive(true);
+        }
+        else if (ts == TurnState.moving)
+        {
+            return;
         }
         else
         {

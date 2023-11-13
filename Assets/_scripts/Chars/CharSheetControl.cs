@@ -13,14 +13,17 @@ public class CharSheetControl : MonoBehaviour
         thisCanvas = GetComponent<Canvas>();
     }
 
-    public void SetGo()
+    void Update()
     {
-        if (RayCastEvent.ins.HittedObject == null) return;
-        if (RayCastEvent.ins.HittedObject.transform.root.TryGetComponent(out PLAYER _player))
+        if (Input.GetMouseButtonDown(0))
         {
-            //if (ControlCharSheet(_player.CHAR_NW.playerID)) return;
-            //AddSheetsToList(_player.CHAR_NW);
-            OpenCharSheet(_player.CHAR_NW);
+            if (RayCastEvent.ins.SelectionCast())
+            {
+                if (RayCastEvent.ins.HittedObject.transform.root.TryGetComponent(out PLAYER _player))
+                {
+                    OpenCharSheet(_player.CHAR_NW);
+                }
+            }
         }
     }
 

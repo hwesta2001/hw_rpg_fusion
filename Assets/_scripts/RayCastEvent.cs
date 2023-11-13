@@ -1,13 +1,14 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class RayCastEvent : MonoBehaviour
 {
-    public static RayCastEvent ins;
+    public static RayCastEvent ins { get; private set; }
     public UnityEvent rayCastEvent;
     private Camera _camera;
     [SerializeField] LayerMask _layerMask;
@@ -20,27 +21,24 @@ public class RayCastEvent : MonoBehaviour
         _camera = Camera.main;
     }
 
-
-    private void Update()
+    public bool SelectionCast()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        if (EventSystem.current.IsPointerOverGameObject()) return false;
+        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, _layerMask))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            //if (!rootNo._player.GetComponent<NetworkObject>().HasStateAuthority) return;
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, _layerMask))
+            Debug.DrawLine(_camera.ScreenPointToRay(Input.mousePosition).origin, hit.point, Color.red, 2);
+            if (hit.collider != null)
             {
-                Debug.DrawLine(_camera.ScreenPointToRay(Input.mousePosition).origin, hit.point, Color.red, 2);
-                if (hit.collider != null)
-                {
-                    HittedObject = hit.collider.gameObject;
-                    rayCastEvent?.Invoke();
-                }
+                HittedObject = hit.collider.gameObject;
+                rayCastEvent?.Invoke();
+                return true;
             }
-            else
-            {
-                HittedObject = null;
-            }
+            return false;
+        }
+        else
+        {
+            HittedObject = null;
+            return false;
         }
     }
 }

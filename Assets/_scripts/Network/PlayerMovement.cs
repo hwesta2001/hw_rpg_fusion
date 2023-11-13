@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Fusion;
 using System.Collections.Generic;
+using DG.Tweening;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
-    [Networked] byte GlobalTurnId { get; set; } // globalTurnId all same
+
     byte playerId; // network playerId ya da charnw-id
     [SerializeField] List<Hex> avaliableHexes = new();
     [SerializeField] LayerMask hexesLayer;
@@ -14,6 +14,32 @@ public class PlayerMovement : MonoBehaviour
 
     byte moveCount;
     Collider[] cols = new Collider[7];
+    Transform tr;
+    void OnEnable()
+    {
+        if (!HasStateAuthority) return;
+        tr = transform;
+        Turn.OnTurnChanged += MoveTurnControl;
+    }
+
+    void OnDisable()
+    {
+        if (!HasStateAuthority) return;
+        Turn.OnTurnChanged -= MoveTurnControl;
+    }
+
+
+    void MoveTurnControl(TurnState turnState)
+    {
+        if (turnState == TurnState.moveStart)
+        {
+            MoveCount = DiceControl.ins.RolledDice;
+        }
+    }
+
+
+
+
 
     public byte MoveCount
     {
@@ -62,26 +88,32 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && HasStateAuthority)
         {
             if (state != State.waitForMovement) return;
-            //Raycast and get hittedhex
-            //if (avaliableHexes.Contains(hittedhex))
-            //{
-            //    state = State.moving;
-            MoveBegin();
-            //}
+            if (RayCastEvent.ins.SelectionCast())
+            {
+                if (RayCastEvent.ins.HittedObject.TryGetComponent(out Hex hex))
+                {
+                    if (avaliableHexes.Contains(hex))
+                    {
+                        state = State.moving;
+                        MoveBegin(hex);
+                    }
+                }
+            }
         }
     }
 
-    void MoveBegin()
+    void MoveBegin(Hex hex)
     {
         state = State.moving;
-        ////tr.DOMove...
-        //.OnComplete(() =>
-        //  state = State.final;
-        //    MoveCount--;
-        //);
+        tr.DOLocalJump(hex.pos, 2, 1, 1, false).SetEase(Ease.InQuart)
+        .OnComplete(() =>
+        {
+            state = State.final;
+            MoveCount--;
+        });
     }
 
     void MoveTurnEnd()

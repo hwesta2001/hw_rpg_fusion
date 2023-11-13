@@ -151,3 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5ee82b95b16424182a3bd1a9b8e32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hex_id: 0
+  trans: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
+  moveable: 0

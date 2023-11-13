@@ -14,23 +14,17 @@ public class Turn : MonoBehaviour
         set
         {
             turnState = value;
+            OnTurnChanged?.Invoke(turnState);
         }
     }
+
+    [field: SerializeField] public int TURN_COUNT { get; set; }
+
 
     public static Turn ins;
     private void Awake()
     {
         ins = this;
-    }
-    private int turnCount;
-    public int TURN_COUNT
-    {
-        get => turnCount;
-        set
-        {
-            turnCount = value;
-            DebugText.ins.AddText("TurnCount:" + TURN_COUNT);
-        }
     }
 }
 

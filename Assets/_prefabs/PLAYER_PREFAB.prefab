@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 6062017250563388335}
   m_Layer: 3
   m_Name: PLAYER_PREFAB
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,6 +400,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 6745884841146613282}
   - {fileID: 7613157149046142118}
+  - {fileID: 8948328839393591202}
   - {fileID: 6161699745370397099}
   - {fileID: 6062017250563388335}
   SimulationBehaviours: []
@@ -451,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a523f307683005b4b82216ded2fca739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   avaliableHexes: []
   hexesLayer:
     serializedVersion: 2
@@ -484,6 +486,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   readyToggle: {fileID: 8716920346862469862}
   turnCanvas: {fileID: 906554498002026153}
+  _Turn_Count: 0
 --- !u!1 &7515699161179147205
 GameObject:
   m_ObjectHideFlags: 0

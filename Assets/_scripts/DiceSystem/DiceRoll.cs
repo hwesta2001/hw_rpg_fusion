@@ -28,21 +28,6 @@ namespace Hw.Dice
             if (faceCount <= 0) return;
         }
 
-        public void RollDice()
-        {
-            rollingNow = true;
-            RolledDice = 0;
-            int randomDice = Random.Range(1, faceCount + 1);
-            gfxMeshTransform.DOShakeRotation(_time, _str, _vibrate, _randm, false, ShakeRandomnessMode.Harmonic)
-            .OnComplete(() => gfxMeshTransform.DOLocalRotate(uppserFaceRotations[randomDice - 1], _lasttime).SetEase(Ease.OutBack)
-            .OnComplete(() =>
-            {
-                rollingNow = false;
-                RolledDice = randomDice;
-                DebugText.ins.AddText("Rolled:" + RolledDice);
-            }));
-        }
-
         public void RollDice(int randomDice)  //dice onceden belirlenir.
         {
             RolledDice = randomDice;
@@ -53,6 +38,7 @@ namespace Hw.Dice
             {
                 rollingNow = false;
                 DebugText.ins.AddText("Rolled:" + RolledDice);
+                Turn.ins.TURN_STATE = TurnState.moving;
             }));
         }
 
