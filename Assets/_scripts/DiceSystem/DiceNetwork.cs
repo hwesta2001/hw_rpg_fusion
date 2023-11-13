@@ -19,6 +19,7 @@ public class DiceNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {
+        if (HasStateAuthority == false) return;
         DiceControl.OnRollDice -= RollRandom;
     }
 

@@ -117,7 +117,6 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
 
     public void On_PlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        CharIconControl.ins.CharIconRemove(player.PlayerId);
         //// Find and remove the players avatar
 
         //if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))

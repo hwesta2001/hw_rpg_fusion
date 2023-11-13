@@ -9,19 +9,22 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
     [SerializeField] Toggle readyToggle;
     [SerializeField] GameObject turnCanvas;
+
     [field: SerializeField][Networked(OnChanged = nameof(OnTurn_Count_Changed))] public int Turn_Count { get; set; }
     protected static void OnTurn_Count_Changed(Changed<TurnNetwork> changed)
     {
-        Turn.TURN_COUNT += changed.Behaviour.Turn_Count;
-        if (Turn.TURN_COUNT < 0) Turn.TURN_COUNT = 0;
-        DebugText.ins.AddText("ActivePlayers.Count.. " + changed.Behaviour.Runner.ActivePlayers.Count());
-        if (Turn.TURN_COUNT >= changed.Behaviour.Runner.ActivePlayers.Count())
+        Turn.ins.TURN_COUNT += changed.Behaviour.Turn_Count;
+        if (Turn.ins.TURN_COUNT < 0) Turn.ins.TURN_COUNT = 0;
+
+        if (Turn.ins.TURN_COUNT >= changed.Behaviour.Runner.ActivePlayers.Count())
         {
-            DebugText.ins.AddText("All Ready To Turn End.............. ");
+            DebugText.ins.AddText("All Ready To Turn End..Turn state :  " + TurnState.moveStart);
+            Turn.ins.TURN_STATE = TurnState.moveStart;
         }
         else
         {
             DebugText.ins.AddText("Not Ready To End............. ");
+            Turn.ins.TURN_STATE = TurnState.waiting;
         }
     }
 
@@ -29,7 +32,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     {
         if (!HasStateAuthority) return;
         turnCanvas.SetActive(true);
-        Turn.TURN_COUNT = 0;
+        Turn.ins.TURN_COUNT = 0;
         readyToggle.isOn = false;
         TurnEnd();
     }
@@ -37,13 +40,12 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     public void PlayerLeft(PlayerRef player)
     {
         if (!HasStateAuthority) return;
-        Turn.TURN_COUNT = 0;
+        Turn.ins.TURN_COUNT = 0;
         readyToggle.isOn = false;
         TurnEnd();
     }
 
-    //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    public void TurnEnd()
+    public void TurnEnd() // readyToggle da onValueChange de ekli
     {
         if (!HasStateAuthority) return;
         if (readyToggle.isOn)

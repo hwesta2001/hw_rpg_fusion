@@ -1,5 +1,7 @@
 using UnityEngine;
 using Fusion;
+using TMPro.EditorUtilities;
+using UnityEngine.Rendering;
 
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
@@ -20,8 +22,7 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     public static void OnCharNwCompleted(Changed<PLAYER> changed)
     {
         changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
-        CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
-        CharManager.ins.AddList(changed.Behaviour.CHAR_NW);
+        //CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
     }
 
     [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
@@ -65,12 +66,14 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CameraControl.ins.SetTarget(cameraFollow);
             //CharIconControl.ins.CharIconSet(CHAR_NW);
             CharNwCompleted = !CharNwCompleted;
+            CharManager.ins.AddList(player, CHAR_NW);
         }
     }
 
     public void PlayerLeft(PlayerRef player)
     {
-        CharManager.ins.RemoveList(CHAR_NW);
+        CharManager.ins.RemoveList(player, CHAR_NW);
+        Debug.LogWarning(player.ToString() + " ... player left the game!");
         if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             if (!networkObject.HasStateAuthority) return;
@@ -82,5 +85,10 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             pNetworkStart._spawnedCharacters.Remove(player);
             //CharIconControl.ins.CharIconRemove(CHAR_NW);
         }
+    }
+
+    void Despawned()
+    {
+        Debug.Log("Depawned this object and called Despawned method");
     }
 }

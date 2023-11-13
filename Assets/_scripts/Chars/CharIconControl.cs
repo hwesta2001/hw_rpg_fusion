@@ -16,6 +16,13 @@ public class CharIconControl : MonoBehaviour
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
     }
 
+    public void DisableAll()
+    {
+        foreach (var item in char_icon_list)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
     public void CharIconRemove(int _playerID)
     {
         char_icon_list[_playerID].gameObject.SetActive(false);
@@ -27,14 +34,5 @@ public class CharIconControl : MonoBehaviour
         //CharNW ye göre icon yeniden ayarlanýr. Stats deðiþimde falan
         //CharNW health ile char health iconu deðiþir.
         char_icon_list[_charNW.playerID].Char_NW = _charNW;
-
-    }
-
-    void DisableAll()
-    {
-        foreach (var item in char_icon_list)
-        {
-            item.gameObject.SetActive(false);
-        }
     }
 }

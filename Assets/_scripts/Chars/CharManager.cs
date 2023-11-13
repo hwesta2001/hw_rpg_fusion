@@ -1,24 +1,36 @@
-using Fusion;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
+using Fusion;
 
 public class CharManager : MonoBehaviour
 {
-    public List<CharNW> CharNWList = new();
-    public void AddList(CharNW charNW)
+    #region CharIcon
+    public CharNW?[] CharNWList = new CharNW?[6];
+    public void AddList(PlayerRef _player, CharNW charNW)
     {
-        if (CharNWList.Contains(charNW)) return;
-        CharNWList.Add(charNW);
+        CharNWList[_player.PlayerId] = charNW;
+        SetCharIcons();
     }
 
-    public void RemoveList(CharNW charNW)
+    public void RemoveList(PlayerRef _player, CharNW charNW)
     {
-        if (CharNWList.Contains(charNW)) CharNWList.Remove(charNW);
+        CharNWList[_player.PlayerId] = null;
+        SetCharIcons();
     }
 
+    void SetCharIcons()
+    {
+        CharIconControl.ins.DisableAll();
+        foreach (var item in CharNWList)
+        {
+            if (item != null)
+            {
+                CharIconControl.ins.CharIconSet((CharNW)item);
+            }
+        }
+    }
+
+    #endregion
 
     public CharBeforeNetwork PLAYER_CHAR { get; private set; }
 
@@ -44,9 +56,6 @@ public class CharManager : MonoBehaviour
     public List<Texture2D> portList = new();
 
     public static CharManager ins;
-
-
-
     private void Awake()
     {
         ins = this;
@@ -59,9 +68,6 @@ public class CharManager : MonoBehaviour
             charGetandSet.SetChar();
             PLAYER_CHAR = charGetandSet.GetChar();
             PLAYER_CHAR.portraitId = (byte)PortIndex;
-
-            //kullanýlmayan scriptleri kapatalým
-            //GetComponent<CharGenPortSelect>().enabled = false;
             charGetandSet.enabled = false;
         }
     }

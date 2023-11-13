@@ -17,7 +17,7 @@ public class DiceControl : MonoBehaviour
     public byte DiceFaceCount;
     [SerializeField] GameObject[] allDices = new GameObject[6];
     DiceRoll diceRoll;
-
+    [SerializeField] GameObject DiceCanvas;
     [SerializeField] Dice currentDice;
     public Dice CurrentDice
     {
@@ -51,7 +51,26 @@ public class DiceControl : MonoBehaviour
     void OnEnable()
     {
         SetDice();
+        ControlGameState(Turn.ins.TURN_STATE);
+        Turn.OnTurnChanged += ControlGameState;
     }
+    private void OnDisable()
+    {
+        Turn.OnTurnChanged -= ControlGameState;
+    }
+
+    void ControlGameState(TurnState ts)
+    {
+        if (ts == TurnState.moveStart)
+        {
+            DiceCanvas.SetActive(true);
+        }
+        else
+        {
+            DiceCanvas.SetActive(false);
+        }
+    }
+
 
     void SwitchDice()
     {
