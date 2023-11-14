@@ -9,7 +9,6 @@ public class PlayerMovement : NetworkBehaviour
     byte playerId; // network playerId ya da charnw-id
     [SerializeField] List<Hex> avaliableHexes = new();
     [SerializeField] LayerMask hexesLayer;
-    [SerializeField] GameObject[] hexHighlights;
     enum State { begin, waitForMovement, moving, final }
     State state;
 
@@ -66,11 +65,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         state = State.begin;
         avaliableHexes.Clear();
-        DisableHexHighlights();
-        //sapherecast and get hexes
-        //remove onhex
-        //remove nonmoveable hexes
-        //avaliableHexes.Add(Hex);
+        HexHighlights.ins.DisableHexHighlights();
 
         int count = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, cols, hexesLayer);
         if (cols.Length > 0)
@@ -81,20 +76,11 @@ public class PlayerMovement : NetworkBehaviour
                 if (colhex.moveable)
                 {
                     avaliableHexes.Add(colhex);
-                    hexHighlights[i].transform.position = colhex.pos;
-                    hexHighlights[i].SetActive(true);
+                    HexHighlights.ins.MoveHexHighlight(i, colhex.pos);
                 }
             }
         }
         state = State.waitForMovement;
-    }
-
-    private void DisableHexHighlights()
-    {
-        foreach (var item in hexHighlights)
-        {
-            item.SetActive(false);
-        }
     }
 
     void Update()
@@ -110,7 +96,6 @@ public class PlayerMovement : NetworkBehaviour
                     {
                         state = State.moving;
                         MoveBegin(hex);
-                        DisableHexHighlights();
                     }
                 }
             }
@@ -119,6 +104,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void MoveBegin(Hex hex)
     {
+        HexHighlights.ins.DisableHexHighlights();
         state = State.moving;
         tr.DOLocalJump(hex.pos, 2, 1, 1, false).SetEase(Ease.InQuart)
         .OnComplete(() =>
