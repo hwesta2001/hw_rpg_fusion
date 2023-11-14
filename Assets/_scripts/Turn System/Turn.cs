@@ -30,5 +30,5 @@ public class Turn : MonoBehaviour
 
 public enum TurnState
 {
-    waiting, moveStart, moving, _event
+    waiting, moveStart, moving, events
 }

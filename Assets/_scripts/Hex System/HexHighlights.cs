@@ -13,11 +13,19 @@ public class HexHighlights : MonoBehaviour
     private void OnValidate()
     {
         if (!onValidateListPop) return;
+        if (hexHighlightObjects.Count > 0)
+        {
+            foreach (GameObject go in hexHighlightObjects)
+            {
+                DestroyImmediate(go);
+            }
+        }
         hexHighlightObjects.Clear();
         for (int i = 0; i < 7; i++)
         {
             hexHighlightObjects.Add(Instantiate(hexHighlightPrefab));
             hexHighlightObjects[i].name = "hexHiglight_0" + i;
+            hexHighlightObjects[i].transform.parent = transform;
         }
     }
     public static HexHighlights ins; // singleton:..............

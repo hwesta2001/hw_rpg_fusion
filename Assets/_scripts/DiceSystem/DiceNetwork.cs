@@ -23,7 +23,9 @@ public class DiceNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         DiceControl.OnRollDice -= RollRandom;
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+
+    // with RPC all clients rolling
+    //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     void RollDiceRPC()
     {
         DiceControl.ins.Roll_Dice(DICE_ROLL);

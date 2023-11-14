@@ -68,7 +68,7 @@ public class PlayerMovement : NetworkBehaviour
         HexHighlights.ins.DisableHexHighlights();
 
         int count = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, cols, hexesLayer);
-        if (cols.Length > 0)
+        if (count > 0)
         {
             for (int i = 0; i < count; i++)
             {
@@ -117,10 +117,6 @@ public class PlayerMovement : NetworkBehaviour
     void MoveTurnEnd()
     {
         print("Player" + playerId + " move turn ending.");
-    }
-
-    void CheckUnderHexMoveable()
-    {
-
+        Turn.ins.TURN_STATE = TurnState.events;
     }
 }
