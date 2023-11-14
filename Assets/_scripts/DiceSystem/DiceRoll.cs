@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
+using System;
 
 namespace Hw.Dice
 {
@@ -21,7 +22,7 @@ namespace Hw.Dice
         [Space]
         [SerializeField, Range(.05f, 1f)] float _lasttime = .5f;
         [HideInInspector] public bool rollingNow;
-
+        public Action OnDiceRollAnimEnd;
         void OnValidate()
         {
             if (gfxMeshTransform == null) gfxMeshTransform = GetComponentInChildren<MeshRenderer>().transform;
@@ -38,7 +39,7 @@ namespace Hw.Dice
             {
                 rollingNow = false;
                 DebugText.ins.AddText("Rolled:" + RolledDice);
-                Turn.ins.TURN_STATE = TurnState.moving;
+                OnDiceRollAnimEnd?.Invoke();
             }));
         }
 

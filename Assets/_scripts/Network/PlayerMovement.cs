@@ -2,6 +2,7 @@ using UnityEngine;
 using Fusion;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEditor;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -13,16 +14,15 @@ public class PlayerMovement : NetworkBehaviour
     State state;
 
     byte moveCount;
-    Collider[] cols = new Collider[7];
     Transform tr;
-    void OnEnable()
+    public override void Spawned()
     {
         if (!HasStateAuthority) return;
         tr = transform;
         Turn.OnTurnChanged += MoveTurnControl;
     }
 
-    void OnDisable()
+    public void Despawned()
     {
         if (!HasStateAuthority) return;
         Turn.OnTurnChanged -= MoveTurnControl;
@@ -31,8 +31,9 @@ public class PlayerMovement : NetworkBehaviour
 
     void MoveTurnControl(TurnState turnState)
     {
-        if (turnState == TurnState.moveStart)
+        if (turnState == TurnState.moving)
         {
+            Debug.Log(" turn state moving??");
             MoveCount = DiceControl.ins.RolledDice;
         }
     }
@@ -67,16 +68,22 @@ public class PlayerMovement : NetworkBehaviour
         avaliableHexes.Clear();
         HexHighlights.ins.DisableHexHighlights();
 
-        int count = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, cols, hexesLayer);
-        if (count > 0)
+        Collider[] cols = Physics.OverlapSphere(transform.position, 3.25f, hexesLayer);
+        Debug.Log(cols.Length + " moveable Hex count???");
+        if (cols.Length > 0)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < cols.Length; i++)
             {
                 Hex colhex = cols[i].GetComponentInChildren<Hex>();
                 if (colhex.moveable)
                 {
-                    avaliableHexes.Add(colhex);
-                    HexHighlights.ins.MoveHexHighlight(i, colhex.pos);
+                    if (!avaliableHexes.Contains(colhex))
+                    {
+                        avaliableHexes.Add(colhex);
+                        HexHighlights.ins.MoveHexHighlight(i, colhex.pos);
+                        Debug.Log(avaliableHexes.Count + " avaliabe Hex count???");
+                    }
+
                 }
             }
         }

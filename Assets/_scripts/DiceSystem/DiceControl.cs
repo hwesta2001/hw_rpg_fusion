@@ -42,6 +42,7 @@ public class DiceControl : MonoBehaviour
             OnRollDice?.Invoke();
         }
     }
+
     public void Roll_Dice(byte rolled)
     {
         if (diceRoll == null) SetDice();
@@ -83,6 +84,10 @@ public class DiceControl : MonoBehaviour
         }
     }
 
+    void OnDiceRollFinieshed()
+    {
+        Turn.ins.TURN_STATE = TurnState.moving;
+    }
 
     void SwitchDice()
     {
@@ -126,5 +131,6 @@ public class DiceControl : MonoBehaviour
             default:
                 break;
         }
+        diceRoll.OnDiceRollAnimEnd = OnDiceRollFinieshed;
     }
 }

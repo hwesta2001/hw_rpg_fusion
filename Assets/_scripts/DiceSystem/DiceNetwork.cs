@@ -24,12 +24,6 @@ public class DiceNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     }
 
 
-    // with RPC all clients rolling
-    //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    void RollDiceRPC()
-    {
-        DiceControl.ins.Roll_Dice(DICE_ROLL);
-    }
 
     void RollRandom()
     {
@@ -37,5 +31,11 @@ public class DiceNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         if (DiceControl.ins.RollingNow()) return;
         DICE_ROLL = (byte)UnityEngine.Random.Range(1, DiceControl.ins.DiceFaceCount + 1);
         RollDiceRPC();
+    }
+    // with RPC all clients rolling
+    //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    void RollDiceRPC()
+    {
+        DiceControl.ins.Roll_Dice(DICE_ROLL);
     }
 }

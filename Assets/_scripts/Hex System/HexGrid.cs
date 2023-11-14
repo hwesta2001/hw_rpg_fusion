@@ -102,7 +102,7 @@ public class HexGrid : MonoBehaviour
                     tempGo.transform.localPosition = new(x * tile_X_Offset + xOffset, 0, z * tile_Z_Offset);
                 }
                 Hex tempHex = tempGo.GetComponentInChildren<Hex>();
-                tempHex.SetHex(hex_id, true);
+                tempHex.SetHex(hex_id, initScale.x, true);
                 hex_id++;
                 HEXES.Add(tempHex);
             }

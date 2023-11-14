@@ -9,11 +9,11 @@ public class Hex : MonoBehaviour
     public Vector3 pos;
     public bool moveable;
 
-    public void SetHex(int hex_id, bool moveable)
+    public void SetHex(int hex_id, float scaleRate, bool moveable)
     {
         this.hex_id = hex_id;
         this.moveable = moveable;
         trans = transform;
-        pos = trans.position;
+        pos = trans.position * scaleRate;
     }
 }
