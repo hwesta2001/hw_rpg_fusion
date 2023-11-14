@@ -14,6 +14,7 @@ public class Turn : MonoBehaviour
         set
         {
             turnState = value;
+            DebugText.ins.AddText("TurnState is " + turnState.ToString());
             OnTurnChanged?.Invoke(turnState);
         }
     }

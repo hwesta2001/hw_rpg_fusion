@@ -12,7 +12,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] LayerMask hexesLayer;
     enum State { begin, waitForMovement, moving, final }
     State state;
-
+    [SerializeField]
     byte moveCount;
     Transform tr;
     public override void Spawned()
@@ -51,7 +51,7 @@ public class PlayerMovement : NetworkBehaviour
         set
         {
             moveCount = value;
-            if (moveCount >= 0)
+            if (moveCount > 0)
             {
                 MovableHexes();
             }
@@ -69,7 +69,6 @@ public class PlayerMovement : NetworkBehaviour
         HexHighlights.ins.DisableHexHighlights();
 
         Collider[] cols = Physics.OverlapSphere(transform.position, 3.25f, hexesLayer);
-        Debug.Log(cols.Length + " moveable Hex count???");
         if (cols.Length > 0)
         {
             for (int i = 0; i < cols.Length; i++)
@@ -81,7 +80,6 @@ public class PlayerMovement : NetworkBehaviour
                     {
                         avaliableHexes.Add(colhex);
                         HexHighlights.ins.MoveHexHighlight(i, colhex.pos);
-                        Debug.Log(avaliableHexes.Count + " avaliabe Hex count???");
                     }
 
                 }
@@ -123,7 +121,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void MoveTurnEnd()
     {
-        print("Player" + playerId + " move turn ending.");
+        Debug.Log("Player" + playerId + " move turn ending.");
         Turn.ins.TURN_STATE = TurnState.events;
     }
 }
