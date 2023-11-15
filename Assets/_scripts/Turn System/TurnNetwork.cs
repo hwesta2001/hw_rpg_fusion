@@ -74,6 +74,8 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
                     readyToggle.gameObject.SetActive(false);
                     readyToggle.isOn = false;
                     break;
+                default:
+                    break;
             }
         }
     }

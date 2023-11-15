@@ -51,7 +51,7 @@ public class HexHighlights : MonoBehaviour
         foreach (var item in hexHighlightObjects)
         {
             item.SetActive(false);
-            item.transform.position = Vector3.up * 100;
+            //item.transform.position = Vector3.up * 100;
         }
     }
 }

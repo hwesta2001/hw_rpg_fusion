@@ -115,26 +115,23 @@ public class PlayerMovement : NetworkBehaviour
     {
         HexHighlights.ins.DisableHexHighlights();
         if (MoveCount == 1) state = State.final;
-        MoveCount--;
-        tr.DOLocalJump(hex.pos, 3, 1, 1, false).SetEase(Ease.InQuart);
+        tr.DOLocalJump(hex.pos, 3, 1, 1, false).SetEase(Ease.InQuart).OnComplete(() =>
+        {
+            MoveCount--;
+        });
+        ;
     }
 
     void MoveTurnEnd()
     {
-        switch (state)
+        if (!HasStateAuthority) return;
+        if (state == State.final)
         {
-            case State.begin:
-                HexHighlights.ins.DisableHexHighlights();
-                break;
-            case State.waitForMovement:
-                HexHighlights.ins.DisableHexHighlights();
-                break;
-            case State.moving:
-                HexHighlights.ins.DisableHexHighlights();
-                break;
-            case State.final:
-                Turn.ins.TURN_STATE = TurnState.events;
-                break;
+            Turn.ins.TURN_STATE = TurnState.events;
+        }
+        else
+        {
+            HexHighlights.ins.DisableHexHighlights();
         }
     }
 
