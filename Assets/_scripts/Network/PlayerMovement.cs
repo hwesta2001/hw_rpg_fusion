@@ -37,7 +37,7 @@ public class PlayerMovement : NetworkBehaviour
         }
         else
         {
-            MoveCount = 0;
+            HexHighlights.ins.DisableHexHighlights();
         }
     }
 
@@ -95,7 +95,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (Input.GetMouseButtonDown(0) && HasStateAuthority)
         {
-            if (MouseDeltaisNotZero()) return;
+            //if (MouseDeltaisNotZero()) return;
             if (state != State.waitForMovement) return;
             if (RayCastEvent.ins.SelectionCast())
             {
@@ -128,10 +128,6 @@ public class PlayerMovement : NetworkBehaviour
         if (state == State.final)
         {
             Turn.ins.TURN_STATE = TurnState.events;
-        }
-        else
-        {
-            HexHighlights.ins.DisableHexHighlights();
         }
     }
 
