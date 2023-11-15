@@ -59,9 +59,21 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     {
         if (HasStateAuthority)
         {
-            if (ts == TurnState.events)
+            switch (ts)
             {
-                readyToggle.isOn = false;
+                case TurnState.waiting:
+                    readyToggle.gameObject.SetActive(true);
+                    break;
+                case TurnState.moveStart:
+                    readyToggle.gameObject.SetActive(false);
+                    break;
+                case TurnState.moving:
+                    readyToggle.gameObject.SetActive(false);
+                    break;
+                case TurnState.events:
+                    readyToggle.gameObject.SetActive(false);
+                    readyToggle.isOn = false;
+                    break;
             }
         }
     }

@@ -42,8 +42,8 @@ public class HexHighlights : MonoBehaviour
     {
         hexHighlightObjects[index].transform.position = pos;
         hexHighlightObjects[index].SetActive(true);
-        hexHighlightObjects[index].transform.DOComplete();
-        hexHighlightObjects[index].transform.DOScaleY(initSize.y * 1.3f, 2).SetLoops(-1, LoopType.Yoyo);
+        //hexHighlightObjects[index].transform.DOComplete();
+        hexHighlightObjects[index].transform.DOScale(initSize * 1.1f, 2).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void DisableHexHighlights()

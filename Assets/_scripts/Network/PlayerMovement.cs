@@ -2,7 +2,6 @@ using UnityEngine;
 using Fusion;
 using System.Collections.Generic;
 using DG.Tweening;
-using UnityEditor;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -35,6 +34,10 @@ public class PlayerMovement : NetworkBehaviour
         {
             Debug.Log(" turn state moving??");
             MoveCount = DiceControl.ins.RolledDice;
+        }
+        else
+        {
+            MoveCount = 0;
         }
     }
 
@@ -92,14 +95,15 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (Input.GetMouseButtonDown(0) && HasStateAuthority)
         {
+            if (MouseDeltaisNotZero()) return;
             if (state != State.waitForMovement) return;
             if (RayCastEvent.ins.SelectionCast())
             {
                 if (RayCastEvent.ins.HittedObject.TryGetComponent(out Hex hex))
                 {
+                    state = State.moving;
                     if (avaliableHexes.Contains(hex))
                     {
-                        state = State.moving;
                         MoveBegin(hex);
                     }
                 }
@@ -110,18 +114,40 @@ public class PlayerMovement : NetworkBehaviour
     void MoveBegin(Hex hex)
     {
         HexHighlights.ins.DisableHexHighlights();
-        state = State.moving;
-        tr.DOLocalJump(hex.pos, 2, 1, 1, false).SetEase(Ease.InQuart)
-        .OnComplete(() =>
-        {
-            state = State.final;
-            MoveCount--;
-        });
+        if (MoveCount == 1) state = State.final;
+        MoveCount--;
+        tr.DOLocalJump(hex.pos, 3, 1, 1, false).SetEase(Ease.InQuart);
     }
 
     void MoveTurnEnd()
     {
-        Debug.Log("Player" + playerId + " move turn ending.");
-        Turn.ins.TURN_STATE = TurnState.events;
+        switch (state)
+        {
+            case State.begin:
+                HexHighlights.ins.DisableHexHighlights();
+                break;
+            case State.waitForMovement:
+                HexHighlights.ins.DisableHexHighlights();
+                break;
+            case State.moving:
+                HexHighlights.ins.DisableHexHighlights();
+                break;
+            case State.final:
+                Turn.ins.TURN_STATE = TurnState.events;
+                break;
+        }
+    }
+
+    bool MouseDeltaisNotZero()
+    {
+        if (Mathf.Abs(Input.GetAxis("Mouse Y")) > Mathf.Epsilon
+            || Mathf.Abs(Input.GetAxis("Mouse X")) > Mathf.Epsilon)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
