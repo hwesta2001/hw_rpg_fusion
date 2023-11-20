@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestFoundEvent : Events
+public class ChestFoundEvent : IEvents
 {
-    [SerializeField]
-    public override EventType Event_Type { get; set; }
-    public override string EventName { get; set; }
-    public override string EventDescription { get; set; }
+    [field: SerializeField] public override EventType Event_Type { get; set; }
+    [field: SerializeField] public override string EventName { get; set; }
+    [field: SerializeField,TextArea(2,10)] public override string EventDescription { get; set; }
 
     public override void EnterEvent()
     {
