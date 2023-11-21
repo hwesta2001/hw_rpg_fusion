@@ -69,6 +69,7 @@ public class CharManager : MonoBehaviour
             PLAYER_CHAR = charGetandSet.GetChar();
             PLAYER_CHAR.portraitId = (byte)PortIndex;
             charGetandSet.enabled = false;
+            //Destroy(charGetandSet, .5f);
         }
     }
 

@@ -37,7 +37,7 @@ public class DiceControl : MonoBehaviour
     public static Action OnRollDice { get; set; }
     public void RollButton()
     {
-        if (Turn.ins.TURN_STATE == TurnState.moveStart)
+        if (Turn.ins.TURN_STATE == TurnState.moveStart || Turn.ins.TURN_STATE == TurnState.events)
         {
             OnRollDice?.Invoke();
         }
@@ -69,24 +69,41 @@ public class DiceControl : MonoBehaviour
 
     void ControlGameState(TurnState ts)
     {
-        if (ts == TurnState.moveStart)
+        switch (ts)
         {
-            SetDice();
-            DiceCanvas.SetActive(true);
-        }
-        else if (ts == TurnState.moving)
-        {
-            return;
-        }
-        else
-        {
-            DiceCanvas.SetActive(false);
+            case TurnState.waiting:
+                DiceCanvas.SetActive(false);
+                break;
+            case TurnState.moveStart:
+                SetDice();
+                DiceCanvas.SetActive(true);
+                break;
+            case TurnState.moving:
+                //Do nothing
+                break;
+            case TurnState.events:
+                SetDice();
+                DiceCanvas.SetActive(true);
+                break;
+            case TurnState.invokeEvent:
+                //Do nothing
+                break;
+            default:
+                DiceCanvas.SetActive(false);
+                break;
         }
     }
 
     void OnDiceRollFinieshed()
     {
-        Turn.ins.TURN_STATE = TurnState.moving;
+        if (Turn.ins.TURN_STATE == TurnState.events)
+        {
+            Turn.ins.TURN_STATE = TurnState.invokeEvent;
+        }
+        else if (Turn.ins.TURN_STATE == TurnState.moveStart)
+        {
+            Turn.ins.TURN_STATE = TurnState.moving;
+        }
     }
 
     void SwitchDice()

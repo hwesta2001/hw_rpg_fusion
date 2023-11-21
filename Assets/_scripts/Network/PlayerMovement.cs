@@ -115,7 +115,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         HexHighlights.ins.DisableHexHighlights();
         if (MoveCount == 1) state = State.final;
-        tr.DOLocalJump(hex.pos, 3, 1, 1, false).SetEase(Ease.InQuart).OnComplete(() =>
+        tr.DOLocalJump(hex.pos, 3, 1, duration: Random.Range(.5f, 1f), false).SetEase(Ease.InQuart).OnComplete(() =>
         {
             MoveCount--;
         });

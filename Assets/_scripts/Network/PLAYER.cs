@@ -63,7 +63,9 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CHAR_NW.MaxHealth = 100;
             CHAR_NW.CurrentHealth = UnityEngine.Random.Range(80, 101);
 
-            CameraControl.ins.SetTarget(cameraFollow);
+            //CameraControl.ins.SetTarget(cameraFollow);
+            CameraControlOrbit.ins.SetTarget(cameraFollow);
+
             //CharIconControl.ins.CharIconSet(CHAR_NW);
             CharNwCompleted = !CharNwCompleted;
             CharManager.ins.AddList(player, CHAR_NW);

@@ -25,8 +25,9 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         if (target == null) return;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) /*|| Input.GetTouch(0).phase == TouchPhase.Began*/)
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             vert = target.localEulerAngles;
         }
         if (Input.GetMouseButton(0))
