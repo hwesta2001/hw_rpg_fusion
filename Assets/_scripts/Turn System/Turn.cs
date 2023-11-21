@@ -19,7 +19,7 @@ public class Turn : MonoBehaviour
         }
     }
 
-    [field: SerializeField] public int TURN_COUNT { get; set; }
+    //[field: SerializeField] public int TURN_COUNT { get; set; }
 
 
     public static Turn ins;

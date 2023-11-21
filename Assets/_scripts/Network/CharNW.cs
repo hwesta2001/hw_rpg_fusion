@@ -22,7 +22,8 @@ public struct CharNW : INetworkStruct
     public byte charisma;
     public byte luck;
     [Space]
-
+    public NetworkBool isTurnReady;
+    [Space]
     //Health Sistem ayarlanacak
     public int MaxHealth;
     public int CurrentHealth;

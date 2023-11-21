@@ -476,6 +476,8 @@ MonoBehaviour:
     intelligence: 0
     charisma: 0
     luck: 0
+    isTurnReady:
+      _value: 0
     MaxHealth: 0
     CurrentHealth: 0
   _MatIndex: 0
@@ -526,7 +528,8 @@ MonoBehaviour:
   _interpolationDataSource: 0
   readyToggle: {fileID: 8716920346862469862}
   turnCanvas: {fileID: 906554498002026153}
-  _Turn_Count: 0
+  _Turn_Count:
+    _value: 0
 --- !u!1 &7515699161179147205
 GameObject:
   m_ObjectHideFlags: 0

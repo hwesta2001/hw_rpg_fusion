@@ -4,33 +4,60 @@ using Fusion;
 
 public class CharManager : MonoBehaviour
 {
-    #region CharIcon
-    public CharNW?[] CharNWList = new CharNW?[6];
+    [SerializeField] CharNW PLAYER_CHARNW;
+    public void SetChar(ref CharNW charNW) { PLAYER_CHARNW = charNW; }
+
+    public List<CharNW> CHARNW_LIST = new(6);
+
     public void AddList(PlayerRef _player, CharNW charNW)
     {
-        CharNWList[_player.PlayerId] = charNW;
+        if (CHARNW_LIST.Contains(charNW)) return;
+        CHARNW_LIST.Add(charNW);
         SetCharIcons();
     }
 
     public void RemoveList(PlayerRef _player, CharNW charNW)
     {
-        CharNWList[_player.PlayerId] = null;
+        if (CHARNW_LIST.Contains(charNW))
+        {
+            CHARNW_LIST.Remove(charNW);
+        }
         SetCharIcons();
+    }
+
+    public void SetTurnEndReady(bool ready)
+    {
+        if (CHARNW_LIST.Contains(PLAYER_CHARNW))
+        {
+
+            PLAYER_CHARNW.isTurnReady = ready;
+        }
+    }
+
+    public bool IsAllCharsReadyToTurn()
+    {
+        bool ready = true;
+        foreach (var item in CHARNW_LIST)
+        {
+            if (!item.isTurnReady)
+            {
+                ready = false;
+                break;
+            }
+        }
+
+        return ready;
     }
 
     void SetCharIcons()
     {
         CharIconControl.ins.DisableAll();
-        foreach (var item in CharNWList)
+        foreach (CharNW item in CHARNW_LIST)
         {
-            if (item != null)
-            {
-                CharIconControl.ins.CharIconSet((CharNW)item);
-            }
+            CharIconControl.ins.CharIconSet(item);
         }
     }
 
-    #endregion
 
     public CharBeforeNetwork PLAYER_CHAR { get; private set; }
 

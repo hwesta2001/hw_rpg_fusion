@@ -1,7 +1,5 @@
 using UnityEngine;
 using Fusion;
-using TMPro.EditorUtilities;
-using UnityEngine.Rendering;
 
 // playerLeft ile -save player, char, quest, position vb, yapabiliriz.
 public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
@@ -66,9 +64,12 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             //CameraControl.ins.SetTarget(cameraFollow);
             CameraControlOrbit.ins.SetTarget(cameraFollow);
 
-            //CharIconControl.ins.CharIconSet(CHAR_NW);
             CharNwCompleted = !CharNwCompleted;
             CharManager.ins.AddList(player, CHAR_NW);
+            if (HasInputAuthority)
+            {
+                CharManager.ins.SetChar(ref CHAR_NW);
+            }
         }
     }
 

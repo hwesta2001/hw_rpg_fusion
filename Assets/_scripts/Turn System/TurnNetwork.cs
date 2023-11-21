@@ -9,38 +9,49 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
     [SerializeField] Toggle readyToggle;
     [SerializeField] GameObject turnCanvas;
-
-    [field: SerializeField][Networked(OnChanged = nameof(OnTurn_Count_Changed))] public int Turn_Count { get; set; }
+    [field: SerializeField][Networked(OnChanged = nameof(OnTurn_Count_Changed))] public NetworkBool Turn_Count { get; set; }
     protected static void OnTurn_Count_Changed(Changed<TurnNetwork> changed)
     {
-        Turn.ins.TURN_COUNT += changed.Behaviour.Turn_Count;
-        if (Turn.ins.TURN_COUNT < 0) Turn.ins.TURN_COUNT = 0;
-
-        if (Turn.ins.TURN_COUNT >= changed.Behaviour.Runner.ActivePlayers.Count())
+        if (Turn.ins.TURN_STATE == TurnState.waiting)
         {
-            //DebugText.ins.AddText("All Ready To Turn End..Turn state :  " + TurnState.moveStart);
-            if (Turn.ins.TURN_STATE == TurnState.events)
-            {
-                Debug.Log("Event state is passed");
-            }
-            Turn.ins.TURN_STATE = TurnState.moveStart;
+            CharManager.ins.SetTurnEndReady(changed.Behaviour.Turn_Count);
         }
         else
         {
-            if (Turn.ins.TURN_STATE == TurnState.events)
-            {
-                Debug.Log("Event state is on");
-                return;
-            }
-            Turn.ins.TURN_STATE = TurnState.waiting;
+            CharManager.ins.SetTurnEndReady(true);
         }
+        if (!changed.Behaviour.HasStateAuthority) return;
+        if (CharManager.ins.IsAllCharsReadyToTurn())
+        {
+            Turn.ins.TURN_STATE = TurnState.moveStart;
+        }
+
+        //Old way
+        //if (Turn.ins.TURN_COUNT >= changed.Behaviour.Runner.ActivePlayers.Count())
+        //{
+        //    if (Turn.ins.TURN_STATE == TurnState.events)
+        //    {
+        //        Debug.Log("Event state is passed");
+        //    }
+        //    Turn.ins.TURN_STATE = TurnState.moveStart;
+        //}
+        //else
+        //{
+        //    if (Turn.ins.TURN_STATE == TurnState.events)
+        //    {
+        //        Debug.Log("Event state is on");
+        //        return;
+        //    }
+        //    Turn.ins.TURN_STATE = TurnState.waiting;
+        //}
+
     }
 
     public void PlayerJoined(PlayerRef player)
     {
         if (!HasStateAuthority) return;
         turnCanvas.SetActive(true);
-        Turn.ins.TURN_COUNT = 0;
+        //Turn.ins.TURN_COUNT = 0;
         Turn.OnTurnChanged += TurnChaned;
         readyToggle.isOn = false;
         TurnEnd();
@@ -49,7 +60,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     public void PlayerLeft(PlayerRef player)
     {
         if (!HasStateAuthority) return;
-        Turn.ins.TURN_COUNT = 0;
+        //Turn.ins.TURN_COUNT = 0;
         Turn.OnTurnChanged -= TurnChaned;
         readyToggle.isOn = false;
         TurnEnd();
@@ -62,6 +73,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             switch (ts)
             {
                 case TurnState.waiting:
+                    readyToggle.isOn = false;
                     readyToggle.gameObject.SetActive(true);
                     break;
                 case TurnState.moveStart:
@@ -72,7 +84,9 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
                     break;
                 case TurnState.events:
                     readyToggle.gameObject.SetActive(false);
-                    readyToggle.isOn = false;
+                    break;
+                case TurnState.invokeEvent:
+                    readyToggle.gameObject.SetActive(false);
                     break;
                 default:
                     break;
@@ -83,13 +97,6 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     public void TurnEnd() // readyToggle da onValueChange de ekli
     {
         if (!HasStateAuthority) return;
-        if (readyToggle.isOn)
-        {
-            Turn_Count = 1;
-        }
-        else
-        {
-            Turn_Count = -1;
-        }
+        Turn_Count = readyToggle.isOn;
     }
 }
