@@ -1,8 +1,5 @@
 using Fusion;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [System.Serializable]
 public struct CharNW : INetworkStruct

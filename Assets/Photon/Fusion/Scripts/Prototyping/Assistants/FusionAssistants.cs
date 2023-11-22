@@ -2,10 +2,10 @@
 
 using UnityEngine;
 using System;
-using UnityEditor;
 
-namespace Fusion.Assistants {
-  public static class FusionAssistants {
+namespace Fusion.Assistants
+{
+    public static class FusionAssistants {
     public const int PRIORITY = 0;
     public const int PRIORITY_LOW = 1000;
 

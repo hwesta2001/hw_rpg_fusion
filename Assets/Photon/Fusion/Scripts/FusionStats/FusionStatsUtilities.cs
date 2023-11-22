@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UI = UnityEngine.UI;
 
-namespace Fusion.StatsInternal {
-  public interface IFusionStatsView {
+namespace Fusion.StatsInternal
+{
+    public interface IFusionStatsView {
     void Initialize();
     void CalculateLayout();
     void Refresh();

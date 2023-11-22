@@ -17,6 +17,7 @@ public class CharGetAndSet : MonoBehaviour
         gettedChar = new();
         DiceRandomStats();
         SetPortraitId(2);
+        name_inputField.text = GetRandomName();
     }
 
     [ContextMenu("SetChar")]
@@ -89,5 +90,11 @@ public class CharGetAndSet : MonoBehaviour
                         "Charisma: " + gettedChar.charisma.ToString() + "\n" +
                         "Luck: " + gettedChar.luck.ToString() + "\n" +
                         "<b>TOTAL: " + tot.ToString() + "</b>";
+    }
+
+    string GetRandomName()
+    {
+        string[] genres = new string[] { "Thaddeus Lujan", "Kristofer", "Jamal Mireles", "Aliah Frey", "Payne Prince", "Axel", "Ayleen", "Miguelangel Summers", "Christianna High", "Miya Pelletier", "Finn", "Kerry Shumate", "Marcus", "Travon", "Mason", "Tyrique", "Baylor Thurman", "Taya Healey", "Fidel Bingham", "Hans", "Yessica", "Simran Kolb", "Sariah Millard", "Rowan Barlow", "Kadin", "Jazmyn", "Mia", "Sam Kaplan", "Arman", "Edgardo Cope", "Enrique Rawlings", "Bobbie", "Adrian Manning", "Norman", "Quinlan Coles", "Brylee Salisbury", "Avery Peek", "Eboni", "Annmarie", "Lars Richmond", "Carlton Luciano", "Jan Merritt", "Brycen", "Brendon Andrade", "Mason Koenig", "Myia Aguayo", "Jaylynn", "Coleton", "Sarah Mahoney", "Daysha" };
+        return genres[Random.Range(0, genres.Length)];
     }
 }

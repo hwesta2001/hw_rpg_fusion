@@ -1,7 +1,6 @@
-using UnityEngine.SceneManagement;
-
-namespace Fusion {
-  public static class NetworkRunnerExtensions {
+namespace Fusion
+{
+    public static class NetworkRunnerExtensions {
     public static bool SetActiveScene(this NetworkRunner runner, string sceneNameOrPath) {
       if (runner.SceneManager is NetworkSceneManagerBase networkSceneManager) {
         if (networkSceneManager.TryGetSceneRef(sceneNameOrPath, out var sceneRef)) {

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using System;
-using static UnityEditor.Progress;
 
 public class CharManager : MonoBehaviour
 {
@@ -35,11 +33,11 @@ public class CharManager : MonoBehaviour
         SetCharIcons();
     }
 
-    public void SetTurnEndReady(bool ready)
+    public void SetTurnEndReady(int playerid, bool ready)
     {
         for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-            if (CHARNW_LIST[i]._playerid == PLAYER_CHARNW._playerid)
+            if (CHARNW_LIST[i]._playerid == playerid)
             {
                 CHARNW_LIST[i]._charNW.isTurnReady = ready;
                 break;

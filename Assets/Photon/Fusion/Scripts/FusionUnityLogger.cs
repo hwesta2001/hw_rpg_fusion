@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace Fusion {
-  [Serializable]
+namespace Fusion
+{
+    [Serializable]
   public partial class FusionUnityLogger : Fusion.ILogger {
 
     /// <summary>

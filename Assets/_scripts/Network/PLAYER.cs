@@ -21,6 +21,9 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     {
         changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
         //CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
+        CharManager.ins.AddList(changed.Behaviour.CHAR_NW.playerID, changed.Behaviour.CHAR_NW);
+        if (!changed.Behaviour.HasInputAuthority) return;
+        CharManager.ins.SetChar(ref changed.Behaviour.CHAR_NW);
     }
 
     [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
@@ -65,11 +68,7 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             CameraControlOrbit.ins.SetTarget(cameraFollow);
 
             CharNwCompleted = !CharNwCompleted;
-            CharManager.ins.AddList(player, CHAR_NW);
-            if (HasInputAuthority)
-            {
-                CharManager.ins.SetChar(ref CHAR_NW);
-            }
+
         }
     }
 
