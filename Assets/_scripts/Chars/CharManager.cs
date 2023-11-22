@@ -1,64 +1,85 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using System;
+using static UnityEditor.Progress;
 
 public class CharManager : MonoBehaviour
 {
-    [SerializeField] CharNW PLAYER_CHARNW;
-    public void SetChar(ref CharNW charNW) { PLAYER_CHARNW = charNW; }
+    public CharList PLAYER_CHARNW;
+    public void SetChar(ref CharNW charNW)
+    {
+        PLAYER_CHARNW._charNW = charNW;
+        PLAYER_CHARNW._playerid = charNW.playerID;
+    }
 
-    public List<CharNW> CHARNW_LIST = new(6);
+
+    public List<CharList> CHARNW_LIST;
 
     public void AddList(PlayerRef _player, CharNW charNW)
     {
-        if (CHARNW_LIST.Contains(charNW)) return;
-        CHARNW_LIST.Add(charNW);
+        CHARNW_LIST.Add(new CharList(_player, charNW));
         SetCharIcons();
     }
 
     public void RemoveList(PlayerRef _player, CharNW charNW)
     {
-        if (CHARNW_LIST.Contains(charNW))
+        for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-            CHARNW_LIST.Remove(charNW);
+            if (CHARNW_LIST[i]._playerid == _player)
+            {
+                CHARNW_LIST.RemoveAt(i);
+                break;
+            }
         }
         SetCharIcons();
     }
 
     public void SetTurnEndReady(bool ready)
     {
-        if (CHARNW_LIST.Contains(PLAYER_CHARNW))
+        for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-
-            PLAYER_CHARNW.isTurnReady = ready;
+            if (CHARNW_LIST[i]._playerid == PLAYER_CHARNW._playerid)
+            {
+                CHARNW_LIST[i]._charNW.isTurnReady = ready;
+                break;
+            }
         }
     }
 
     public bool IsAllCharsReadyToTurn()
     {
-        bool ready = true;
-        foreach (var item in CHARNW_LIST)
+        bool allTrue = true;
+        for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-            if (!item.isTurnReady)
+            if (CHARNW_LIST[i]._charNW.isTurnReady == false)
             {
-                ready = false;
+                allTrue = false;
                 break;
             }
         }
-
-        return ready;
+        return allTrue;
     }
 
     void SetCharIcons()
     {
         CharIconControl.ins.DisableAll();
-        foreach (CharNW item in CHARNW_LIST)
+
+        for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-            CharIconControl.ins.CharIconSet(item);
+            CharIconControl.ins.CharIconSet(CHARNW_LIST[i]._charNW);
         }
+
+
+        //foreach (CharNW item in CHARNW_LIST)
+        //{
+        //    CharIconControl.ins.CharIconSet(item);
+        //}
     }
 
 
+
+    #region PortraitSetters-Done-
     public CharBeforeNetwork PLAYER_CHAR { get; private set; }
 
     int _port;
@@ -128,4 +149,20 @@ public class CharManager : MonoBehaviour
     //{
     //    return Sprite.Create(GetText, new Rect(0, 0, GetText.width, GetText.height), new Vector2(0.5f, 0.5f));
     //}
+    #endregion
+}
+
+
+
+[System.Serializable]
+public class CharList
+{
+    public int _playerid;
+    public CharNW _charNW;
+
+    public CharList(int playerid, CharNW charNW)
+    {
+        _playerid = playerid;
+        _charNW = charNW;
+    }
 }

@@ -15,15 +15,21 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         if (Turn.ins.TURN_STATE == TurnState.waiting)
         {
             CharManager.ins.SetTurnEndReady(changed.Behaviour.Turn_Count);
+            print("111");
         }
         else
         {
             CharManager.ins.SetTurnEndReady(true);
+            print("2222");
+
         }
+        print("3333");
+
         if (!changed.Behaviour.HasStateAuthority) return;
         if (CharManager.ins.IsAllCharsReadyToTurn())
         {
             Turn.ins.TURN_STATE = TurnState.moveStart;
+            print("4444");
         }
 
         //Old way

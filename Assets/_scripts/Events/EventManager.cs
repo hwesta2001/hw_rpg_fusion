@@ -14,9 +14,10 @@ public class EventManager : MonoBehaviour
     {
         if (Turn.ins.TURN_STATE == TurnState.invokeEvent)
         {
-            Invoke(nameof(DebugReturnWaitState), 4f);  // for debug
+            AlertText.ins.AddText("Rolled " + DiceControl.ins.RolledDice + " for event determine", Color.magenta);
+            AlertText.ins.AddText("Event Invoked", Color.cyan);
+            Invoke(nameof(DebugReturnWaitState), 3f);  // for debug
             // Invoke Event:::
-            DebugText.ins.AddText(" a Event Invoked");
         }
     }
 

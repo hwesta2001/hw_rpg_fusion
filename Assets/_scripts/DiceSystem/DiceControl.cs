@@ -2,6 +2,7 @@ using Hw.Dice;
 using UnityEngine;
 using Fusion;
 using System;
+using DG.Tweening;
 
 public class DiceControl : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public class DiceControl : MonoBehaviour
 
     public byte RolledDice { get; set; }
     public byte DiceFaceCount;
-
+    [SerializeField] Light diceLight;
     [SerializeField] GameObject[] allDices = new GameObject[6];
     DiceRoll diceRoll;
     [SerializeField] GameObject DiceCanvas;
+    [SerializeField] Transform diceButton;
     [SerializeField] Dice currentDice;
+    bool canRoll;
     public Dice CurrentDice
     {
         get
@@ -37,6 +40,7 @@ public class DiceControl : MonoBehaviour
     public static Action OnRollDice { get; set; }
     public void RollButton()
     {
+        if (!canRoll) return;
         if (Turn.ins.TURN_STATE == TurnState.moveStart || Turn.ins.TURN_STATE == TurnState.events)
         {
             OnRollDice?.Invoke();
@@ -72,26 +76,51 @@ public class DiceControl : MonoBehaviour
         switch (ts)
         {
             case TurnState.waiting:
-                DiceCanvas.SetActive(false);
+                //DiceCanvas.SetActive(false);
+                SetActiveState(false);
                 break;
             case TurnState.moveStart:
-                SetDice();
-                DiceCanvas.SetActive(true);
+                CurrentDice = Dice.D6;
+                ChangeDiceLightColor(Color.white);
+                //DiceCanvas.SetActive(true);
+                SetActiveState(true);
                 break;
             case TurnState.moving:
-                //Do nothing
+                ChangeDiceLightColor(Color.green);
                 break;
             case TurnState.events:
-                SetDice();
-                DiceCanvas.SetActive(true);
+                CurrentDice = Dice.D20;
+                ChangeDiceLightColor(Color.white);
+                //DiceCanvas.SetActive(true);
+                SetActiveState(true);
                 break;
             case TurnState.invokeEvent:
-                //Do nothing
+                ChangeDiceLightColor(Color.yellow);
                 break;
             default:
-                DiceCanvas.SetActive(false);
+                ChangeDiceLightColor(Color.white);
+                //DiceCanvas.SetActive(false);
+                SetActiveState(false);
                 break;
         }
+    }
+    [SerializeField] Vector3 smallButtonSize = new(0.1f, 0.1f, 0.1f);
+    void SetActiveState(bool active)
+    {
+        canRoll = !active;
+        if (active)
+        {
+            DiceCanvas.SetActive(active);
+            diceButton.localScale = smallButtonSize;
+            diceButton.DOScale(Vector3.one, .5f).SetEase(Ease.OutBounce).OnComplete(() => canRoll = active);
+        }
+        else
+        {
+            canRoll = active;
+            diceButton.localScale = Vector3.one;
+            diceButton.DOScale(smallButtonSize, 1.6f).SetEase(Ease.OutBounce).OnComplete(() => DiceCanvas.SetActive(active));
+        }
+
     }
 
     void OnDiceRollFinieshed()
@@ -149,5 +178,10 @@ public class DiceControl : MonoBehaviour
                 break;
         }
         diceRoll.OnDiceRollAnimEnd = OnDiceRollFinieshed;
+    }
+
+    public void ChangeDiceLightColor(Color _color)
+    {
+        diceLight.color = _color;
     }
 }

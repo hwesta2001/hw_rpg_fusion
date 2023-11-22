@@ -54,6 +54,7 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
     {
         yield return new WaitUntil(() => _runner.IsConnectedToServer);
         Debug.LogWarning(_runner.SessionInfo.Name);
+        AlertText.ins.AddText(_runner.SessionInfo.Name + " season started", Color.magenta);
     }
 
 

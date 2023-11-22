@@ -3,8 +3,8 @@ using UnityEngine;
 using TMPro;
 public class DebugText : MonoBehaviour
 {
+    [SerializeField] Color m_Color = Color.yellow;
     [SerializeField] TextMeshProUGUI debugTextMP;
-    [SerializeField] string testString = "TestString";
     [SerializeField] int maxLineCount = 20;
     List<string> textList = new();
     [SerializeField] float tickTime = 1f;
@@ -24,15 +24,11 @@ public class DebugText : MonoBehaviour
             debugTextMP = GetComponentInChildren<TextMeshProUGUI>();
         ResetAll();
         tick = tickTime;
+        debugTextMP.color = m_Color;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            AddText(testString + " - " + textList.Count);
-        }
-
         Ticking();
     }
 
@@ -76,7 +72,7 @@ public class DebugText : MonoBehaviour
         canTick = true;
         textList.Insert(0, _text);
         WriteAll();
-        Debug.Log("<color=yellow>" + _text + "</color>");
+        //Debug.Log("<color=yellow>" + _text + "</color>");
     }
 
 
