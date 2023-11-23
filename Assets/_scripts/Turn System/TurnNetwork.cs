@@ -7,45 +7,27 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     [SerializeField] int playerID;
     [SerializeField] Toggle readyToggle;
     [SerializeField] GameObject turnCanvas;
-    [field: SerializeField][Networked(OnChanged = nameof(OnTurn_Count_Changed))] public NetworkBool Turn_Count { get; set; }
-    protected static void OnTurn_Count_Changed(Changed<TurnNetwork> changed)
-    {
-        if (Turn.ins.TURN_STATE == TurnState.waiting)
-        {
-            CharManager.ins.SetTurnEndReady(changed.Behaviour.playerID, changed.Behaviour.Turn_Count);
-            print("111");
-            if (CharManager.ins.IsAllCharsReadyToTurn())
-            {
-                Turn.ins.TURN_STATE = TurnState.moveStart;
-                print("4444");
-            }
-        }
-        else
-        {
-            CharManager.ins.SetTurnEndReady(changed.Behaviour.playerID, true);
-            print("2222");
-        }
-
-    }
-
+    NetworkObject networkObject;
     public void PlayerJoined(PlayerRef player)
     {
-        if (!HasStateAuthority) return;
-        turnCanvas.SetActive(true);
-        playerID = player.PlayerId;
-        //Turn.ins.TURN_COUNT = 0;
-        Turn.OnTurnChanged += TurnChaned;
-        readyToggle.isOn = false;
-        TurnEnd();
+        if (HasStateAuthority)
+        {
+            networkObject = GetBehaviour<NetworkObject>();
+            turnCanvas.SetActive(true);
+            playerID = player.PlayerId;
+            Turn.OnTurnChanged += TurnChaned;
+            readyToggle.isOn = false;
+            Rpc_TurnControl();
+        }
     }
 
     public void PlayerLeft(PlayerRef player)
     {
-        if (!HasStateAuthority) return;
-        //Turn.ins.TURN_COUNT = 0;
-        Turn.OnTurnChanged -= TurnChaned;
-        readyToggle.isOn = false;
-        TurnEnd();
+        if (HasStateAuthority)
+        {
+            Turn.OnTurnChanged -= TurnChaned;
+            readyToggle.isOn = false;
+        }
     }
 
     void TurnChaned(TurnState ts)
@@ -59,8 +41,6 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
                     readyToggle.gameObject.SetActive(true);
                     break;
                 case TurnState.moveStart:
-                    readyToggle.isOn = false;
-                    TurnEnd();
                     readyToggle.gameObject.SetActive(false);
                     break;
                 case TurnState.moving:
@@ -81,6 +61,29 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     public void TurnEnd() // readyToggle da onValueChange de ekli
     {
         if (!HasStateAuthority) return;
-        Turn_Count = readyToggle.isOn;
+        Rpc_TurnControl();
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    public void Rpc_TurnControl()
+    {
+        AlertText.ins.AddText(" Rpc_TurnControl _ " + playerID);
+        if (Turn.ins.TURN_STATE == TurnState.waiting)
+        {
+            CharManager.ins.SetTurnEndReady(playerID, readyToggle.isOn);
+            if (HasStateAuthority)
+            {
+                if (CharManager.ins.IsAllCharsReadyToTurn())
+                {
+                    Debug.LogWarning("RCP Called");
+                    Turn.ins.TURN_STATE = TurnState.moveStart;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            CharManager.ins.SetTurnEndReady(playerID, true);
+        }
     }
 }

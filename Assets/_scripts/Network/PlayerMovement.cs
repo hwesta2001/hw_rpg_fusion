@@ -32,7 +32,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (turnState == TurnState.moving)
         {
-            Debug.Log(" turn state moving??");
             MoveCount = DiceControl.ins.RolledDice;
         }
         else

@@ -74,8 +74,8 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {
-        CharManager.ins.RemoveList(player, CHAR_NW);
         Debug.LogWarning(player.ToString() + " ... player left the game!");
+        CharManager.ins.RemoveList(player);
         if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             if (!networkObject.HasStateAuthority) return;

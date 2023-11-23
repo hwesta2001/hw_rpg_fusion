@@ -20,7 +20,7 @@ public class CharManager : MonoBehaviour
         SetCharIcons();
     }
 
-    public void RemoveList(PlayerRef _player, CharNW charNW)
+    public void RemoveList(PlayerRef _player)
     {
         for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
@@ -48,6 +48,7 @@ public class CharManager : MonoBehaviour
     public bool IsAllCharsReadyToTurn()
     {
         bool allTrue = true;
+        if (CHARNW_LIST.Count <= 0) allTrue = false;
         for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
             if (CHARNW_LIST[i]._charNW.isTurnReady == false)
