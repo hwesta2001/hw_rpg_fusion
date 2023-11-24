@@ -70,6 +70,7 @@ public class AlertText : MonoBehaviour
 
     public void AddText(string _text, Color? _color = null)
     {
+        _text.ToLog();
         Color editColor = _color ?? m_Color;
         canTick = true;
         //string edited = "<color=#" + ColorUtility.ToHtmlStringRGB(editColor) + ">" + _text + "</color>";

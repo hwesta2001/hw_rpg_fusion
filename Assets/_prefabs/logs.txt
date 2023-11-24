@@ -1,0 +1,8 @@
+[5,17399] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[11,855] - test_room_00 season started
+[11,92165] - Norman Spawned True
+[11,92332] - Init Network
+[11,92873] -  Rpc_TurnControl _ 0
+[11,92886] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[11,96562] - Game State is Connected
+[34,94745] - ---------------------App Ended---------------------

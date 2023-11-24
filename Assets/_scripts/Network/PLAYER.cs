@@ -74,18 +74,16 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {
-        Debug.LogWarning(player.ToString() + " ... player left the game!");
+        string V = "Player_" + player.ToString() + " - '" + player.PlayerId.GetChar().name + "' left the game!";
+        V.ToLog();
+        Debug.LogWarning(V);
         CharManager.ins.RemoveList(player);
         if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
-
-
-            Debug.Log(" Despawning " + networkObject.Name);
             Runner.Despawn(networkObject);
             pNetworkStart._spawnedCharacters.Remove(player);
-            //CharIconControl.ins.CharIconRemove(CHAR_NW);
         }
     }
 

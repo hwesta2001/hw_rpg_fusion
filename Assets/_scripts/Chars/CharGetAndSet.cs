@@ -16,7 +16,7 @@ public class CharGetAndSet : MonoBehaviour
     {
         gettedChar = new();
         DiceRandomStats();
-        SetPortraitId(2);
+        SetPortraitId(0);
         name_inputField.text = GetRandomName();
     }
 

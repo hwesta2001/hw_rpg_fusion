@@ -69,6 +69,7 @@ public class DebugText : MonoBehaviour
 
     public void AddText(string _text)
     {
+        _text.ToLog();
         canTick = true;
         textList.Insert(0, _text);
         WriteAll();

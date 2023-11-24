@@ -7,17 +7,19 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     [SerializeField] int playerID;
     [SerializeField] Toggle readyToggle;
     [SerializeField] GameObject turnCanvas;
-    NetworkObject networkObject;
+
     public void PlayerJoined(PlayerRef player)
     {
         if (HasStateAuthority)
         {
-            networkObject = GetBehaviour<NetworkObject>();
+            //networkObject = GetBehaviour<NetworkObject>();
             turnCanvas.SetActive(true);
             playerID = player.PlayerId;
             Turn.OnTurnChanged += TurnChaned;
             readyToggle.isOn = false;
-            Rpc_TurnControl();
+            TurnEnd();
+            readyToggle.gameObject.SetActive(false);
+            Invoke(nameof(ReadyToggleButtonOpen), 2.5f);
         }
     }
 
@@ -38,7 +40,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             {
                 case TurnState.waiting:
                     readyToggle.isOn = false;
-                    readyToggle.gameObject.SetActive(true);
+                    Invoke(nameof(ReadyToggleButtonOpen), .5f);
                     break;
                 case TurnState.moveStart:
                     readyToggle.gameObject.SetActive(false);
@@ -58,6 +60,11 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         }
     }
 
+    void ReadyToggleButtonOpen()
+    {
+        readyToggle.gameObject.SetActive(true);
+    }
+
     public void TurnEnd() // readyToggle da onValueChange de ekli
     {
         if (!HasStateAuthority) return;
@@ -67,15 +74,17 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void Rpc_TurnControl()
     {
-        AlertText.ins.AddText(" Rpc_TurnControl _ " + playerID);
+        DebugText.ins.AddText(" Rpc_TurnControl _ " + playerID);
         if (Turn.ins.TURN_STATE == TurnState.waiting)
         {
             CharManager.ins.SetTurnEndReady(playerID, readyToggle.isOn);
+            DebugText.ins.AddText(" Rpc_TurnControl _ " + playerID + " is waiting state and readyToogle is " + readyToggle.isOn);
             if (HasStateAuthority)
             {
                 if (CharManager.ins.IsAllCharsReadyToTurn())
                 {
-                    Debug.LogWarning("RCP Called");
+                    AlertText.ins.AddText("RCP Called - IsAllCharsReadyToTurn  player_" + playerID);
+                    Debug.LogWarning("RCP Called - IsAllCharsReadyToTurn  player_" + playerID);
                     Turn.ins.TURN_STATE = TurnState.moveStart;
                     return;
                 }
@@ -83,6 +92,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         }
         else
         {
+            DebugText.ins.AddText(" Rpc_TurnControl _ " + playerID + " is NOT waiting state and SetTurnEndReady(playerID, true), rt:" + readyToggle.isOn);
             CharManager.ins.SetTurnEndReady(playerID, true);
         }
     }

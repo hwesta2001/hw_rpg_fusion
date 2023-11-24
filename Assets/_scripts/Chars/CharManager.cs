@@ -14,6 +14,21 @@ public class CharManager : MonoBehaviour
 
     public List<CharList> CHARNW_LIST;
 
+    public CharNW GetChar(int id)
+    {
+        foreach (var item in CHARNW_LIST)
+        {
+            if (item._playerid == id)
+            {
+                return item._charNW;
+            }
+            else
+            {
+                return new CharNW();
+            }
+        }
+        return new CharNW();
+    }
     public void AddList(PlayerRef _player, CharNW charNW)
     {
         CHARNW_LIST.Add(new CharList(_player, charNW));

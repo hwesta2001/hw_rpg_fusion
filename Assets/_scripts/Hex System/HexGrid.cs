@@ -9,10 +9,9 @@ public class HexGrid : MonoBehaviour
     public int mapHeight = 25;
     [Tooltip("HexMesh radius*2 = 2r")] public float tile_X_Offset = 1.75f;
     [Tooltip("HexMesh radius = r")] public float xOffset; // = tile_X_Offset * .5f; 
-    float tile_Z_Offset; // = Mathf.Sqrt(3) * tile_X_Offset * .5f;
-
     [Space]
-    public List<Hex> HEXES = new();
+    float tile_Z_Offset; // = Mathf.Sqrt(3) * tile_X_Offset * .5f;
+    [field: SerializeField] public List<Hex> HEXES { get; private set; } = new();
     [Space]
 
     public List<GameObject> hexes_Objects = new();
