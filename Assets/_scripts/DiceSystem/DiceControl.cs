@@ -97,9 +97,6 @@ public class DiceControl : MonoBehaviour
                 ChangeDiceLightColor(Color.yellow);
                 break;
             default:
-                ChangeDiceLightColor(Color.white);
-                //DiceCanvas.SetActive(false);
-                SetActiveState(false);
                 break;
         }
     }

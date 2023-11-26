@@ -10,9 +10,8 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] List<Hex> avaliableHexes = new();
     [SerializeField] LayerMask hexesLayer;
     enum State { begin, waitForMovement, moving, final }
-    State state;
-    [SerializeField]
-    byte moveCount;
+    [SerializeField] State state;
+    [SerializeField] byte moveCount;
     Transform tr;
     public override void Spawned()
     {
@@ -30,9 +29,10 @@ public class PlayerMovement : NetworkBehaviour
 
     void MoveTurnControl(TurnState turnState)
     {
+        if (!HasStateAuthority) return;
         if (turnState == TurnState.moving)
         {
-            MoveCount = DiceControl.ins.RolledDice;
+            SetMoveCount();
         }
         else
         {
@@ -40,9 +40,14 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-
-
-
+    void SetMoveCount()
+    {
+        if (DiceControl.ins.RolledDice == 0)
+        {
+            DiceControl.ins.RollButton();
+        }
+        MoveCount = DiceControl.ins.RolledDice;
+    }
 
     public byte MoveCount
     {
