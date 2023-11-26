@@ -2,6 +2,7 @@ using Hw.Dice;
 using UnityEngine;
 using System;
 using DG.Tweening;
+using Fusion;
 
 public class DiceControl : MonoBehaviour
 {
@@ -62,7 +63,9 @@ public class DiceControl : MonoBehaviour
     void OnEnable()
     {
         SetDice();
-        ControlGameState(Turn.ins.TURN_STATE);
+        //ControlGameState(Turn.ins.TURN_STATE);
+        canRoll = false;
+        DiceCanvas.SetActive(false);
         Turn.OnTurnChanged += ControlGameState;
     }
     private void OnDisable()
@@ -103,16 +106,17 @@ public class DiceControl : MonoBehaviour
     [SerializeField] Vector3 smallButtonSize = new(0.1f, 0.1f, 0.1f);
     void SetActiveState(bool active)
     {
-        canRoll = !active;
+        Debug.Log(active + " activeee");
         if (active)
         {
+            canRoll = true;
             DiceCanvas.SetActive(active);
             diceButton.localScale = smallButtonSize;
-            diceButton.DOScale(Vector3.one, .5f).SetEase(Ease.OutBounce).OnComplete(() => canRoll = active);
+            diceButton.DOScale(Vector3.one, .5f).SetEase(Ease.OutBounce)/*.OnComplete(() => canRoll = true)*/;
         }
         else
         {
-            canRoll = active;
+            canRoll = false;
             diceButton.localScale = Vector3.one;
             diceButton.DOScale(smallButtonSize, 1.6f).SetEase(Ease.OutBounce).OnComplete(() => DiceCanvas.SetActive(active));
         }

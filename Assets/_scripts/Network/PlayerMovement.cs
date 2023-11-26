@@ -32,11 +32,13 @@ public class PlayerMovement : NetworkBehaviour
         if (!HasStateAuthority) return;
         if (turnState == TurnState.moving)
         {
+            state = State.begin;
             SetMoveCount();
         }
         else
         {
             HexHighlights.ins.DisableHexHighlights();
+            state = State.begin;
         }
     }
 
@@ -45,8 +47,13 @@ public class PlayerMovement : NetworkBehaviour
         if (DiceControl.ins.RolledDice == 0)
         {
             DiceControl.ins.RollButton();
+            MoveCount = DiceControl.ins.RolledDice;
         }
-        MoveCount = DiceControl.ins.RolledDice;
+        else
+        {
+
+            MoveCount = DiceControl.ins.RolledDice;
+        }
     }
 
     public byte MoveCount
