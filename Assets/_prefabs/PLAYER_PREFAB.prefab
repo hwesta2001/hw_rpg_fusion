@@ -238,14 +238,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.706, g: 0.64370054, b: 0.555622, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 07033907b91b3ba49b165f8dfd850cbe, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -677,7 +677,12 @@ MonoBehaviour:
   _interpolationDataSource: 0
   DiceTextOnPlayer: {fileID: 6987249257656651739}
   diceRollonPlayerCanvas: {fileID: 1922402580229713198}
+  diceImage: {fileID: 9009940011336980441}
   _DICE_ROLL: 0
+  _RolledDiceText:
+    _length: 0
+    _data:
+      Data: 00000000000000000000000000000000
 --- !u!114 &6062017250563388335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,14 +758,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 0c676c6c1371b784b9e3d6f6399eb9fa, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -843,8 +848,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279510322
-  m_fontColor: {r: 0.19600001, g: 0.14657393, b: 0.07669566, a: 1}
+    rgba: 4278256388
+  m_fontColor: {r: 0.0139999995, g: 0.010360001, b: 0.0056000003, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

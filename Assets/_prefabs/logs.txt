@@ -1,29 +1,22 @@
-[3,905262] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
-[10,76025] - Jan Merritt Spawned True
-[10,76177] - Init Network
-[10,76688] -  Rpc_TurnControl _ 0
-[10,767] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[10,78334] - Game State is Connected
-[10,78626] - test_room_00 season started
-[13,75684] -  Rpc_TurnControl _ 0
-[13,75689] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[13,75692] - RCP Called - IsAllCharsReadyToTurn  player_0
-[13,75782] - TurnState is moveStart
-[15,85815] - Rolled:5
-[15,85826] - TurnState is moving
-[22,69256] - TurnState is events
-[24,69872] - Rolled:19
-[24,69878] - TurnState is invokeEvent
-[24,69881] - Rolled 19 for event determine
-[24,69883] - Event Invoked
-[27,69159] - TurnState is waiting
-[27,692] -  Rpc_TurnControl _ 0
-[27,69203] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[28,29791] -  Rpc_TurnControl _ 0
-[28,29796] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[28,29799] - RCP Called - IsAllCharsReadyToTurn  player_0
-[28,29835] - TurnState is moveStart
-[29,97733] - Rolled:4
-[29,97741] - TurnState is moving
-[35,24681] - TurnState is events
-[40,56618] - ---------------------App Ended---------------------
+[6,32227] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[13,3654] - Hans Spawned True
+[13,36823] - Init Network
+[13,37829] -  Rpc_TurnControl _ 0
+[13,37852] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[13,40171] - Game State is Connected
+[13,40369] - test_room_00 season started
+[16,62957] -  Rpc_TurnControl _ 0
+[16,62966] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[16,62973] - RCP Called - IsAllCharsReadyToTurn  player_0
+[16,6307] - TurnState is moveStart
+[18,8701] - Rolled:1
+[18,87033] - TurnState is moving
+[20,52981] - TurnState is events
+[23,86086] - Rolled:8
+[23,86098] - TurnState is invokeEvent
+[23,86105] - Rolled 8 for event determine
+[23,86108] - Event Invoked
+[26,8454] - TurnState is waiting
+[26,84602] -  Rpc_TurnControl _ 0
+[26,84608] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[42,51788] - ---------------------App Ended---------------------
