@@ -1,22 +1,29 @@
-[6,32227] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[13,3654] - Hans Spawned True
-[13,36823] - Init Network
-[13,37829] -  Rpc_TurnControl _ 0
-[13,37852] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[13,40171] - Game State is Connected
-[13,40369] - test_room_00 season started
-[16,62957] -  Rpc_TurnControl _ 0
-[16,62966] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[16,62973] - RCP Called - IsAllCharsReadyToTurn  player_0
-[16,6307] - TurnState is moveStart
-[18,8701] - Rolled:1
-[18,87033] - TurnState is moving
-[20,52981] - TurnState is events
-[23,86086] - Rolled:8
-[23,86098] - TurnState is invokeEvent
-[23,86105] - Rolled 8 for event determine
-[23,86108] - Event Invoked
-[26,8454] - TurnState is waiting
-[26,84602] -  Rpc_TurnControl _ 0
-[26,84608] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[42,51788] - ---------------------App Ended---------------------
+[7,365883] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[17,60388] - test_room_00 season started
+[17,71933] - Marcus Spawned True
+[17,72358] - Init Network
+[17,73589] -  Rpc_TurnControl _ 0
+[17,73613] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[17,76596] - Game State is Connected
+[21,17796] -  Rpc_TurnControl _ 0
+[21,17806] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[21,17814] - RCP Called - IsAllCharsReadyToTurn  player_0
+[21,18065] - TurnState is moveStart
+[23,22581] - Rolled:1
+[23,22604] - TurnState is moving
+[25,41725] - TurnState is events
+[29,88193] - Rolled:3
+[29,88202] - TurnState is invokeEvent
+[29,88208] - Rolled 3 for event determine
+[29,8821] - Event Invoked
+[32,8818] - TurnState is waiting
+[32,88237] -  Rpc_TurnControl _ 0
+[32,88243] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[34,92004] -  Rpc_TurnControl _ 0
+[34,92012] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[34,92019] - RCP Called - IsAllCharsReadyToTurn  player_0
+[34,921] - TurnState is moveStart
+[36,87546] - Rolled:2
+[36,87557] - TurnState is moving
+[39,95313] - TurnState is events
+[48,59523] - ---------------------App Ended---------------------
