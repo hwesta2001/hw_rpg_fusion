@@ -1,26 +1,29 @@
-[9,133494] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[18,12595] - Kadin Spawned True
-[18,12973] - Init Network
-[18,13996] -  Rpc_TurnControl _ 0
-[18,14022] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[18,18354] - Game State is Connected
-[18,18698] - test_room_00 season started
-[20,97035] -  Rpc_TurnControl _ 0
-[20,97048] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[20,97055] - RCP Called - IsAllCharsReadyToTurn  player_0
-[20,97344] - TurnState is moveStart
-[23,07752] - Rolled:2
-[23,07787] - TurnState is moving
-[25,26891] - TurnState is events
-[27,56185] - Rolled:11
-[27,56198] - TurnState is invokeEvent
-[27,56207] - Rolled 11 for event determine
-[27,56211] - Event Invoked
-[30,89205] - TurnState is waiting
-[30,89286] -  Rpc_TurnControl _ 0
-[30,89293] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[31,93154] -  Rpc_TurnControl _ 0
-[31,93167] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[31,93177] - RCP Called - IsAllCharsReadyToTurn  player_0
-[31,93274] - TurnState is moveStart
-[72,07581] - ---------------------App Ended---------------------
+[3,905262] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[10,76025] - Jan Merritt Spawned True
+[10,76177] - Init Network
+[10,76688] -  Rpc_TurnControl _ 0
+[10,767] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[10,78334] - Game State is Connected
+[10,78626] - test_room_00 season started
+[13,75684] -  Rpc_TurnControl _ 0
+[13,75689] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[13,75692] - RCP Called - IsAllCharsReadyToTurn  player_0
+[13,75782] - TurnState is moveStart
+[15,85815] - Rolled:5
+[15,85826] - TurnState is moving
+[22,69256] - TurnState is events
+[24,69872] - Rolled:19
+[24,69878] - TurnState is invokeEvent
+[24,69881] - Rolled 19 for event determine
+[24,69883] - Event Invoked
+[27,69159] - TurnState is waiting
+[27,692] -  Rpc_TurnControl _ 0
+[27,69203] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[28,29791] -  Rpc_TurnControl _ 0
+[28,29796] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[28,29799] - RCP Called - IsAllCharsReadyToTurn  player_0
+[28,29835] - TurnState is moveStart
+[29,97733] - Rolled:4
+[29,97741] - TurnState is moving
+[35,24681] - TurnState is events
+[40,56618] - ---------------------App Ended---------------------

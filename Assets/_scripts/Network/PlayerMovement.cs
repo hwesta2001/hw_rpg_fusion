@@ -9,15 +9,17 @@ public class PlayerMovement : NetworkBehaviour
     byte playerId; // network playerId ya da charnw-id
     [SerializeField] List<Hex> avaliableHexes = new();
     [SerializeField] LayerMask hexesLayer;
-    enum State { begin, waitForMovement, moving, final }
+    enum State { begin, moving, final }
     [SerializeField] State state;
     [SerializeField] byte moveCount;
+    [SerializeField] DiceNetwork diceNetwork;
     Transform tr;
     public override void Spawned()
     {
         if (!HasStateAuthority) return;
         tr = transform;
         Turn.OnTurnChanged += MoveTurnControl;
+        diceNetwork = GetBehaviour<DiceNetwork>();
     }
 
     public void Despawned()
@@ -30,6 +32,12 @@ public class PlayerMovement : NetworkBehaviour
     void MoveTurnControl(TurnState turnState)
     {
         if (!HasStateAuthority) return;
+
+        if (turnState == TurnState.waiting)
+        {
+            MoveCount = 0;
+        }
+
         if (turnState == TurnState.moving)
         {
             state = State.begin;
@@ -44,6 +52,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void SetMoveCount()
     {
+        if (!HasStateAuthority) return;
         if (DiceControl.ins.RolledDice == 0)
         {
             DiceControl.ins.RollButton();
@@ -65,19 +74,29 @@ public class PlayerMovement : NetworkBehaviour
         set
         {
             moveCount = value;
-            if (moveCount > 0)
-            {
-                MovableHexes();
-            }
-            else
-            {
-                MoveTurnEnd();
-            }
+            MoveS();
         }
     }
 
-    void MovableHexes()
+    void MoveS()
     {
+        if (!HasStateAuthority) return;
+        if (moveCount > 0)
+        {
+            MoveBegin();
+            diceNetwork.ActiveDiceTextOnPlayer(true);
+        }
+        else
+        {
+            MoveTurnEnd();
+            diceNetwork.ActiveDiceTextOnPlayer(false);
+        }
+        diceNetwork.SetDiceTextOnPlayer(MoveCount.ToString());
+    }
+
+    void MoveBegin()
+    {
+        if (!HasStateAuthority) return;
         state = State.begin;
         avaliableHexes.Clear();
         HexHighlights.ins.DisableHexHighlights();
@@ -99,7 +118,7 @@ public class PlayerMovement : NetworkBehaviour
                 }
             }
         }
-        state = State.waitForMovement;
+        state = State.moving;
     }
 
     void Update()
@@ -107,12 +126,11 @@ public class PlayerMovement : NetworkBehaviour
         if (Input.GetMouseButtonDown(0) && HasStateAuthority)
         {
             //if (MouseDeltaisNotZero()) return;
-            if (state != State.waitForMovement) return;
+            if (state != State.moving) return;
             if (RayCastEvent.ins.SelectionCast())
             {
                 if (RayCastEvent.ins.HittedObject.TryGetComponent(out Hex hex))
                 {
-                    state = State.moving;
                     if (avaliableHexes.Contains(hex))
                     {
                         MoveBegin(hex);
@@ -124,6 +142,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void MoveBegin(Hex hex)
     {
+        if (!HasStateAuthority) return;
         HexHighlights.ins.DisableHexHighlights();
         if (MoveCount == 1) state = State.final;
         tr.DOLocalJump(hex.pos, 3, 1, duration: Random.Range(.5f, 1f), false).SetEase(Ease.InQuart).OnComplete(() =>
