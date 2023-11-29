@@ -1,29 +1,56 @@
-[7,365883] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[17,60388] - test_room_00 season started
-[17,71933] - Marcus Spawned True
-[17,72358] - Init Network
-[17,73589] -  Rpc_TurnControl _ 0
-[17,73613] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[17,76596] - Game State is Connected
-[21,17796] -  Rpc_TurnControl _ 0
-[21,17806] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[21,17814] - RCP Called - IsAllCharsReadyToTurn  player_0
-[21,18065] - TurnState is moveStart
-[23,22581] - Rolled:1
-[23,22604] - TurnState is moving
-[25,41725] - TurnState is events
-[29,88193] - Rolled:3
-[29,88202] - TurnState is invokeEvent
-[29,88208] - Rolled 3 for event determine
-[29,8821] - Event Invoked
-[32,8818] - TurnState is waiting
-[32,88237] -  Rpc_TurnControl _ 0
-[32,88243] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
-[34,92004] -  Rpc_TurnControl _ 0
-[34,92012] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
-[34,92019] - RCP Called - IsAllCharsReadyToTurn  player_0
-[34,921] - TurnState is moveStart
-[36,87546] - Rolled:2
-[36,87557] - TurnState is moving
-[39,95313] - TurnState is events
-[48,59523] - ---------------------App Ended---------------------
+[4,102536] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[23,17441] - Mason Koenig Spawned True
+[23,17654] - Init Network
+[23,18188] -  Rpc_TurnControl _ 0
+[23,182] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[23,20727] - Game State is Connected
+[23,20882] - test_room_00 season started
+[29,41939] -  Rpc_TurnControl _ 0
+[29,41944] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[29,41947] - RCP Called - IsAllCharsReadyToTurn  player_0
+[29,42106] - TurnState is moveStart
+[31,5801] - Rolled:1
+[31,5802] - TurnState is moving
+[33,08754] - TurnState is events
+[35,24625] - Rolled:20
+[35,24632] - TurnState is invokeEvent
+[35,24635] - Rolled 20 for event determine
+[35,24637] - Event Invoked
+[38,23302] - TurnState is waiting
+[38,23344] -  Rpc_TurnControl _ 0
+[38,23347] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[38,86862] -  Rpc_TurnControl _ 0
+[38,86867] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[38,86871] - RCP Called - IsAllCharsReadyToTurn  player_0
+[38,86909] - TurnState is moveStart
+[40,33765] - Rolled:6
+[40,33772] - TurnState is moving
+[49,20997] - TurnState is events
+[51,61888] - Rolled:17
+[51,61898] - TurnState is invokeEvent
+[51,61903] - Rolled 17 for event determine
+[51,61905] - Event Invoked
+[54,61691] - TurnState is waiting
+[54,61735] -  Rpc_TurnControl _ 0
+[54,61739] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[55,67003] -  Rpc_TurnControl _ 0
+[55,67012] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[55,67018] - RCP Called - IsAllCharsReadyToTurn  player_0
+[55,67067] - TurnState is moveStart
+[57,20036] - Rolled:3
+[57,20044] - TurnState is moving
+[65,52882] - TurnState is events
+[68,25511] - Rolled:13
+[68,25519] - TurnState is invokeEvent
+[68,25523] - Rolled 13 for event determine
+[68,25524] - Event Invoked
+[71,25394] - TurnState is waiting
+[71,25439] -  Rpc_TurnControl _ 0
+[71,25445] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is False
+[72,13319] -  Rpc_TurnControl _ 0
+[72,13329] -  Rpc_TurnControl _ 0 is waiting state and readyToogle is True
+[72,13335] - RCP Called - IsAllCharsReadyToTurn  player_0
+[72,13384] - TurnState is moveStart
+[73,64565] - Rolled:4
+[73,64573] - TurnState is moving
+[95,53551] - ---------------------App Ended---------------------
