@@ -1,6 +1,7 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [System.Serializable]
@@ -40,4 +41,22 @@ public enum EquiptSlot
     weapon0 = 7, // main Hand (main hand olan item off hande de konur)
     weapon1 = 8, // off hand or shild
     ammo = 9
+}
+
+public static class JsonWritter
+{
+    public static string SetJson(this Item item)
+    {
+        return JsonUtility.ToJson(item);
+    }
+    public static Item GetJson(string item)
+    {
+        return JsonUtility.FromJson<Item>(item);
+    }
+
+    public static void SaveJson(this Item item)
+    {
+        string savePath = Application.dataPath + "/_prefab/ItemData.json";
+        File.WriteAllText(savePath, item.SetJson());
+    }
 }
