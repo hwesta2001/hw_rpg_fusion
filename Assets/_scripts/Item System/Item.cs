@@ -1,8 +1,5 @@
 using Fusion;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+using System.Runtime.CompilerServices;
 
 [System.Serializable]
 public struct Item : INetworkStruct
@@ -14,49 +11,58 @@ public struct Item : INetworkStruct
     public ItemType itemType;
 }
 
+[System.Serializable]
+public class ItemC
+{
+    public byte itemId;
+    public string name;
+    public string description;
+    public EquiptSlot slot;
+    public ItemType itemType;
+}
+
+public static class ItemEx
+{
+    public static Item ToItem(this ItemC itemC)
+    {
+        Item _item = new()
+        {
+            itemId = itemC.itemId,
+            name = itemC.name,
+            description = itemC.description,
+            slot = itemC.slot,
+            itemType = itemC.itemType
+        };
+        return _item;
+    }
+}
+
+
 public enum ItemType
 {
-    basic,
-    gold,
-    weapon,
-    armor,
-    quest,
-    tools,
-    food,
-    potion,
-    book,
-    scroll,
-    gem
+    basic_00,
+    gold_01,
+    weapon_02,
+    armor_03,
+    quest_04,
+    tools_05,
+    food_06,
+    potion_07,
+    book_08,
+    scroll_09,
+    gem_10
 }
 
 public enum EquiptSlot
 {
-    none = 0, // none equitslotu sadece çantaya konulur, diðerleri gerekli yerlere konulur
-    head = 1,
-    chest = 2,
-    hand = 3,
-    foot = 4,
-    trinket0 = 5,
-    trinket1 = 6,
-    weapon0 = 7, // main Hand (main hand olan item off hande de konur)
-    weapon1 = 8, // off hand or shild
-    ammo = 9
-}
-
-public static class JsonWritter
-{
-    public static string SetJson(this Item item)
-    {
-        return JsonUtility.ToJson(item);
-    }
-    public static Item GetJson(string item)
-    {
-        return JsonUtility.FromJson<Item>(item);
-    }
-
-    public static void SaveJson(this Item item)
-    {
-        string savePath = Application.dataPath + "/_prefab/ItemData.json";
-        File.WriteAllText(savePath, item.SetJson());
-    }
+    none_00 = 0, // none equitslotu sadece çantaya konulur, diðerleri gerekli yerlere konulur
+    head_01 = 1,
+    chest_02 = 2,
+    hand_03 = 3,
+    foot_04 = 4,
+    trinket0_05 = 5,
+    trinket1_06 = 6,
+    weapon0_07 = 7, // main Hand (main hand olan item off hande de konur)
+    weapon1_08 = 8, // off hand or shild
+    ammo_09 = 9
 }

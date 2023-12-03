@@ -1,0 +1,5 @@
+itemId,name,description,slot,itemType
+0,Gold,1 gp.,0,1
+1,10 Gold,10 gp.,0,1
+2,Sword,Basic Sword,3,7
+3,Armor,dummyArmor,3,4
