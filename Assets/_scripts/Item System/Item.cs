@@ -1,5 +1,6 @@
 using Fusion;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 
 [System.Serializable]
 public struct Item : INetworkStruct
@@ -9,6 +10,12 @@ public struct Item : INetworkStruct
     public NetworkString<_64> description;
     public EquiptSlot slot;
     public ItemType itemType;
+    [Header("Combat Stats")]
+    public byte diceCount;
+    public Dice damageDice;
+    [Header("Defence Stats")]
+    public byte armor;
+    public byte resilicance;
 }
 
 [System.Serializable]
@@ -19,6 +26,12 @@ public class ItemC
     public string description;
     public EquiptSlot slot;
     public ItemType itemType;
+    [Header("Attack Stats")]
+    public byte diceCount;
+    public Dice damageDice;
+    [Header("Defence Stats")]
+    public byte armor;
+    public byte resilicance;
 }
 
 public static class ItemEx
@@ -31,7 +44,11 @@ public static class ItemEx
             name = itemC.name,
             description = itemC.description,
             slot = itemC.slot,
-            itemType = itemC.itemType
+            itemType = itemC.itemType,
+            diceCount = itemC.diceCount,
+            damageDice = itemC.damageDice,
+            armor = itemC.armor,
+            resilicance = itemC.resilicance
         };
         return _item;
     }

@@ -1,31 +1,56 @@
-[6,517367] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[13,76842] - Finn Spawned True
-[13,77149] - Init Network
-[13,8035] - Game State is Connected
-[13,80795] - test_room_00 season started
-[17,38962] - RCP Called - IsAllCharsReadyToTurn  P_Finn
-[17,39027] - TurnState is moveStart
-[19,67562] - Rolled:4
-[19,67588] - TurnState is moving
-[26,70893] - TurnState is events
-[29,41662] - Rolled:1
-[29,41669] - TurnState is invokeEvent
-[29,41673] - Rolled 1 for event determine
-[29,41676] - Event Invoked
-[32,41741] - TurnState is waiting
-[35,11838] - RCP Called - IsAllCharsReadyToTurn  P_Finn
-[35,11884] - TurnState is moveStart
-[38,40157] - Rolled:3
-[38,40165] - TurnState is moving
-[43,15874] - TurnState is events
-[46,0334] - Rolled:20
-[46,0335] - TurnState is invokeEvent
-[46,03355] - Rolled 20 for event determine
-[46,03357] - Event Invoked
-[49,02432] - TurnState is waiting
-[51,04971] - RCP Called - IsAllCharsReadyToTurn  P_Finn
-[51,05014] - TurnState is moveStart
-[53,44015] - Rolled:3
-[53,44024] - TurnState is moving
-[58,1328] - TurnState is events
-[61,43103] - ---------------------App Ended---------------------
+[5,540331] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[11,89631] - Mason Koenig Spawned True
+[11,89787] - Init Network
+[11,91929] - Game State is Connected
+[11,92127] - test_room_00 season started
+[16,83558] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
+[16,83594] - TurnState is moveStart
+[19,54515] - slot selected: head
+[19,72219] - slot selected: head
+[19,91654] - slot selected: head
+[20,11764] - slot selected: head
+[20,30737] - slot selected: head
+[25,19365] - Rolled:4
+[25,19374] - TurnState is moving
+[31,97318] - TurnState is events
+[34,32034] - Rolled:3
+[34,32038] - TurnState is invokeEvent
+[34,3204] - Rolled 3 for event determine
+[34,32042] - Event Invoked
+[37,31759] - TurnState is waiting
+[40,56885] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
+[40,56916] - TurnState is moveStart
+[42,07291] - Rolled:5
+[42,07295] - TurnState is moving
+[52,978] - TurnState is events
+[55,60163] - Rolled:5
+[55,60167] - TurnState is invokeEvent
+[55,6017] - Rolled 5 for event determine
+[55,60171] - Event Invoked
+[58,59529] - TurnState is waiting
+[60,33654] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
+[60,33679] - TurnState is moveStart
+[63,49648] - Rolled:3
+[63,49652] - TurnState is moving
+[67,82401] - TurnState is events
+[70,3163] - Rolled:18
+[70,31634] - TurnState is invokeEvent
+[70,31635] - Rolled 18 for event determine
+[70,31637] - Event Invoked
+[73,3152] - TurnState is waiting
+[76,01801] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
+[76,01826] - TurnState is moveStart
+[78,95864] - Rolled:1
+[78,9587] - TurnState is moving
+[80,03941] - TurnState is events
+[83,09859] - Rolled:7
+[83,09864] - TurnState is invokeEvent
+[83,09867] - Rolled 7 for event determine
+[83,09869] - Event Invoked
+[86,25603] - TurnState is waiting
+[92,87382] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
+[92,87407] - TurnState is moveStart
+[96,86163] - Rolled:1
+[96,86169] - TurnState is moving
+[98,21992] - TurnState is events
+[106,3621] - ---------------------App Ended---------------------
