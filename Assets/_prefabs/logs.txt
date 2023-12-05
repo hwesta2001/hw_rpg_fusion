@@ -1,56 +1,25 @@
-[5,540331] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
-[11,89631] - Mason Koenig Spawned True
-[11,89787] - Init Network
-[11,91929] - Game State is Connected
-[11,92127] - test_room_00 season started
-[16,83558] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
-[16,83594] - TurnState is moveStart
-[19,54515] - slot selected: head
-[19,72219] - slot selected: head
-[19,91654] - slot selected: head
-[20,11764] - slot selected: head
-[20,30737] - slot selected: head
-[25,19365] - Rolled:4
-[25,19374] - TurnState is moving
-[31,97318] - TurnState is events
-[34,32034] - Rolled:3
-[34,32038] - TurnState is invokeEvent
-[34,3204] - Rolled 3 for event determine
-[34,32042] - Event Invoked
-[37,31759] - TurnState is waiting
-[40,56885] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
-[40,56916] - TurnState is moveStart
-[42,07291] - Rolled:5
-[42,07295] - TurnState is moving
-[52,978] - TurnState is events
-[55,60163] - Rolled:5
-[55,60167] - TurnState is invokeEvent
-[55,6017] - Rolled 5 for event determine
-[55,60171] - Event Invoked
-[58,59529] - TurnState is waiting
-[60,33654] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
-[60,33679] - TurnState is moveStart
-[63,49648] - Rolled:3
-[63,49652] - TurnState is moving
-[67,82401] - TurnState is events
-[70,3163] - Rolled:18
-[70,31634] - TurnState is invokeEvent
-[70,31635] - Rolled 18 for event determine
-[70,31637] - Event Invoked
-[73,3152] - TurnState is waiting
-[76,01801] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
-[76,01826] - TurnState is moveStart
-[78,95864] - Rolled:1
-[78,9587] - TurnState is moving
-[80,03941] - TurnState is events
-[83,09859] - Rolled:7
-[83,09864] - TurnState is invokeEvent
-[83,09867] - Rolled 7 for event determine
-[83,09869] - Event Invoked
-[86,25603] - TurnState is waiting
-[92,87382] - RCP Called - IsAllCharsReadyToTurn  P_Mason Koenig
-[92,87407] - TurnState is moveStart
-[96,86163] - Rolled:1
-[96,86169] - TurnState is moving
-[98,21992] - TurnState is events
-[106,3621] - ---------------------App Ended---------------------
+[5,14493] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[11,78576] - test_room_00 season started
+[11,88074] - Axel Spawned True
+[11,88314] - Init Network
+[11,91572] - Game State is Connected
+[16,17387] - RCP Called - IsAllCharsReadyToTurn  P_Axel
+[16,17434] - TurnState is moveStart
+[18,30966] - Rolled:1
+[18,30979] - TurnState is moving
+[20,08988] - TurnState is events
+[28,62408] - slot selected: head
+[29,09745] - slot selected: head
+[29,31837] - slot selected: head
+[29,49525] - slot selected: head
+[29,77355] - slot selected: head
+[33,61022] - slot selected: ammo
+[34,40242] - slot selected: ammo
+[34,87696] - slot selected: ammo
+[37,94241] - slot selected: head
+[39,5435] - slot selected: trinket1
+[42,30048] - slot selected: chest
+[42,88515] - slot selected: chest
+[44,00616] - slot selected: bag_slot_0
+[46,18443] - slot selected: bag_slot_0
+[49,21828] - ---------------------App Ended---------------------

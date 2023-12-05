@@ -18,6 +18,7 @@ public class Slot
 public class Inventory : MonoBehaviour
 {
     #region Slots_setInspector
+    public Slot slot_selectedItem_26;
     public Slot slot_gold_00;
     public Slot slot_head_01;
     public Slot slot_chest_02;
@@ -93,4 +94,6 @@ public class Inventory : MonoBehaviour
         if (index > 9) textt += "bag_slot_" + (index - 10);
         AlertText.ins.AddText(textt, Color.grey);
     }
+
+
 }

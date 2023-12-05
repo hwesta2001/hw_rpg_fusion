@@ -6,7 +6,7 @@ public class ItemDatabase : MonoBehaviour
 {
     public static Dictionary<int, Item> ITEM_DATABASE { get; private set; } = new();
     [SerializeField] List<Item> itemDatabase_List = new(); // ITEM_DATABASE Dictinonary inspectorden görmek için 
-    [SerializeField] string fil;
+    string fil;
     ItemC[] items;
     readonly string itemsPath = "Assets/_scripts/Item System/item_cvs.csv";
 

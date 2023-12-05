@@ -5,33 +5,35 @@ using UnityEngine;
 [System.Serializable]
 public struct Item : INetworkStruct
 {
-    public byte itemId;
+    public int itemId;
     public NetworkString<_32> name;
-    public NetworkString<_64> description;
+    public NetworkString<_256> description;
     public EquiptSlot slot;
     public ItemType itemType;
+    public int stackSize;
     [Header("Combat Stats")]
-    public byte diceCount;
+    public int diceCount;
     public Dice damageDice;
     [Header("Defence Stats")]
-    public byte armor;
-    public byte resilicance;
+    public int armor;
+    public int resilicance;
 }
 
 [System.Serializable]
 public class ItemC
 {
-    public byte itemId;
+    public int itemId;
     public string name;
     public string description;
     public EquiptSlot slot;
     public ItemType itemType;
+    public int stackSize;
     [Header("Attack Stats")]
-    public byte diceCount;
+    public int diceCount;
     public Dice damageDice;
     [Header("Defence Stats")]
-    public byte armor;
-    public byte resilicance;
+    public int armor;
+    public int resilicance;
 }
 
 public static class ItemEx
@@ -45,6 +47,7 @@ public static class ItemEx
             description = itemC.description,
             slot = itemC.slot,
             itemType = itemC.itemType,
+            stackSize = itemC.stackSize,
             diceCount = itemC.diceCount,
             damageDice = itemC.damageDice,
             armor = itemC.armor,
@@ -72,14 +75,15 @@ public enum ItemType
 
 public enum EquiptSlot
 {
-    none_00 = 0, // none equitslotu sadece çantaya konulur, diðerleri gerekli yerlere konulur
+    none_00 = 0,            // none equitslotu sadece çantaya konulur, diðerleri gerekli yerlere konulur
     head_01 = 1,
     chest_02 = 2,
     hand_03 = 3,
     foot_04 = 4,
     trinket0_05 = 5,
     trinket1_06 = 6,
-    weapon0_07 = 7, // main Hand (main hand olan item off hande de konur)
-    weapon1_08 = 8, // off hand or shild
-    ammo_09 = 9
+    weapon0_07 = 7,             // main Hand (main hand olan item off hande de konur)
+    weapon1_08 = 8,             // off hand or shild
+    ammo_09 = 9,
+    selectedSlot = 10,
 }

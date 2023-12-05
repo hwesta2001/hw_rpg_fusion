@@ -1,5 +1,32 @@
-itemId,name,description,slot,itemType,diceCount,damageDice,armor,resilicance
-0,Gold,1 gp.,0,1,0,1,0,0
-1,10 Gold,10 gp.,0,1,0,1,0,0
-2,Sword,dummySword,7,2,1,1,0,0
-3,Armor,dummyArmor,2,3,0,1,1,1
+itemId,name,description,slot,itemType,stackSize,diceCount,damageDice,armor,resilicance
+0,Gold,1 gp.,0,1,10000000,0,1,0,0
+1,10 Gold,10 gp.,0,1,1000000,0,1,0,0
+2,Sword,dummySword,7,2,1,1,1,0,0
+3,Armor,dummyArmor,2,3,1,0,1,1,1
+4,Enchanted Helm,A mystical helmet that enhances the wearer's senses and offers unparalleled protection.,1,3,1,0,0,20,15
+5,Shadow Dagger,A blade shrouded in mystery said to be forged in the shadows by the enigmatic assassins' guild.,7,2,1,1,6,0,0
+6,Dwarven Greaves,Expertly crafted greaves made by the skilled Dwarven blacksmiths for utmost durability.,4,3,1,0,0,16,11
+7,Staff of Arcane,A staff pulsating with arcane energies capable of unleashing devastating spells upon adversaries.,7,2,1,1,12,0,0
+8,Gloves of Protection,Reinforced gloves designed to shield the wearer's hands from the harshest of blows.,3,3,1,0,0,14,9
+9,Hunter's Bow,A masterfully crafted bow designed for precision and used by elite hunters of the kingdom.,7,2,1,1,8,0,0
+10,Platinum Mail,A chestplate forged from the finest platinum offering superior protection without compromising mobility.,2,3,1,0,0,22,18
+11,Warhammer,A massive hammer wielded by the champions of the realm in the most grueling battles.,7,2,1,1,10,0,0
+12,Elven Boots,Boots crafted by the skilled Elven craftsmen for agility and comfort without sacrificing defense.,4,3,1,0,0,15,10
+13,Assassin's Blade,A blade of unmatched precision and lethality favored by the silent assassins of the night.,7,2,1,1,6,0,0
+14,Cloak of Invisibility,A cloak that grants its wearer the ability to vanish from sight when danger looms.,2,3,1,0,0,16,11
+15,Mystic Wand,A wand infused with ancient magic capable of channeling potent spells with ease.,7,2,1,1,8,0,0
+16,Steel Gauntlets,Sturdy gauntlets crafted from hardened steel offering robust hand protection.,3,3,1,0,0,12,8
+17,Ranger's Longbow,A longbow designed for accuracy and range favored by the elite archers of the kingdom.,7,2,1,1,8,0,0
+18,Dragonhide Vest,A vest made from the scales of a dragon offering unparalleled defense against physical attacks.,2,3,1,0,0,20,15
+19,Battle Axe,A mighty axe capable of cleaving through armor and foes with sheer force.,7,2,1,1,12,0,0
+20,Helmet of Command,A helmet worn by the leaders of the kingdom radiating an aura of authority and protection.,1,3,1,0,0,18,12
+21,Shiv,A small but deadly blade often concealed for surprise attacks in close combat.,7,2,1,1,4,0,0
+22,Chainmail,Traditional chainmail armor providing reliable protection for warriors in battle.,2,3,1,0,0,20,15
+23,Quarterstaff,A simple yet effective staff used by wandering monks and mages alike.,7,2,1,1,6,0,0
+24,Leather Gloves,Lightweight gloves offering dexterity and minimal protection for agile combatants.,3,3,1,0,0,10,6
+25,Warrior's Pike,A long pike wielded by the bravest warriors on the battlefield.,7,2,1,1,10,0,0
+26,Robes of the Sage,Robes worn by the scholarly sages offering both wisdom and moderate protection.,2,3,1,0,0,18,12
+27,Shortsword,A swift and maneuverable sword favored by agile fighters for its speed.,7,2,1,1,6,0,0
+28,Plate Leggings,Leggings made from sturdy plates providing excellent defense for the wearer's legs.,4,3,1,0,0,16,11
+29,Fireball Staff,A staff capable of summoning and hurling fireballs at adversaries in battle.,7,2,1,1,12,0,0
+30,Chain Gloves,Lightweight gloves reinforced with chainmail for moderate hand protection.,3,3,1,0,0,14,9
