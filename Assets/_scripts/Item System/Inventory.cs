@@ -44,9 +44,11 @@ public class Inventory : MonoBehaviour
     [SerializeField] Sprite empty_slot_s;
     #endregion
 
+    Item null_item;
     private void Start()
     {
         CreateButtons();
+        null_item = ItemDatabase.GetItem(0);
     }
 
     [ContextMenu("Create Buttons")]
@@ -76,12 +78,23 @@ public class Inventory : MonoBehaviour
 
     public void ButtonClicked(int index)
     {
-        DebugText(index);
+        if (index < 10)  // below 10 is equiptment sloats
+        {
+            Debug.Log($" equiptment slot has been clicked {DebugText(index)}");
+            // look for which slot is cliked and determine is seleted object fits this eq slot
+            // if it fits put selected item to this slot and put eq_slot_item to seleted item inv_slot
+        }
+        else // inventory sloats begin with 10
+        {
+            Debug.Log($"Inventory slot has been clicked {DebugText(index)}");
+            // 
+        }
+
     }
 
-    void DebugText(int index)
+    string DebugText(int index)
     {
-        string textt = "slot selected: ";
+        string textt = "";
         if (index == 1) textt += "head";
         if (index == 2) textt += "chest";
         if (index == 3) textt += "hand";
@@ -91,9 +104,80 @@ public class Inventory : MonoBehaviour
         if (index == 7) textt += "weapon0";
         if (index == 8) textt += "weapon1";
         if (index == 9) textt += "ammo";
-        if (index > 9) textt += "bag_slot_" + (index - 10);
-        AlertText.ins.AddText(textt, Color.grey);
+        if (index > 9) textt += "inv_slot_" + (index - 10);
+        return textt;
     }
 
+    public void AddToInventory(int slotindex, Item item, int? stackSize = null)
+    {
+        slot[slotindex].isFull = true;
+        slot[slotindex].slotCurrentItem = item;
+        //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
+        slot[slotindex].slotText.text = SetText(item, stackSize ?? 1);
+    }
 
+    public void RemoveFromInventory(int slotindex)
+    {
+        slot[slotindex].isFull = false;
+        slot[slotindex].slotCurrentItem = null_item;
+        //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
+        slot[slotindex].slotText.text = "";
+    }
+
+    string SetText(Item item, int stackSize)
+    {
+        string txt = "";
+        if (stackSize > 1) txt += $"<b>{item.name}>/b> ({stackSize})";
+        else txt += $"<b>{item.name}>/b>";
+        //txt += "/n"+Stats(item);
+        return txt;
+    }
+    string SetTextWithDesc(Item item, int stackSize)
+    {
+        string txt = "";
+        txt += $"<b>{item.name}>/b>/n";
+        txt += Stats(item);
+        txt += $"<i>{item.description}</i>";
+        return txt;
+    }
+
+    string Stats(Item item)
+    {
+        string txt = "";
+        if (item.diceCount != 0)
+        {
+            txt += $"<color=red>Damage: {item.diceCount} x 1d{item.damageDice} </color>";
+        }
+        if (item.armor != 0 && item.resilience != 0)
+        {
+            txt += $"<color=magenta>Armor: {item.armor} Resilience {item.resilience} </color>";
+        }
+        if (item.armor != 0 && item.resilience == 0)
+        {
+            txt += $"<color=magenta>Armor: {item.armor} </color>";
+        }
+        if (item.armor == 0 && item.resilience != 0)
+        {
+            txt += $"<color=blue>Resilience: {item.resilience} </color>";
+        }
+        txt += "/n";
+        return txt;
+    }
+
+    public bool freeSlotAvaliable(out int slotindex)
+    {
+        bool fsa = false;
+        int index = 100;
+        for (int i = 0; i < slot.Length; i++)
+        {
+            if (slot[i].isFull == false)
+            {
+                fsa = true;
+                index = i;
+                break;
+            }
+        }
+        slotindex = index;
+        return fsa;
+    }
 }

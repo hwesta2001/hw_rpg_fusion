@@ -7,16 +7,17 @@ public struct Item : INetworkStruct
 {
     public int itemId;
     public NetworkString<_32> name;
-    public NetworkString<_256> description;
+    public NetworkString<_128> description;
     public EquiptSlot slot;
     public ItemType itemType;
     public int stackSize;
     [Header("Combat Stats")]
-    public int diceCount;
-    public Dice damageDice;
+    public byte diceCount;
+    [Tooltip("Must be 4,6,8,10,12 or 20")]
+    public byte damageDice;
     [Header("Defence Stats")]
     public int armor;
-    public int resilicance;
+    public int resilience;
 }
 
 [System.Serializable]
@@ -29,8 +30,8 @@ public class ItemC
     public ItemType itemType;
     public int stackSize;
     [Header("Attack Stats")]
-    public int diceCount;
-    public Dice damageDice;
+    public byte diceCount;
+    public byte damageDice;
     [Header("Defence Stats")]
     public int armor;
     public int resilicance;
@@ -51,7 +52,7 @@ public static class ItemEx
             diceCount = itemC.diceCount,
             damageDice = itemC.damageDice,
             armor = itemC.armor,
-            resilicance = itemC.resilicance
+            resilience = itemC.resilicance
         };
         return _item;
     }

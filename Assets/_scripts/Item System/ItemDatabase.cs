@@ -1,6 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+/* ITEM_DATABASE
+ 0 id key is must be null item
+ 1 id key is gold item
+ rest is not set, you can use all id you want
+ you get Item with id 
+*/
 
 public class ItemDatabase : MonoBehaviour
 {
@@ -32,5 +38,13 @@ public class ItemDatabase : MonoBehaviour
     public static void AddItem(Item _item)
     {
         ITEM_DATABASE.Add(_item.itemId, _item);
+    }
+
+    public static Item GetItem(int itemid)
+    {
+        if (ITEM_DATABASE.ContainsKey(itemid))
+            return ITEM_DATABASE[itemid];
+        else
+            return ITEM_DATABASE[0]; // 0 id is null_item.
     }
 }

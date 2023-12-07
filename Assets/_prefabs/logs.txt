@@ -1,25 +1,6 @@
-[5,14493] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[11,78576] - test_room_00 season started
-[11,88074] - Axel Spawned True
-[11,88314] - Init Network
-[11,91572] - Game State is Connected
-[16,17387] - RCP Called - IsAllCharsReadyToTurn  P_Axel
-[16,17434] - TurnState is moveStart
-[18,30966] - Rolled:1
-[18,30979] - TurnState is moving
-[20,08988] - TurnState is events
-[28,62408] - slot selected: head
-[29,09745] - slot selected: head
-[29,31837] - slot selected: head
-[29,49525] - slot selected: head
-[29,77355] - slot selected: head
-[33,61022] - slot selected: ammo
-[34,40242] - slot selected: ammo
-[34,87696] - slot selected: ammo
-[37,94241] - slot selected: head
-[39,5435] - slot selected: trinket1
-[42,30048] - slot selected: chest
-[42,88515] - slot selected: chest
-[44,00616] - slot selected: bag_slot_0
-[46,18443] - slot selected: bag_slot_0
-[49,21828] - ---------------------App Ended---------------------
+[7,887043] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[16,16467] - Tyrique Spawned True
+[16,16859] - Init Network
+[16,22701] - Game State is Connected
+[16,23903] - test_room_00 season started
+[19,28073] - ---------------------App Ended---------------------
