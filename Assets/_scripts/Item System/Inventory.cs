@@ -8,9 +8,9 @@ public class Slot
     public EquiptSlot slot_;
     public int slotIndex;
     public RectTransform rectTransform;
+    [Space]
     public Image image;
     public TextMeshProUGUI slotText;
-    [Space]
     public bool isFull;
     public Item slotCurrentItem;
 }
@@ -44,13 +44,27 @@ public class Inventory : MonoBehaviour
     [SerializeField] Sprite empty_slot_s;
     #endregion
 
+    int seletedSlotId;
     Item null_item { get; set; }
+    [SerializeField] GameObject[] seletedButtons;
     private void Start()
     {
         CreateButtons();
         null_item = ItemDatabase.GetItem(0);
         slot_gold_00.slotText.text = 0.ToString();
         EmptySeletedSlot();
+        for (int i = 0; i < slot.Length; i++)
+        {
+            RemoveFromInventory(i);
+        }
+
+        var obj = slot_selectedItem_26.rectTransform.GetComponentsInChildren<Button>();
+        seletedButtons = new GameObject[obj.Length];
+        for (int i = 0; i < obj.Length; i++)
+        {
+            seletedButtons[i] = obj[i].gameObject;
+        }
+        ChangeSelectedButtonActives(false);
     }
 
 
@@ -78,18 +92,37 @@ public class Inventory : MonoBehaviour
         //but.image = _slot.image;
         but.onClick.AddListener(() => ButtonClicked(_slot.slotIndex));
     }
+    void ChangeSelectedButtonActives(bool active)
+    {
+        foreach (var item in seletedButtons)
+        {
+            item.SetActive(active);
+        }
+    }
+
+    public void SelectedItemDelete()
+    {
+        if (seletedSlotId < 26) //selected full ile ayný þey
+        {
+            Slot _slot = GetSlot(seletedSlotId);
+            _slot.isFull = false;
+            _slot.slotText.text = "";
+            _slot.slotCurrentItem = null_item;
+            //_slot.image = EmptyImage();
+            EmptySeletedSlot();
+        }
+    }
+
+    public void SelectedItemEquip()
+    {
+        if (seletedSlotId >= 26) return; //selected full ile ayný þey
+        DebugText.ins.AddText("Equipt This Image: " + slot_selectedItem_26.slotCurrentItem.name);
+    }
 
     public void ButtonClicked(int index)
     {
         Slot clickedSlot = GetSlot(index);
-        if (clickedSlot.isFull)
-        {
-            slot_selectedItem_26.slotText.text = SetTextWithDesc(slot[index - 10].slotCurrentItem, 1);
-        }
-        else
-        {
-            EmptySeletedSlot();
-        }
+
 
         if (index < 10)  // below 10 is equiptment sloats
         {
@@ -98,11 +131,36 @@ public class Inventory : MonoBehaviour
         }
         else // inventory sloats begin with 10
         {
-
+            if (clickedSlot.isFull)
+            {
+                SetSelectedSlot(index);
+            }
+            else
+            {
+                EmptySeletedSlot();
+            }
         }
 
     }
 
+    void SetSelectedSlot(int index)
+    {
+        seletedSlotId = index;
+        slot_selectedItem_26.isFull = true;
+        slot_selectedItem_26.slotCurrentItem = GetSlot(index).slotCurrentItem;
+        slot_selectedItem_26.slotText.text = SetTextWithDesc(GetSlot(index).slotCurrentItem, 1);
+        //slot_selectedItem_26.image = slot[index - 10].slotCurrentItemImage();
+        ChangeSelectedButtonActives(true);
+    }
+    void EmptySeletedSlot()
+    {
+        seletedSlotId = 100; // a big number 
+        slot_selectedItem_26.isFull = false;
+        slot_selectedItem_26.slotCurrentItem = null_item;
+        slot_selectedItem_26.slotText.text = "";
+        //slot_selectedItem_26.image = EmptyImage();
+        ChangeSelectedButtonActives(false);
+    }
     Slot GetSlot(int index)
     {
         if (index == 0) return slot_gold_00;
@@ -119,12 +177,18 @@ public class Inventory : MonoBehaviour
         else return null;
     }
 
+    public int GetSelectedItemId()
+    {
+        if (!slot_selectedItem_26.isFull) return 0; //null item returning
+        else return slot_selectedItem_26.slotCurrentItem.itemId;
+    }
+
     public void AddToInventory(int slotindex, Item item, int? stackSize = null)
     {
         slot[slotindex].isFull = true;
         slot[slotindex].slotCurrentItem = item;
         //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
-        slot[slotindex].slotText.text = SetText(item, stackSize ?? 1);
+        slot[slotindex].slotText.text = SetSlotText(item, stackSize ?? 1);
     }
 
     public void RemoveFromInventory(int slotindex)
@@ -135,33 +199,24 @@ public class Inventory : MonoBehaviour
         //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
     }
 
-    void EmptySeletedSlot()
+    string SetSlotText(Item item, int stackSize)
     {
-        slot_selectedItem_26.isFull = false;
-        slot_selectedItem_26.slotCurrentItem = null_item;
-        slot_selectedItem_26.slotText.text = "";
-        //slot_selectedItem_26.image = EmptyImage();
+        return SetName(item, stackSize) + "\n" + SetStats(item);
     }
 
-    string SetText(Item item, int stackSize)
-    {
-        string txt = "";
-        if (stackSize > 1) txt += $"<b>{item.name}</b> ({stackSize})";
-        else txt += $"<b>{item.name}</b>";
-        //txt += "\n"+Stats(item);
-        return txt;
-    }
     string SetTextWithDesc(Item item, int stackSize)
     {
-        string txt = "";
-        txt += $"<b>{item.name}</b>\n";
-        txt += Stats(item) + "\n";
-        txt += $"<size=18><i>{item.description}</i></size>";
-        return txt;
-
+        return SetName(item, stackSize) + "\n" + SetStats(item) + "\n" +
+               $"<size=18><i>{item.description}</i></size>";
     }
 
-    string Stats(Item item)
+    string SetName(Item item, int stackSize)
+    {
+        if (stackSize > 1) return $"<b> {item.name}</b> ({stackSize})";
+        else return $"<b> {item.name}</b>";
+    }
+
+    string SetStats(Item item)
     {
         string txt = "";
         if (item.diceCount != 0)

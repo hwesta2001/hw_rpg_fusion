@@ -2,6 +2,7 @@ using Fusion;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public struct ItemSlot : INetworkStruct
@@ -77,21 +78,24 @@ public class InventoryNetwork : NetworkBehaviour
             // bu item inventoryde var mý bak
             for (int i = 0; i < invCap; i++)
             {
-                if (item.itemId == PLAYER_INVENTORY.Get(i).itemid)
+                if (PLAYER_INVENTORY.ContainsKey(i))
                 {
-                    // evet bu item inventoryde var stackSize 1 arttýr
-                    int size = PLAYER_INVENTORY.Get(i).stackSize;
-                    size++;
-                    PLAYER_INVENTORY.Set(i, new(item.itemId, size));
-                    PutItemToSlot(i, item, size);
-                    break;
-                }
-                else
-                {
-                    // inv bu item yok item ilk boþ slota yerleþtir ve stack size 1 yap
-                    if (isAFreeInvSlot(out int index))
+                    if (item.itemId == PLAYER_INVENTORY.Get(i).itemid)
                     {
-                        PutItemToSlot(index, item);
+                        // evet bu item inventoryde var stackSize 1 arttýr
+                        int size = PLAYER_INVENTORY.Get(i).stackSize;
+                        size++;
+                        PLAYER_INVENTORY.Set(i, new(item.itemId, size));
+                        PutItemToSlot(i, item, size);
+                        break;
+                    }
+                    else
+                    {
+                        // inv bu item yok item ilk boþ slota yerleþtir ve stack size 1 yap
+                        if (isAFreeInvSlot(out int index))
+                        {
+                            PutItemToSlot(index, item);
+                        }
                     }
                 }
             }
@@ -126,7 +130,24 @@ public class InventoryNetwork : NetworkBehaviour
     {
         if (!HasStateAuthority) return;
         if (slotIndex > invCap) return;
+        PLAYER_INVENTORY.Set(slotIndex, new(item.itemId, stackSize ?? 1));
         inventory.AddToInventory(slotIndex, item, stackSize ?? 1);
+    }
+
+    void RemoveItemFromInventory(int _itemId)
+    {
+        if (PLAYER_INVENTORY.Count <= 0) return;
+        for (int i = 0; i < invCap; i++)
+        {
+            if (PLAYER_INVENTORY.ContainsKey(i))
+            {
+                if (PLAYER_INVENTORY.Get(i).itemid == _itemId)
+                {
+                    PLAYER_INVENTORY.Remove(i);
+                    break;
+                }
+            }
+        }
     }
 
     bool isAFreeInvSlot(out int _index)
@@ -142,5 +163,19 @@ public class InventoryNetwork : NetworkBehaviour
             _index = 100;
             return false;
         }
+    }
+
+    public void Button_SeletedItemDelete()
+    {
+        if (!HasStateAuthority) return;
+        RemoveItemFromInventory(inventory.GetSelectedItemId());
+        inventory.SelectedItemDelete();
+    }
+    public void Button_SeletedItemEquip()
+    {
+        if (!HasStateAuthority) return;
+        //RemoveItemFromInventory(inventory.GetSelectedItemId());
+        //add to equipted items maybe????
+        inventory.SelectedItemEquip();
     }
 }
