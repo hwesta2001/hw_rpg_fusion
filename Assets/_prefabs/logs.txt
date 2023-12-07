@@ -1,6 +1,6 @@
-[7,887043] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[16,16467] - Tyrique Spawned True
-[16,16859] - Init Network
-[16,22701] - Game State is Connected
-[16,23903] - test_room_00 season started
-[19,28073] - ---------------------App Ended---------------------
+[9,210624] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[17,93381] - test_room_00 season started
+[18,12098] - Sariah Millard Spawned True
+[18,12499] - Init Network
+[18,18539] - Game State is Connected
+[102,7358] - ---------------------App Ended---------------------

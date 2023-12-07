@@ -1392,7 +1392,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_gold_00:
     slot_: 0
     slotIndex: 0
@@ -1416,7 +1416,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_head_01:
     slot_: 1
     slotIndex: 1
@@ -1440,7 +1440,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_chest_02:
     slot_: 2
     slotIndex: 2
@@ -1464,7 +1464,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_hand_03:
     slot_: 3
     slotIndex: 3
@@ -1488,7 +1488,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_foot_04:
     slot_: 4
     slotIndex: 4
@@ -1512,7 +1512,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_trinket0_05:
     slot_: 5
     slotIndex: 5
@@ -1536,7 +1536,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_trinket1_06:
     slot_: 6
     slotIndex: 6
@@ -1560,7 +1560,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_weapon0_07:
     slot_: 7
     slotIndex: 7
@@ -1584,7 +1584,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_weapon1_08:
     slot_: 8
     slotIndex: 8
@@ -1608,7 +1608,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot_ammo_09:
     slot_: 9
     slotIndex: 9
@@ -1632,7 +1632,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   slot:
   - slot_: 0
     slotIndex: 10
@@ -1656,7 +1656,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 11
     rectTransform: {fileID: 457812576720456631}
@@ -1679,7 +1679,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 12
     rectTransform: {fileID: 1263041188929293356}
@@ -1702,7 +1702,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 13
     rectTransform: {fileID: 9034769845544899143}
@@ -1725,7 +1725,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 14
     rectTransform: {fileID: 5105156621972219550}
@@ -1748,7 +1748,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 15
     rectTransform: {fileID: 2876640143105939957}
@@ -1771,7 +1771,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 16
     rectTransform: {fileID: 8556858262146578904}
@@ -1794,7 +1794,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 17
     rectTransform: {fileID: 4758050542479150234}
@@ -1817,7 +1817,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 18
     rectTransform: {fileID: 2971456506346149682}
@@ -1840,7 +1840,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 19
     rectTransform: {fileID: 7405135246767969329}
@@ -1863,7 +1863,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 20
     rectTransform: {fileID: 3950479390185630162}
@@ -1886,7 +1886,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 21
     rectTransform: {fileID: 4810265636768833531}
@@ -1909,7 +1909,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 22
     rectTransform: {fileID: 8753108930517085891}
@@ -1932,7 +1932,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 23
     rectTransform: {fileID: 7609127448991639790}
@@ -1955,7 +1955,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 24
     rectTransform: {fileID: 6457790982840910450}
@@ -1978,7 +1978,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   - slot_: 0
     slotIndex: 25
     rectTransform: {fileID: 7313440335963901586}
@@ -2001,7 +2001,7 @@ MonoBehaviour:
       diceCount: 0
       damageDice: 0
       armor: 0
-      resilicance: 0
+      resilience: 0
   empty_gold_s: {fileID: 21300000, guid: 15cb8110a651de748886c2e170093b13, type: 3}
   empty_head_s: {fileID: 21300000, guid: 20d1807060ca0f946a5a3940ae131140, type: 3}
   empty_chest_s: {fileID: 21300000, guid: 7b01d533e3af441449f4c421a3e54b42, type: 3}
@@ -6595,23 +6595,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _PLAYER_GOLD: 0
   _PLAYER_INVENTORY:
-  - itemId: 0
-    name:
-      _length: 0
-      _data:
-        Data: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    description:
-      _length: 0
-      _data:
-        Data: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    slot: 0
-    itemType: 0
-    stackSize: 0
-    diceCount: 0
-    damageDice: 0
-    armor: 0
-    resilicance: 0
+    _items: []
 --- !u!1 &5376618479149782166
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,13 +6951,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<b>Selected Item Name</b>
 
-    Seleted item Stats
-
-    Seleted item Stats
+    <color=red>Seleted item Stats
 
     <i><color=grey>Seleted
-    item Description Seleted item Description Seleted item Description Seleted item
-    Description </i>'
+    item Description Seleted item Description Seleted item Description  </i>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -6998,14 +6981,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 22
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 9
-  m_fontSizeMax: 17
+  m_fontSizeMin: 14
+  m_fontSizeMax: 22
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -1.6
@@ -7015,7 +6998,7 @@ MonoBehaviour:
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
+  m_wordWrappingRatios: 0.582
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}

@@ -16,6 +16,10 @@ public class ItemDatabase : MonoBehaviour
     ItemC[] items;
     readonly string itemsPath = "Assets/_scripts/Item System/item_cvs.csv";
 
+    void Start()
+    {
+        BuildItemDatabase();
+    }
     [ContextMenu("BuildDateBase")]
     void BuildItemDatabase()
     {
@@ -33,6 +37,8 @@ public class ItemDatabase : MonoBehaviour
         }
         Debug.Log("Item List     lenght : " + itemDatabase_List.Count);
         Debug.Log("ITEM_DATABASE lenght : " + ITEM_DATABASE.Count);
+        Debug.Log("ID[0].id " + ITEM_DATABASE[0].itemId.ToString());
+        Debug.Log("ID[1].name " + ITEM_DATABASE[1].name.ToString());
     }
 
     public static void AddItem(Item _item)
