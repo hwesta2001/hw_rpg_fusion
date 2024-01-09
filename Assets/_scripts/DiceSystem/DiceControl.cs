@@ -2,7 +2,6 @@ using Hw.Dice;
 using UnityEngine;
 using System;
 using DG.Tweening;
-using Fusion;
 
 public class DiceControl : MonoBehaviour
 {

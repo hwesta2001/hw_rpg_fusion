@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DebugItemSystem : MonoBehaviour
 {
+    [SerializeField] string note = " press <Y> for Random Item \n press <G> for Add Gold";
     public static Action<Item> DebugItemAdder;
     WaitForSeconds wfs;
     bool canAddGold;
@@ -13,6 +13,7 @@ public class DebugItemSystem : MonoBehaviour
         wfs = new(.1f);
         canAddGold = true;
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
@@ -22,9 +23,19 @@ public class DebugItemSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (!canAddGold) return;
-            StartCoroutine(AddGoldCoroutin());
+            AddRandomGold();
         }
+    }
+    public void AddRandomItem()
+    {
+        int i = UnityEngine.Random.Range(0, ItemDatabase.ITEM_DATABASE.Count);
+        DebugItemAdder?.Invoke(ItemDatabase.ITEM_DATABASE[i]);
+    }
+
+    public void AddRandomGold()
+    {
+        if (!canAddGold) return;
+        StartCoroutine(AddGoldCoroutin());
     }
 
     IEnumerator AddGoldCoroutin()
@@ -51,9 +62,5 @@ public class DebugItemSystem : MonoBehaviour
         DebugItemAdder?.Invoke(ItemDatabase.ITEM_DATABASE[1]);
     }
 
-    void AddRandomItem()
-    {
-        int i = UnityEngine.Random.Range(0, ItemDatabase.ITEM_DATABASE.Count);
-        DebugItemAdder?.Invoke(ItemDatabase.ITEM_DATABASE[i]);
-    }
+
 }

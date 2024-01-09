@@ -32,7 +32,8 @@ public class CameraControlOrbit : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (target != null && !EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            if (target != null /*&& !EventSystem.current.IsPointerOverGameObject()*/)
             {
                 cineCamera.m_XAxis.m_InputAxisValue = Input.GetAxis(XAxisName);
                 cineCamera.m_YAxis.m_InputAxisValue = Input.GetAxis(YAxisName);

@@ -1,6 +1,7 @@
-[10,07905] - C:/0PC/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
-[20,77087] - Annmarie Spawned True
-[20,77594] - Init Network
-[20,86214] - Game State is Connected
-[20,8672] - test_room_00 season started
-[132,5509] - ---------------------App Ended---------------------
+[3,90999] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[18,17241] - Tyrique Spawned True
+[18,17426] - Init Network
+[18,19638] - Game State is Connected
+[18,19839] - test_room_00 season started
+[25,9578] - Adding 2 gold
+[78,50924] - ---------------------App Ended---------------------
