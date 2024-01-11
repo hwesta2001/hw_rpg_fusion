@@ -1,7 +1,11 @@
-[3,90999] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
-[18,17241] - Tyrique Spawned True
-[18,17426] - Init Network
-[18,19638] - Game State is Connected
-[18,19839] - test_room_00 season started
-[25,9578] - Adding 2 gold
-[78,50924] - ---------------------App Ended---------------------
+[3,813447] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
+[18,26559] - Aliah Frey Spawned True
+[18,26731] - Init Network
+[18,28829] - Game State is Connected
+[18,29055] - test_room_00 season started
+[41,25583] - Adding 1 gold
+[41,82525] - Adding 5 gold
+[43,6064] - Adding 7 gold
+[46,15092] - Adding 7 gold
+[47,44414] - Adding 9 gold
+[49,33861] - ---------------------App Ended---------------------
