@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float lacunarity;
     [SerializeField] Vector2 offset;
     [SerializeField] int seed;
-    [SerializeField] bool randomSeed;
+    public bool randomSeed;
     [SerializeField] bool autoUpdate;
     [SerializeField] bool canHexMapChange;
     //------------------------------------------

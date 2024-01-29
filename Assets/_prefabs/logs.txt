@@ -1,11 +1,21 @@
-[3,813447] - E:/Projects/HwRpg/Assets/_prefabs/logs.txt
-[18,26559] - Aliah Frey Spawned True
-[18,26731] - Init Network
-[18,28829] - Game State is Connected
-[18,29055] - test_room_00 season started
-[41,25583] - Adding 1 gold
-[41,82525] - Adding 5 gold
-[43,6064] - Adding 7 gold
-[46,15092] - Adding 7 gold
-[47,44414] - Adding 9 gold
-[49,33861] - ---------------------App Ended---------------------
+[3,750867] - E:/Unity/Projects/HwRpg/Assets/_prefabs/logs.txt
+[8,634625] - Baylor Thurman Spawned True
+[8,63635] - Init Network
+[8,655548] - Game State is Connected
+[8,657717] - test_room_00 season started
+[265,6904] - RCP Called - IsAllCharsReadyToTurn  P_Baylor Thurman
+[265,6908] - TurnState is moveStart
+[268,8575] - Rolled:2
+[268,8576] - TurnState is moving
+[280,101] - TurnState is events
+[282,5843] - Rolled:5
+[282,5843] - TurnState is invokeEvent
+[282,5844] - Rolled 5 for event determine
+[282,5844] - Event Invoked
+[285,5848] - TurnState is waiting
+[288,3236] - RCP Called - IsAllCharsReadyToTurn  P_Baylor Thurman
+[288,3239] - TurnState is moveStart
+[290,317] - Rolled:1
+[290,317] - TurnState is moving
+[291,5474] - TurnState is events
+[294,7259] - ---------------------App Ended---------------------
