@@ -45,7 +45,7 @@ public class PlayerMovement : NetworkBehaviour
         }
         else
         {
-            HexHighlights.ins.DisableHexHighlights();
+            HexHighlights.Ins.DisableHexHighlights();
             state = State.begin;
         }
     }
@@ -99,7 +99,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!HasStateAuthority) return;
         state = State.begin;
         avaliableHexes.Clear();
-        HexHighlights.ins.DisableHexHighlights();
+        HexHighlights.Ins.DisableHexHighlights();
 
         Collider[] cols = Physics.OverlapSphere(transform.position, 3.25f, hexesLayer);
         if (cols.Length > 0)
@@ -112,7 +112,7 @@ public class PlayerMovement : NetworkBehaviour
                     if (!avaliableHexes.Contains(colhex))
                     {
                         avaliableHexes.Add(colhex);
-                        HexHighlights.ins.MoveHexHighlight(i, colhex.pos);
+                        HexHighlights.Ins.MoveHexHighlight(i, colhex.pos);
                     }
 
                 }
@@ -143,7 +143,7 @@ public class PlayerMovement : NetworkBehaviour
     void MoveBegin(Hex hex)
     {
         if (!HasStateAuthority) return;
-        HexHighlights.ins.DisableHexHighlights();
+        HexHighlights.Ins.DisableHexHighlights();
         if (MoveCount == 1) state = State.final;
         tr.DOLocalJump(hex.pos, 3, 1, duration: Random.Range(.5f, 1f), false).SetEase(Ease.InQuart).OnComplete(() =>
         {

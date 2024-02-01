@@ -1,27 +1,33 @@
 using UnityEngine;
 using Fusion;
+using System;
 
 public class GameState : SimulationBehaviour
 {
-    public static GameStates CurrentState;
+
+
+    public static GameState Ins;
+    public Action<GameStates> OnGameStateChanged;
 
     [SerializeField, Tooltip("Dont Change in Inspector it is a static var, DEBUG ONLY")]
-    GameStates cState;
-    public static GameState instance;
+    private GameStates currentState;
+    public GameStates CurrentState // THIS IS MAIN GAME STATE
+    {
+        get
+        {
+            return currentState;
+        }
+        set
+        {
+            currentState = value;
+            StateChanged(currentState);
+        }
+    }
 
     void Awake()
     {
         CurrentState = GameStates.Init;
-        instance = this;
-    }
-
-    void Update()
-    {
-        if (cState != CurrentState)
-        {
-            cState = CurrentState;
-            StateChanged(cState);
-        }
+        Ins = this;
     }
 
     void StateChanged(GameStates c_State)
@@ -46,6 +52,8 @@ public class GameState : SimulationBehaviour
             default:
                 break;
         }
+
+        OnGameStateChanged?.Invoke(c_State);
     }
 
 

@@ -4,36 +4,46 @@ using DG.Tweening;
 
 public class HexHighlights : MonoBehaviour
 {
+    public static HexHighlights Ins { get; set; } // singleton:..............
+
     public List<GameObject> hexHighlightObjects = new();
 
     [SerializeField] bool onValidateListPop;
-    [SerializeField] GameObject hexHighlightPrefab;
     [SerializeField] Vector3 initSize;
     Tween[] tween = new Tween[7];
+
     private void OnValidate()
     {
         if (!onValidateListPop) return;
-        if (hexHighlightObjects.Count > 0)
+        Init();
+
+    }
+    private void Awake() => Ins = this;
+
+    private void Start()
+    {
+        Init();
+        DisableHexHighlights();
+    }
+    private void Init()
+    {
+        initSize = hexHighlightObjects[0].transform.localScale;
+        for (int i = 1; i < hexHighlightObjects.Count; i++)
         {
-            foreach (GameObject go in hexHighlightObjects)
-            {
-                DestroyImmediate(go);
-            }
+            GameObject go = hexHighlightObjects[i];
+            Destroy(go);
         }
-        hexHighlightObjects.Clear();
-        for (int i = 0; i < 7; i++)
+        hexHighlightObjects.Resize(1);
+        for (int i = 1; i < 7; i++)
         {
-            hexHighlightObjects.Add(Instantiate(hexHighlightPrefab));
+            hexHighlightObjects.Insert(i, Instantiate(hexHighlightObjects[0]));
             hexHighlightObjects[i].name = "hexHiglight_0" + i;
             hexHighlightObjects[i].transform.parent = transform;
+            hexHighlightObjects[i].transform.localScale = initSize;
         }
     }
-    public static HexHighlights ins; // singleton:..............
-    private void Awake()
-    {
-        ins = this;
-        initSize = hexHighlightObjects[6].transform.localScale;
-    }
+
+
 
     public void MoveHexHighlight(int index, Vector3 pos)
     {

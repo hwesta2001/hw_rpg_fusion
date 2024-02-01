@@ -74,7 +74,7 @@ public class TurnNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         Rpc_TurnControl();
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
     public void Rpc_TurnControl()
     {
         if (Turn.ins.TURN_STATE == TurnState.waiting)

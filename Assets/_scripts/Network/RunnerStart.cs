@@ -15,8 +15,14 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
     //public void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
 
+
+
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
+    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
-    void INetworkRunnerCallbacks.OnDisconnectedFromServer(NetworkRunner runner) { }
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
@@ -43,7 +49,7 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] List<GameObject> deletedObjects = new();
 
     [Networked] public int nPortIndex { get; set; }
-    public PlayerRef thisPlayer;
+    public PlayerRef thisPlayer { get; set; }
     private void Awake()
     {
         _runner = gameObject.GetComponent<NetworkRunner>();
@@ -89,16 +95,28 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
     async void StartGame(GameMode mode, string gameID)
     {
         _runner.ProvideInput = true;
+
+        // Create the NetworkSceneInfo from the current scene
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid)
+        {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
         // Start or join (depends on gamemode) a session with a specific name
         await _runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
             SessionName = gameID,
-            Scene = SceneManager.GetActiveScene().buildIndex,
-            SceneManager = gameObject.GetComponent<NetworkSceneManagerDefault>()
+            Scene = scene,
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
-    }
 
+        if (_runner.IsServer)
+        {
+            await _runner.LoadScene(scene);
+        }
+    }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
@@ -112,7 +130,7 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
 
             DebugText.ins.AddText(CharManager.ins.PLAYER_CHAR.name + " Spawned " + networkPlayerObject.HasStateAuthority);
             nPortIndex = CharManager.ins.PortIndex;
-            GameState.CurrentState = GameStates.Connected;
+            GameState.Ins.CurrentState = GameStates.Connected;
         }
     }
 
@@ -129,5 +147,4 @@ public class RunnerStart : MonoBehaviour, INetworkRunnerCallbacks
         //    _spawnedCharacters.Remove(player);
         //}
     }
-
 }

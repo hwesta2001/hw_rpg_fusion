@@ -7,48 +7,73 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     [SerializeField] Transform cameraFollow;
     RunnerStart pNetworkStart;
     Renderer _rend;
-    Renderer Rend
-    {
-        get
-        {
+    Renderer Rend {
+        get {
             if (_rend == null)
                 _rend = GetComponentInChildren<Renderer>();
             return _rend;
         }
     }
-    [Networked(OnChanged = nameof(OnCharNwCompleted))] NetworkBool CharNwCompleted { get; set; }
-    public static void OnCharNwCompleted(Changed<PLAYER> changed)
+
+    ChangeDetector _changeDetector;
+    [Networked] NetworkBool CharNwCompleted { get; set; }
+    [Networked] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
+    [Networked] public int MatIndex { get; set; }
+
+
+    public void OnCharNwCompleted()
     {
-        changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
+        gameObject.name = $"PLAYER_{CHAR_NW.playerID} - {CHAR_NW.name}";
         //CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
-        CharManager.ins.AddList(changed.Behaviour.CHAR_NW.playerID, changed.Behaviour.CHAR_NW);
-        if (!changed.Behaviour.HasInputAuthority) return;
-        CharManager.ins.SetChar(ref changed.Behaviour.CHAR_NW);
+        CharManager.ins.AddList(Runner.LocalPlayer, CHAR_NW);
+        if (!HasInputAuthority) return;
+        CharManager.ins.SetChar(ref CHAR_NW);
     }
 
-    [Networked(OnChanged = nameof(OnCharChanged))] public ref CharNW CHAR_NW => ref MakeRef<CharNW>();
-    protected static void OnCharChanged(Changed<PLAYER> changed)
+    protected void OnCharChanged()
     {
-        //changed.Behaviour.gameObject.name = changed.Behaviour.CHAR_NW.name.ToString() + "_" + changed.Behaviour.CHAR_NW.playerID;
-        //CharIconControl.ins.CharIconSet(changed.Behaviour.CHAR_NW);
+        //gameObject.name = CHAR_NW.name.ToString() + "_" + CHAR_NW.playerID;
+        //CharIconControl.ins.CharIconSet(CHAR_NW);
     }
 
-    [Networked(OnChanged = nameof(OnMatIndexChanged))] public int MatIndex { get; set; }
-    public static void OnMatIndexChanged(Changed<PLAYER> changed)
+    public void OnMatIndexChanged()
     {
-        Material mat = changed.Behaviour.Rend.material;
-        mat.mainTexture = CharManager.ins.GetTexture(changed.Behaviour.MatIndex);
-        changed.Behaviour.Rend.material = mat;
+        Material mat = Rend.material;
+        mat.mainTexture = CharManager.ins.GetTexture(MatIndex);
+        Rend.material = mat;
     }
+
+    public override void Spawned()
+    {
+        _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+    }
+
+
+    public override void Render()
+    {
+        foreach (var change in _changeDetector.DetectChanges(this)) {
+            switch (change) {
+                case nameof(CharNwCompleted):
+                    OnCharNwCompleted();
+                    break;
+                case nameof(CHAR_NW):
+                    OnCharChanged();
+                    break;
+                case nameof(MatIndex):
+                    OnMatIndexChanged();
+                    break;
+            }
+        }
+    }
+
 
     public void PlayerJoined(PlayerRef player)
     {
         if (!HasStateAuthority) return;
-        if (player == Runner.LocalPlayer)
-        {
+        if (player == Runner.LocalPlayer) {
             pNetworkStart = FindFirstObjectByType<RunnerStart>();
             MatIndex = pNetworkStart.nPortIndex;
-            CHAR_NW.playerID = (byte)player.PlayerId;
+            CHAR_NW.playerID = player.PlayerId;
             CHAR_NW.name = CharManager.ins.PLAYER_CHAR.name;
             CHAR_NW.race = CharManager.ins.PLAYER_CHAR.race;
             CHAR_NW.classes = CharManager.ins.PLAYER_CHAR.classes;
@@ -78,14 +103,14 @@ public class PLAYER : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         V.ToLog();
         Debug.LogWarning(V);
         CharManager.ins.RemoveList(player);
-        if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
-        {
+        if (pNetworkStart._spawnedCharacters.TryGetValue(player, out NetworkObject networkObject)) {
             if (!networkObject.HasStateAuthority) return;
             if (player != Runner.LocalPlayer) return;
             Runner.Despawn(networkObject);
             pNetworkStart._spawnedCharacters.Remove(player);
         }
     }
+
 
     void Despawned()
     {

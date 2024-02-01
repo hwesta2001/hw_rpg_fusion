@@ -2,6 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
+
+
+[System.Serializable]
+public class CharList
+{
+    public int _playerid;
+    public CharNW _charNW;
+
+    public CharList(int playerid, CharNW charNW)
+    {
+        _playerid = playerid;
+        _charNW = charNW;
+    }
+}
+
 public class CharManager : MonoBehaviour
 {
     public CharList PLAYER_CHARNW;
@@ -31,7 +46,7 @@ public class CharManager : MonoBehaviour
     }
     public void AddList(PlayerRef _player, CharNW charNW)
     {
-        CHARNW_LIST.Add(new CharList(_player, charNW));
+        CHARNW_LIST.Add(new CharList(_player.PlayerId, charNW));
         SetCharIcons();
     }
 
@@ -39,7 +54,7 @@ public class CharManager : MonoBehaviour
     {
         for (int i = 0; i < CHARNW_LIST.Count; i++)
         {
-            if (CHARNW_LIST[i]._playerid == _player)
+            if (CHARNW_LIST[i]._playerid == _player.PlayerId)
             {
                 CHARNW_LIST.RemoveAt(i);
                 break;
@@ -167,16 +182,3 @@ public class CharManager : MonoBehaviour
 }
 
 
-
-[System.Serializable]
-public class CharList
-{
-    public int _playerid;
-    public CharNW _charNW;
-
-    public CharList(int playerid, CharNW charNW)
-    {
-        _playerid = playerid;
-        _charNW = charNW;
-    }
-}

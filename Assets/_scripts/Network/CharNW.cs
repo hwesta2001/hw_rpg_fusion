@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public struct CharNW : INetworkStruct
 {
-    public byte playerID;
+    public int playerID;
     public NetworkString<_16> name;
     public Races race;
     public Classes classes;

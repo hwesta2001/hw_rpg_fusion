@@ -11,20 +11,43 @@ public class DiceNetwork : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     [SerializeField] Image diceImage;
     [field: SerializeField]
     WaitForSeconds wfs;
-    [Networked(OnChanged = nameof(OnDiceRolled))] public byte DICE_ROLL { get; set; }
-    [Networked(OnChanged = nameof(OnDiceStringChanged))] public NetworkString<_4> RolledDiceText { get; set; }
 
-    protected static void OnDiceRolled(Changed<DiceNetwork> changed)
+    ChangeDetector _changeDetector;
+    [Networked] public byte DICE_ROLL { get; set; }
+    [Networked] public NetworkString<_4> RolledDiceText { get; set; }
+    public override void Spawned()
     {
-        DiceControl.ins.RolledDice = changed.Behaviour.DICE_ROLL;
-        changed.Behaviour.StartCo_InvokeActiveDiceTextOnPlayer();
-        changed.Behaviour.SetDiceTextOnPlayer(changed.Behaviour.DICE_ROLL.ToString());
+        _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
     }
 
-    protected static void OnDiceStringChanged(Changed<DiceNetwork> changed)
+    protected void OnDiceRolled()
     {
-        changed.Behaviour.DiceTextOnPlayer.text = changed.Behaviour.RolledDiceText.ToString();
+        DiceControl.ins.RolledDice = DICE_ROLL;
+        StartCo_InvokeActiveDiceTextOnPlayer();
+        SetDiceTextOnPlayer(DICE_ROLL.ToString());
     }
+
+    protected void OnDiceStringChanged()
+    {
+        DiceTextOnPlayer.text = RolledDiceText.ToString();
+    }
+
+    public override void Render()
+    {
+        foreach (var change in _changeDetector.DetectChanges(this))
+        {
+            switch (change)
+            {
+                case nameof(RolledDiceText):
+                    OnDiceStringChanged();
+                    break;
+                case nameof(DICE_ROLL):
+                    OnDiceRolled();
+                    break;
+            }
+        }
+    }
+
 
     public void SetDiceTextOnPlayer(string text)
     {

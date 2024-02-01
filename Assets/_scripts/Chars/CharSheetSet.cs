@@ -10,7 +10,7 @@ public class CharSheetSet : MonoBehaviour
     [SerializeField] TextMeshProUGUI desc_Text;
     [SerializeField] RawImage portrait_Image;
     [SerializeField] RectTransform thisRectTransform;
-    public byte _playerId { get; set; }
+    public int _playerId { get; set; }
 
 
     public void SetSheet(CharNW charNW)
@@ -30,7 +30,7 @@ public class CharSheetSet : MonoBehaviour
         Relocate(_playerId);
     }
 
-    public void Relocate(byte id)
+    public void Relocate(int id)
     {
         thisRectTransform.anchoredPosition = new(180f, -70f + 10 * id);
     }

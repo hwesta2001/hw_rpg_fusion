@@ -1,3 +1,9 @@
+/* Item - ItemC classes
+ * ItemExtentions
+ * enum ItemType
+ * enum EquiptSlot
+ */
+
 using Fusion;
 using UnityEngine;
 
@@ -20,7 +26,7 @@ public struct Item : INetworkStruct
 }
 
 [System.Serializable]
-public class ItemC
+public class ItemCVS
 {
     public int itemId;
     public string name;
@@ -36,9 +42,9 @@ public class ItemC
     public int resilicance;
 }
 
-public static class ItemEx
+public static class ItemExtentions
 {
-    public static Item ToItem(this ItemC itemC)
+    public static Item ToItem(this ItemCVS itemC)
     {
         Item _item = new()
         {

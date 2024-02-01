@@ -29,18 +29,23 @@ public class InventoryNetwork : NetworkBehaviour
     [Networked] public int PLAYER_GOLD { get; private set; }
 
     const byte invCap = 16;
-    [Networked(OnChanged = nameof(OnInvChanged))]
+    [Networked]
     [Capacity(invCap)]
     [UnitySerializeField]
     public NetworkDictionary<int, ItemSlot> PLAYER_INVENTORY => default;
     // key is slotindex
     // value is itemSlot that contains itemid and itemStackSize data
-    public static void OnInvChanged(Changed<InventoryNetwork> changed)
+
+
+    ChangeDetector _changeDetector;
+    public void OnInvChanged()
     {
-        // ýnvetory changed!!!!
+
     }
+
     public override void Spawned()
     {
+        _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
         if (!HasStateAuthority) return;
         GetInvetory();
         RegisterItemAdderEvents(true);

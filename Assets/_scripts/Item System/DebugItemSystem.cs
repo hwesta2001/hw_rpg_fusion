@@ -8,6 +8,7 @@ public class DebugItemSystem : MonoBehaviour
     public static Action<Item> DebugItemAdder;
     WaitForSeconds wfs;
     bool canAddGold;
+
     private void Start()
     {
         wfs = new(.1f);
@@ -28,7 +29,8 @@ public class DebugItemSystem : MonoBehaviour
     }
     public void AddRandomItem()
     {
-        int i = UnityEngine.Random.Range(0, ItemDatabase.ITEM_DATABASE.Count);
+        int i = UnityEngine.Random.Range(2, ItemDatabase.ITEM_DATABASE.Count);
+        // Range 0 degil 2den  baslýyor cunku 0 nullItem 1 de gold dur.
         DebugItemAdder?.Invoke(ItemDatabase.ITEM_DATABASE[i]);
     }
 

@@ -51,7 +51,7 @@ public class CharSheetControl : MonoBehaviour
         _go.SetActive(true);
     }
 
-    bool ControlCharSheet(byte id)
+    bool ControlCharSheet(int id)
     {
         foreach (CharSheetSet item in poolSheets)
         {
