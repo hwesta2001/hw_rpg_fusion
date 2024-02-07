@@ -11,11 +11,16 @@ using Fusion;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ItemIconDatabase : MonoBehaviour
 {
-    [SerializeField] string folderPath = "_gfx/Icons";
+    public static ItemIconDatabase Ins { get; private set; }
+    private void Awake() => Ins = this;
+
+
+    [SerializeField] string folderPath = "/_gfx/icons_items";
     [SerializeField] List<Sprite> sprites = new();
     [SerializeField] List<Texture2D> text2ds = new();
 
@@ -23,6 +28,24 @@ public class ItemIconDatabase : MonoBehaviour
     public List<ItemIcon> ItemIcons { get; private set; } = new();
 
 
+    [System.Serializable]
+    public class ItemIcon
+    {
+        public int iconId; // icon id ile itemidleri ayný olmak zorunda.
+        public Sprite IconSprite;
+    }
+
+    public Sprite GetItemIcon(Item item)
+    {
+        for (int i = 0; i < ItemIcons.Count; i++)
+        {
+            if (item.itemId == ItemIcons[i].iconId)
+            {
+                return ItemIcons[i].IconSprite;
+            }
+        }
+        return ItemIcons[0].IconSprite;
+    }
 
     [ContextMenu("SetItemIconDatabse")]
     void SetIconDatabase()
@@ -60,10 +83,7 @@ public class ItemIconDatabase : MonoBehaviour
             }
             catch
             {
-                Debug.LogWarning(
-                    newfiles[i].FullName + "<color=red>" +
-                    "\nInvalid item_icon file name. please make item_icon file names int and and unique!!!! (exp=  123.png)" +
-                    "</color>");
+                $"{newfiles[i].FullName} \nInvalid item_icon file name. item_icon file must be int and and unique!!!! (exp: '123.png')".DebugColor("#e06666");
             }
         }
 
@@ -91,21 +111,14 @@ public class ItemIconDatabase : MonoBehaviour
         if (File.Exists(FilePath))
         {
             FileData = File.ReadAllBytes(FilePath);
-            Tex2D = new Texture2D(2, 2);           // Create new "empty" texture
+            Tex2D = new Texture2D(2, 2, TextureFormat.RGB24, false);             // Create new "empty" texture
             if (Tex2D.LoadImage(FileData))           // Load the imagedata into the texture (size is set automatically)
             {
                 text2ds.Add(Tex2D);
-                return Tex2D;                 // If data = readable -> return texture
+                return Tex2D;                        // If data = readable -> return texture
             }
         }
-        return null;                     // Return null if load failed
+        return null;                                 // Return null if load failed
     }
 }
 
-
-[System.Serializable]
-public class ItemIcon
-{
-    public int iconId; // icon id ile itemidleri ayný olmak zorunda.
-    public Sprite IconSprite;
-}

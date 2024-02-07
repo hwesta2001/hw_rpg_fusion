@@ -1,3 +1,7 @@
-[3,951558] - E:/Unity/Projects/Hw-Rpg-2/Assets/_prefabs/logs.txt
-[3,955088] - Game State is Init
-[13,89962] - ---------------------App Ended---------------------
+[3,562161] - E:/Unity/Projects/Hw-Rpg-2/Assets/_prefabs/logs.txt
+[3,566329] - Game State is Init
+[10,40735] - Baylor Thurman Spawned True
+[10,40738] - Game State is Connected
+[10,41203] - Init Network
+[10,43097] - test_room_00 season started
+[38,66265] - ---------------------App Ended---------------------

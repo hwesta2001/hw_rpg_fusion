@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class Slot
@@ -17,6 +18,7 @@ public class Slot
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] Sprite empty_Mini_background_img;
     #region Slots_setInspector
     public Slot slot_selectedItem_26;
     public Slot slot_gold_00;
@@ -109,6 +111,7 @@ public class Inventory : MonoBehaviour
             _slot.slotText.text = "";
             _slot.slotCurrentItem = null_item;
             //_slot.image = EmptyImage();
+            _slot.image.sprite = empty_Mini_background_img;
             EmptySeletedSlot();
         }
     }
@@ -116,7 +119,7 @@ public class Inventory : MonoBehaviour
     public void SelectedItemEquip()
     {
         if (seletedSlotId >= 26) return; //selected full ile ayný þey
-        DebugText.ins.AddText("Equipt This Image: " + slot_selectedItem_26.slotCurrentItem.name);
+        DebugText.ins.AddText("Equipt This Item: " + slot_selectedItem_26.slotCurrentItem.name);
     }
 
     public void ButtonClicked(int index)
@@ -150,6 +153,7 @@ public class Inventory : MonoBehaviour
         slot_selectedItem_26.slotCurrentItem = GetSlot(index).slotCurrentItem;
         slot_selectedItem_26.slotText.text = SetTextWithDesc(GetSlot(index).slotCurrentItem, 1);
         //slot_selectedItem_26.image = slot[index - 10].slotCurrentItemImage();
+        slot_selectedItem_26.image.sprite = slot[index - 10].slotCurrentItem.GetItemIcon();
         ChangeSelectedButtonActives(true);
     }
     void EmptySeletedSlot()
@@ -159,6 +163,7 @@ public class Inventory : MonoBehaviour
         slot_selectedItem_26.slotCurrentItem = null_item;
         slot_selectedItem_26.slotText.text = "";
         //slot_selectedItem_26.image = EmptyImage();
+        slot_selectedItem_26.image.sprite = empty_Mini_background_img;
         ChangeSelectedButtonActives(false);
     }
     Slot GetSlot(int index)
@@ -188,6 +193,7 @@ public class Inventory : MonoBehaviour
         slot[slotindex].isFull = true;
         slot[slotindex].slotCurrentItem = item;
         //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
+        slot[slotindex].image.sprite = item.GetItemIcon();
         slot[slotindex].slotText.text = SetSlotText(item, stackSize ?? 1);
     }
 
@@ -197,23 +203,24 @@ public class Inventory : MonoBehaviour
         slot[slotindex].slotCurrentItem = null_item;
         slot[slotindex].slotText.text = "";
         //slot[slotindex].image = item.GetIcon();  // getIcon ile item iconu çek biryerlerden
+        slot[slotindex].image.sprite = empty_Mini_background_img;
     }
 
     string SetSlotText(Item item, int stackSize)
     {
-        return SetName(item, stackSize) + "\n" + SetStats(item);
+        return SetName(item, stackSize) + "\n" + "<size=12>" + SetStats(item) + "</size>";
     }
 
     string SetTextWithDesc(Item item, int stackSize)
     {
         return SetName(item, stackSize) + "\n" + SetStats(item) + "\n" +
-               $"<size=18><i>{item.description}</i></size>";
+               $"<size=12><i>{item.description}</i></size>";
     }
 
     string SetName(Item item, int stackSize)
     {
-        if (stackSize > 1) return $"<b> {item.name}</b> ({stackSize})";
-        else return $"<b> {item.name}</b>";
+        if (stackSize > 1) return $"<b>{item.name}</b> ({stackSize}) _{item.itemId}";  // _{item.itemId}  Debug içindir
+        else return $"<b> {item.name} _{item.itemId}</b>";  // _{item.itemId}  Debug içindir
     }
 
     string SetStats(Item item)

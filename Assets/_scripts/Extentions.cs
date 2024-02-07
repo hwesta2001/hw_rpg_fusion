@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public static class Extentions
 {
@@ -43,5 +44,13 @@ public static class Extentions
         }
     }
 
+    public static void DebugColor(this string message, string hex_color_code = null)
+    {
+        Debug.Log($"<color={hex_color_code ?? "#F9EEE4"}>{message}</color>");
+    }
 
+    public static Sprite GetItemIcon(this Item item)
+    {
+        return ItemIconDatabase.Ins.GetItemIcon(item);
+    }
 }
