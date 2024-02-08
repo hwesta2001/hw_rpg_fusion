@@ -49,7 +49,7 @@ public static class Extentions
         Debug.Log($"<color={hex_color_code ?? "#F9EEE4"}>{message}</color>");
     }
 
-    public static Sprite GetItemIcon(this Item item)
+    public static Sprite GetItemIcon(this Item item)   // !!! Ana Icon cekme metodu !!!
     {
         return ItemIconDatabase.Ins.GetItemIcon(item);
     }

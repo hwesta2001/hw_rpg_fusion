@@ -35,7 +35,7 @@ public class ItemIconDatabase : MonoBehaviour
         public Sprite IconSprite;
     }
 
-    public Sprite GetItemIcon(Item item)
+    public Sprite GetItemIcon(Item item) // !!! Ana Icon cekme metodu !!! // Extentions icinde bir static extantin ile çekilir.
     {
         for (int i = 0; i < ItemIcons.Count; i++)
         {
@@ -46,6 +46,9 @@ public class ItemIconDatabase : MonoBehaviour
         }
         return ItemIcons[0].IconSprite;
     }
+
+
+    #region Editor Set Icon Database Methods
 
     [ContextMenu("SetItemIconDatabse")]
     void SetIconDatabase()
@@ -94,10 +97,10 @@ public class ItemIconDatabase : MonoBehaviour
 
         // Load a PNG or JPG image from disk to a Texture2D, assign this texture to a new sprite and return its reference
 
-        Texture2D SpriteTexture = LoadTexture(FilePath);
-        Sprite NewSprite = Sprite.Create(SpriteTexture, new Rect(0, 0, SpriteTexture.width, SpriteTexture.height), new Vector2(0, 0), PixelsPerUnit);
+        Texture2D spriteTexture = LoadTexture(FilePath);
+        Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), new Vector2(0, 0), PixelsPerUnit);
 
-        return NewSprite;
+        return newSprite;
     }
 
     public Texture2D LoadTexture(string FilePath)
@@ -120,5 +123,7 @@ public class ItemIconDatabase : MonoBehaviour
         }
         return null;                                 // Return null if load failed
     }
+
+    #endregion
 }
 
